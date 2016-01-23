@@ -1,20 +1,25 @@
-package com.srtianxia.zhibook;
+package com.srtianxia.zhibook.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity
+import com.srtianxia.zhibook.R;
+import com.srtianxia.zhibook.app.BaseActivity;
+
+public class ActivityEditContent extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+   private EditText testEd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +27,14 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        testEd = (EditText) findViewById(R.id.test_ed);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(ActivityEditContent.this,ActivityLogin.class);
+//                intent.putExtra("content",testEd.getText().toString());
+                startActivity(intent);
             }
         });
 
