@@ -1,40 +1,58 @@
 package com.srtianxia.zhibook.view.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
 import com.srtianxia.zhibook.R;
+import com.srtianxia.zhibook.app.API;
 import com.srtianxia.zhibook.app.BaseActivity;
+import com.srtianxia.zhibook.utils.http.AsyNetUtils;
+import com.srtianxia.zhibook.utils.http.OkHttpUtils;
+import com.srtianxia.zhibook.utils.http.callback.NetUtilsCallback;
+import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
+import com.srtianxia.zhibook.view.fragment.FragmentDaily;
 
-public class ActivityEditContent extends BaseActivity
+public class ActivityHome extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String TAG = "ActivityHome";
 
-   private EditText testEd;
-
+    private FragmentManager manager;
+    private FragmentTransaction transaction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.toolbar_home);
         setSupportActionBar(toolbar);
-        testEd = (EditText) findViewById(R.id.test_ed);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ActivityEditContent.this,ActivityLogin.class);
-//                intent.putExtra("content",testEd.getText().toString());
-                startActivity(intent);
+//                AsyNetUtils.postRequest(API.register, "name=1234", new NetUtilsCallback() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        Log.d(TAG,response);
+//                    }
+//                });
+                manager = getSupportFragmentManager();
+                transaction = manager.beginTransaction();
+                FragmentDaily fragmentDaily = new FragmentDaily();
+                transaction.replace(R.id.fragment_container,fragmentDaily);
+                transaction.commit();
+                OkHttpUtils.asyPost(API.login,new OkHttpUtils.Param("name","srtianxia"),
+                        new OkHttpUtils.Param("password","19951024"));
             }
         });
 
@@ -46,6 +64,7 @@ public class ActivityEditContent extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override

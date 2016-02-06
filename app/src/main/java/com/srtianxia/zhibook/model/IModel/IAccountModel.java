@@ -1,4 +1,4 @@
-package com.srtianxia.zhibook.model.IAccount;
+package com.srtianxia.zhibook.model.Imodel;
 
 import com.srtianxia.zhibook.model.callback.OnLoginListener;
 

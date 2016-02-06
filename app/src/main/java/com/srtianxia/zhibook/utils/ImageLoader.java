@@ -1,9 +1,5 @@
 package com.srtianxia.zhibook.utils;
 
-import android.graphics.Bitmap;
-import android.util.LruCache;
-
-import com.srtianxia.zhibook.utils.cache.DiskLruCache;
 import com.srtianxia.zhibook.utils.cache.DoubleCache;
 
 /**

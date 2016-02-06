@@ -19,6 +19,7 @@
             android:textSize="50sp"
             android:padding="10dp"
             android:layout_marginTop="20dp"
+            android:singleLine="true"
             android:textColor="@color/colorPrimaryDarkBlue"/>
         <EditText
             android:id="@+id/ed_username"
@@ -42,11 +43,6 @@
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/drawable_bk_bt_login"/>
-    </LinearLayout>
-    <RelativeLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <TextView
             android:id="@+id/tv_register"
             android:text="注册知书"
@@ -54,6 +50,8 @@
             android:textColor="@color/colorPrimaryDarkBlue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true" />
-    </RelativeLayout>
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"/>
+    </LinearLayout>
 </LinearLayout>

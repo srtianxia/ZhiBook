@@ -1,9 +1,9 @@
 package com.srtianxia.zhibook.presenter;
 
 import com.srtianxia.zhibook.model.AccountModel;
-import com.srtianxia.zhibook.model.IAccount.IAccountModel;
+import com.srtianxia.zhibook.model.Imodel.IAccountModel;
 import com.srtianxia.zhibook.model.callback.OnLoginListener;
-import com.srtianxia.zhibook.view.iactivity.IActivityLogin;
+import com.srtianxia.zhibook.view.IView.IActivityLogin;
 
 /**
  * Created by srtianxia on 2016/1/21.

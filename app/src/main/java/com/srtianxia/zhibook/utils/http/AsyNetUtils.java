@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by srtianxia on 2016/1/23.
+ * 应该再考虑下线程池各个参数的大小
  */
 public class AsyNetUtils {
     private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
@@ -35,7 +36,7 @@ public class AsyNetUtils {
 
     public static void getRequest(final String url, final NetUtilsCallback callback){
         final Handler handler = new Handler();
-        Runnable netRunnableTask = new Runnable() {
+        Runnable getRunnableTask = new Runnable() {
             @Override
             public void run() {
                 final String response = HttpUtils.getFromNet(url);
@@ -47,6 +48,23 @@ public class AsyNetUtils {
                 });
             }
         };
-        THREAD_POOL_EXECUTOR.execute(netRunnableTask);
+        THREAD_POOL_EXECUTOR.execute(getRunnableTask);
+    }
+
+    public static void postRequest(final String url, final String postContent, final NetUtilsCallback callback){
+        final Handler handler = new Handler();
+        Runnable postRunnableTask = new Runnable() {
+            @Override
+            public void run() {
+                final String response = HttpUtils.postFromNet(url,postContent);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onResponse(response);
+                    }
+                });
+            }
+        };
+        THREAD_POOL_EXECUTOR.execute(postRunnableTask);
     }
 }

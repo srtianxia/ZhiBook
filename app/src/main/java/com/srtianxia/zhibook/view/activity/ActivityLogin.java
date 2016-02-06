@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.presenter.LoginPresenter;
-import com.srtianxia.zhibook.view.iactivity.IActivityLogin;
+import com.srtianxia.zhibook.view.IView.IActivityLogin;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -71,6 +71,12 @@ public class ActivityLogin extends BaseActivity implements IActivityLogin{
     @Override
     public void showFailureCause(String s) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }
 

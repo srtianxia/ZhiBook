@@ -1,4 +1,4 @@
-package com.srtianxia.zhibook.view.iactivity;
+package com.srtianxia.zhibook.view.IView;
 
 /**
  * Created by srtianxia on 2016/1/21.

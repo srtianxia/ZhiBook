@@ -8,4 +8,8 @@
     <color name="colorPrimaryDarkBlue">#1976D2</color>
     <color name="colorPrimaryBlue">#2196F3</color>
     <color name="colorAccentBlue">#448AFF</color>
+
+
+    <color name="btn_common_press_v21">#c7c7c7</color>
+    <color name="btn_common_press_v16">#d7d7d7</color>
 </resources>

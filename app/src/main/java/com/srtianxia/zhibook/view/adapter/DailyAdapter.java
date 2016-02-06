@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.srtianxia.zhibook.R;
-import com.srtianxia.zhibook.model.bean.DailyBean;
+import com.srtianxia.zhibook.model.bean.zhihu.DailyBean;
+import com.srtianxia.zhibook.model.bean.zhihu.Story;
 import com.srtianxia.zhibook.view.viewholder.DailyViewHolder;
 
 import java.util.List;
@@ -22,10 +23,10 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyViewHolder> {
     private Context context;
     private LayoutInflater inflater;
     private View headView;
-    private List<DailyBean> items;
+    private List<Story> items;
     private OnItemClickListener onItemClickListener;
 
-    public DailyAdapter(Context context,List<DailyBean> items){
+    public DailyAdapter(Context context,List<Story> items){
         this.context = context;
         this.items = items;
         inflater = LayoutInflater.from(context);
