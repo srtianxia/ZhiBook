@@ -27,7 +27,8 @@
             android:layout_below="@+id/tv_question_author"
             android:text="中国菜到底能有多好吃"
             android:layout_marginTop="6dp"
-            style="@style/TextAppearance.AppCompat.Title"/>
+            android:textSize="16sp"
+            style="@style/TextAppearance.AppCompat.Body2"/>
         <TextView
             android:id="@+id/tv_question_content"
             android:layout_width="290dp"
@@ -35,13 +36,15 @@
             android:text="我就说一件事！一件事！我西班牙室友偷吃了我做的麻辣香锅！而且把香锅里的红薯都挑走辣！德国红薯辣么贵！"
             android:layout_below="@+id/tv_question_title"
             android:layout_marginTop="6dp"
+            android:textSize="14sp"
             style="@style/TextAppearance.AppCompat.Body1"/>
         <com.srtianxia.zhibook.utils.ui.CircleImageView
             android:id="@+id/img_question_author_head"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:src="@drawable/test_head"/>
         <TextView
             android:id="@+id/tv_question_answerCount"
             android:layout_width="48dp"

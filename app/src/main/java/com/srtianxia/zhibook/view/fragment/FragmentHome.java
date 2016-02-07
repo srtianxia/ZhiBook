@@ -18,6 +18,7 @@ import com.srtianxia.zhibook.app.API;
 import com.srtianxia.zhibook.model.bean.zhibook.QuestionHolder;
 import com.srtianxia.zhibook.utils.http.OkHttpUtils;
 import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
+import com.srtianxia.zhibook.utils.ui.YAnimation;
 import com.srtianxia.zhibook.view.adapter.OnItemClickListener;
 import com.srtianxia.zhibook.view.adapter.QuestionAdapter;
 
@@ -33,6 +34,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     RecyclerView rvHomeQuestion;
     @Bind(R.id.home_fab)
     FloatingActionButton fab;
+
     private View view;
     private QuestionAdapter adapter;
 
@@ -60,6 +62,9 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
+                    switch (newState){
+                        
+                    }
                 }
             });
         }
@@ -91,7 +96,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.fab:
+            case R.id.home_fab:
                 break;
         }
     }
