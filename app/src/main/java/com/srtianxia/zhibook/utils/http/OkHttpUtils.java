@@ -2,7 +2,6 @@ package com.srtianxia.zhibook.utils.http;
 
 import android.util.Log;
 
-import com.srtianxia.zhibook.utils.http.callback.NetUtilsCallback;
 import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
 
 import java.io.IOException;
@@ -44,8 +43,8 @@ public class OkHttpUtils {
         getInstance()._asyGet(url,callback);
     }
 
-    private void _asyGet(String url, OkHttpUtilsCallback callback){
-        Request request = new Request.Builder().url(url).build();
+    private void _asyGet(String url, final OkHttpUtilsCallback callback){
+        final Request request = new Request.Builder().url(url).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -54,7 +53,7 @@ public class OkHttpUtils {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
+                callback.onResponse(response.body().string(),response.message());
             }
         });
     }

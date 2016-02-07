@@ -22,6 +22,7 @@ import com.srtianxia.zhibook.utils.http.OkHttpUtils;
 import com.srtianxia.zhibook.utils.http.callback.NetUtilsCallback;
 import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
 import com.srtianxia.zhibook.view.fragment.FragmentDaily;
+import com.srtianxia.zhibook.view.fragment.FragmentHome;
 
 public class ActivityHome extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,25 +37,14 @@ public class ActivityHome extends BaseActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.toolbar_home);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                AsyNetUtils.postRequest(API.register, "name=1234", new NetUtilsCallback() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        Log.d(TAG,response);
-//                    }
-//                });
-                manager = getSupportFragmentManager();
-                transaction = manager.beginTransaction();
-                FragmentDaily fragmentDaily = new FragmentDaily();
-                transaction.replace(R.id.fragment_container,fragmentDaily);
-                transaction.commit();
-                OkHttpUtils.asyPost(API.login,new OkHttpUtils.Param("name","srtianxia"),
-                        new OkHttpUtils.Param("password","19951024"));
-            }
-        });
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
+        FragmentHome fragmentHome = new FragmentHome();
+        transaction.replace(R.id.fragment_container,fragmentHome);
+        transaction.commit();
+
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

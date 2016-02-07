@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-</LinearLayout>
+<android.support.v7.widget.CardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    app:cardCornerRadius="2dp"
+    android:layout_marginTop="6dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="3dp"
+        android:paddingBottom="5dp"
+        android:background="@drawable/item_rv_daily_bg">
+        <TextView
+            android:layout_marginTop="8dp"
+            android:id="@+id/tv_question_author"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:text="srtianxia提出的问题"/>
+        <TextView
+            android:id="@+id/tv_question_title"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_question_author"
+            android:text="中国菜到底能有多好吃"
+            android:layout_marginTop="6dp"
+            style="@style/TextAppearance.AppCompat.Title"/>
+        <TextView
+            android:id="@+id/tv_question_content"
+            android:layout_width="290dp"
+            android:layout_height="60dp"
+            android:text="我就说一件事！一件事！我西班牙室友偷吃了我做的麻辣香锅！而且把香锅里的红薯都挑走辣！德国红薯辣么贵！"
+            android:layout_below="@+id/tv_question_title"
+            android:layout_marginTop="6dp"
+            style="@style/TextAppearance.AppCompat.Body1"/>
+        <com.srtianxia.zhibook.utils.ui.CircleImageView
+            android:id="@+id/img_question_author_head"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true" />
+        <TextView
+            android:id="@+id/tv_question_answerCount"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="357"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_below="@+id/img_question_author_head"
+            android:layout_alignLeft="@+id/img_question_author_head"
+            android:layout_alignStart="@+id/img_question_author_head"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/colorPrimaryBlue"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

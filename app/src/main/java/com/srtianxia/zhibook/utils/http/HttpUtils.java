@@ -9,6 +9,7 @@ import android.util.Log;
 import com.srtianxia.zhibook.app.API;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -83,7 +84,7 @@ public class HttpUtils {
             connection.setConnectTimeout(10000);
 
             int responseCode = connection.getResponseCode();
-
+            Log.d(TAG,"responseCode: "+responseCode);
             if (responseCode == API.httpCodeOk){
                 InputStream inputStream = connection.getInputStream();
                 return inputStream;
@@ -112,14 +113,17 @@ public class HttpUtils {
         return false;
     }
 
-    private static String getStringFromInputSteam(InputStream inputStream) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        StringBuilder builder = new StringBuilder();
-        String line;
-        while ((line = reader.readLine())!=null){
-            builder.append(line);
+    private static String getStringFromInputSteam(InputStream is) throws IOException {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len = -1;
+        while ((len = is.read(buffer)) != -1) {
+            os.write(buffer, 0, len);
         }
-        return builder.toString();
+        is.close();
+        String state = os.toString();
+        os.close();
+        return state;
     }
 
     class RequsetResult{

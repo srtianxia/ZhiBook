@@ -1,23 +1,50 @@
 package com.srtianxia.zhibook.model.bean.zhibook;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by srtianxia on 2016/2/6.
  */
 public class Question {
-    private String Title;
+    private String title;
     private String content;
     private String authorHead;
     private String authorName;
     private String bestAnswerId;
-    private String date;
-    private Integer answerCount;
+    private String data;
+    private int answerCount;
+    private Bitmap authorHeadBitmap;
+
+    public Bitmap getAuthorHeadBitmap() {
+        return authorHeadBitmap;
+    }
+
+    public void setAuthorHeadBitmap(Bitmap authorHeadBitmap) {
+        this.authorHeadBitmap = authorHeadBitmap;
+    }
+
+    public int getAnswerCount() {
+        return answerCount;
+    }
+
+    public void setAnswerCount(int answerCount) {
+        this.answerCount = answerCount;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        title = title;
     }
 
     public String getContent() {
@@ -53,10 +80,10 @@ public class Question {
     }
 
     public String getDate() {
-        return date;
+        return data;
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.data = date;
     }
 }

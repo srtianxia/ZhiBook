@@ -1,6 +1,7 @@
 package com.srtianxia.zhibook.utils.http;
 
 import android.os.Handler;
+import android.util.Log;
 
 import com.srtianxia.zhibook.utils.http.callback.NetUtilsCallback;
 
@@ -16,6 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 应该再考虑下线程池各个参数的大小
  */
 public class AsyNetUtils {
+    private static final String TAG = "AsyNetUtils";
     private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
     private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
     private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
