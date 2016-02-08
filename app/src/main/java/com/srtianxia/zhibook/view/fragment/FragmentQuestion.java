@@ -18,7 +18,6 @@ import com.srtianxia.zhibook.app.API;
 import com.srtianxia.zhibook.model.bean.zhibook.QuestionHolder;
 import com.srtianxia.zhibook.utils.http.OkHttpUtils;
 import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
-import com.srtianxia.zhibook.utils.ui.YAnimation;
 import com.srtianxia.zhibook.view.adapter.OnItemClickListener;
 import com.srtianxia.zhibook.view.adapter.QuestionAdapter;
 
@@ -29,7 +28,7 @@ import butterknife.ButterKnife;
 /**
  * Created by srtianxia on 2016/2/6.
  */
-public class FragmentHome extends Fragment implements View.OnClickListener {
+public class FragmentQuestion extends Fragment implements View.OnClickListener {
     @Bind(R.id.rv_home_question)
     RecyclerView rvHomeQuestion;
     @Bind(R.id.home_fab)
@@ -63,7 +62,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
                     switch (newState){
-                        
+
                     }
                 }
             });
@@ -97,6 +96,9 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.home_fab:
+//                FragmentAnswer f = new FragmentAnswer();
+//                transaction.replace(R.id.fragment_container, fragmentQuestion);
+//                transaction.commit();
                 break;
         }
     }

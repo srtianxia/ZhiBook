@@ -58,11 +58,11 @@ public class OkHttpUtils {
         });
     }
     //异步post
-    public static void asyPost(String url,Param...params){
-        getInstance()._asyPost(url,params);
+    public static void asyPost(String url,OkHttpUtilsCallback callback,Param...params){
+        getInstance()._asyPost(url,callback,params);
     }
 
-    private void _asyPost(String url, Param...params){
+    private void _asyPost(String url, final OkHttpUtilsCallback callback, Param...params){
         final Request request = buildRequest(url,params);
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -72,7 +72,7 @@ public class OkHttpUtils {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.d(TAG,response.body().string());
+                callback.onResponse(response.body().string(),response.message());
             }
         });
     }

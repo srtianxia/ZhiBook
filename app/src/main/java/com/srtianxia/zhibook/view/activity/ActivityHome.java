@@ -1,7 +1,6 @@
 package com.srtianxia.zhibook.view.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,17 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.Toast;
 
 import com.srtianxia.zhibook.R;
-import com.srtianxia.zhibook.app.API;
 import com.srtianxia.zhibook.app.BaseActivity;
-import com.srtianxia.zhibook.utils.http.AsyNetUtils;
-import com.srtianxia.zhibook.utils.http.OkHttpUtils;
-import com.srtianxia.zhibook.utils.http.callback.NetUtilsCallback;
-import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
-import com.srtianxia.zhibook.view.fragment.FragmentDaily;
-import com.srtianxia.zhibook.view.fragment.FragmentHome;
+import com.srtianxia.zhibook.view.fragment.FragmentAnswer;
+import com.srtianxia.zhibook.view.fragment.FragmentQuestion;
 
 public class ActivityHome extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,8 +33,8 @@ public class ActivityHome extends BaseActivity
         setSupportActionBar(toolbar);
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
-        FragmentHome fragmentHome = new FragmentHome();
-        transaction.replace(R.id.fragment_container,fragmentHome);
+        FragmentQuestion fragmentQuestion = new FragmentQuestion();
+        transaction.replace(R.id.fragment_container, fragmentQuestion);
         transaction.commit();
 
 
@@ -98,9 +92,13 @@ public class ActivityHome extends BaseActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            manager = getSupportFragmentManager();
+            transaction = manager.beginTransaction();
+            FragmentAnswer fragmentAnswer = new FragmentAnswer();
+            transaction.replace(R.id.fragment_container, fragmentAnswer);
+            transaction.commit();
         } else if (id == R.id.nav_slideshow) {
-
+            Toast.makeText(ActivityHome.this, "nav_slideshow", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
