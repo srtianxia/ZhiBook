@@ -9,6 +9,15 @@ public class Answer {
     private String answerAuthorName;
     private String content;
     private String answerAuthorHead;
+    private int praise;
+
+    public int getPraise() {
+        return praise;
+    }
+
+    public void setPraise(int praise) {
+        this.praise = praise;
+    }
 
     public String getContent() {
         return content;

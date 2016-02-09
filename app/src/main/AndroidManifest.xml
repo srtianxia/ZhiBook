@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.srtianxia.zhibook">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:name=".app.APP"
         android:allowBackup="true"
@@ -21,6 +24,9 @@
         </activity>
         <activity android:name=".view.activity.ActivityPhoneDisplay"/>
         <activity android:name=".view.activity.ActivityLogin"/>
+        <activity android:name=".view.activity.ActivitySetQuestion"/>
+        <activity android:name=".view.activity.ActivityPersonInfo"/>
+        <activity android:name=".view.activity.ActivityAnswer"/>
     </application>
 
 </manifest>

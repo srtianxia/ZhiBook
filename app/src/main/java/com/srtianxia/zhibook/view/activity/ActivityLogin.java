@@ -48,7 +48,6 @@ public class ActivityLogin extends BaseActivity implements IActivityLogin{
 
     private void initView() {
 //        toolbar.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        toolbar.setNavigationIcon(R.mipmap.ic_arrow_back_black_18dp);
 
     }
 

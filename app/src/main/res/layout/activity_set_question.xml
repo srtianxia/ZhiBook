@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="@color/colorSetQuestionToolbar"
+        app:popupTheme="@style/AppTheme"
+        android:elevation="3dp">
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_question_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp">
+            <EditText
+                android:id="@+id/ed_question_title"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="问题" />
+        </android.support.design.widget.TextInputLayout>
+    </android.support.v7.widget.Toolbar>
+    <EditText
+        android:padding="10dp"
+        android:id="@+id/ed_question_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="添加问题的补充说明..."
+        android:gravity="start"
+        android:textSize="14sp"
+        android:background="@null"/>
+
+</LinearLayout>

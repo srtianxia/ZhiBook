@@ -53,7 +53,7 @@ public class OkHttpUtils {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                callback.onResponse(response.body().string(),response.message());
+                callback.onResponse(response,response.message());
             }
         });
     }
@@ -72,7 +72,7 @@ public class OkHttpUtils {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                callback.onResponse(response.body().string(),response.message());
+                callback.onResponse(response,response.message());
             }
         });
     }

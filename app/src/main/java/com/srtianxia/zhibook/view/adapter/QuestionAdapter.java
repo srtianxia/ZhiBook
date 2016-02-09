@@ -56,6 +56,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionHolder> {
                 }
             });
         }
+
     }
 
     @Override

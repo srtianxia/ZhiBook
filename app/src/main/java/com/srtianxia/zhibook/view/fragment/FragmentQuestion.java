@@ -1,5 +1,6 @@
 package com.srtianxia.zhibook.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,9 +9,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.FrameLayout;
 
 import com.google.gson.Gson;
 import com.srtianxia.zhibook.R;
@@ -18,11 +23,16 @@ import com.srtianxia.zhibook.app.API;
 import com.srtianxia.zhibook.model.bean.zhibook.QuestionHolder;
 import com.srtianxia.zhibook.utils.http.OkHttpUtils;
 import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
+import com.srtianxia.zhibook.view.activity.ActivityAnswer;
+import com.srtianxia.zhibook.view.activity.ActivitySetQuestion;
 import com.srtianxia.zhibook.view.adapter.OnItemClickListener;
 import com.srtianxia.zhibook.view.adapter.QuestionAdapter;
 
+import java.io.IOException;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.Response;
 
 
 /**
@@ -49,7 +59,10 @@ public class FragmentQuestion extends Fragment implements View.OnClickListener {
             adapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onClick(View view, int position) {
-
+                    Intent intent = new Intent(getActivity(), ActivityAnswer.class);
+                    intent.putExtra("questionId",String.valueOf(position+1));
+                    startActivity(intent);
+                    Log.d("position : ", String.valueOf(position));
                 }
 
                 @Override
@@ -57,13 +70,15 @@ public class FragmentQuestion extends Fragment implements View.OnClickListener {
 
                 }
             });
-            rvHomeQuestion.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            rvHomeQuestion.addOnScrollListener(new HidingScrollListener() {
                 @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
-                    switch (newState){
+                public void onHide() {
+                    hideViews();
+                }
 
-                    }
+                @Override
+                public void onShow() {
+                    showViews();
                 }
             });
         }
@@ -77,15 +92,23 @@ public class FragmentQuestion extends Fragment implements View.OnClickListener {
         fab.setOnClickListener(this);
         OkHttpUtils.asyGet(API.getQuestion, new OkHttpUtilsCallback() {
             @Override
-            public void onResponse(String response, String status) {
+            public void onResponse(Response response, String status) throws IOException {
                 Message message = new Message();
-                message.obj = response;
+                message.obj = response.body().string();
                 handler.sendMessage(message);
             }
         });
         return view;
     }
+    private void hideViews() {
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) fab.getLayoutParams();
+        int fabBottomMargin = lp.bottomMargin;
+        fab.animate().translationY(fab.getHeight()+fabBottomMargin).setInterpolator(new AccelerateInterpolator(2)).start();
+    }
 
+    private void showViews() {
+        fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -96,9 +119,9 @@ public class FragmentQuestion extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.home_fab:
-//                FragmentAnswer f = new FragmentAnswer();
-//                transaction.replace(R.id.fragment_container, fragmentQuestion);
-//                transaction.commit();
+                Intent intent = new Intent(getActivity(), ActivitySetQuestion.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
         }
     }
