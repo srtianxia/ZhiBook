@@ -21,8 +21,8 @@ public class DailyPresenter {
     public void initData(){
         iZhiHuModel.getDaily(new OnGetDailyListener() {
             @Override
-            public void onGetDaily(DailyBean dailyBean) {
-                iFragmentDaily.showDaily(dailyBean);
+            public void onGetDailySuccess(DailyBean bean) {
+
             }
         });
     }

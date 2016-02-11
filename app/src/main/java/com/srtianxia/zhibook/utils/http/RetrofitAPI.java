@@ -3,6 +3,7 @@ package com.srtianxia.zhibook.utils.http;
 import com.srtianxia.zhibook.model.bean.zhibook.AnswerBean;
 import com.srtianxia.zhibook.model.bean.zhibook.QuestionBean;
 import com.srtianxia.zhibook.model.bean.zhibook.User;
+import com.srtianxia.zhibook.model.bean.zhihu.DailyBean;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -16,7 +17,9 @@ import rx.Observable;
  */
 public interface RetrofitAPI {
     String BASIC_URL = "http://115.28.64.168/zhishu/";
+    String BASIC_DAILY = "http://news-at.zhihu.com/api/4/";
 
+    //ZhiBook部分
     @FormUrlEncoded
     @POST("login.php")
     Observable<User> getLoginUser(
@@ -43,6 +46,16 @@ public interface RetrofitAPI {
     @FormUrlEncoded
     @POST("getAnswer.php")
     Observable<AnswerBean> getAnswer(
-      @Field("questionId") String id
-    );
+      @Field("questionId") String id);
+
+    @FormUrlEncoded
+    @POST("setAnswer.php")
+    Observable<Object> setAnswer(
+        @Field("questionId") String id,
+        @Field("content") String content,
+        @Field("token") String token);
+
+    //日报部分
+    @GET("news/latest")
+    Observable<DailyBean> getDaily();
 }

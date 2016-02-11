@@ -7,7 +7,10 @@ public class BannerData {
     private String image;
     private String id;
     private String title;
-
+    public BannerData(String image,String title){
+        this.image = image;
+        this.title = title;
+    }
     public String getImage() {
         return image;
     }

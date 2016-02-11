@@ -1,5 +1,6 @@
 package com.srtianxia.zhibook.model.bean.zhihu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,30 +8,60 @@ import java.util.List;
  */
 public class DailyBean {
     private String date;
-    private List<Story> stories;
-    private List<BannerData> top_stories;
+    private List<Story> stories = new ArrayList<Story>();
+    private List<TopStory> topStories = new ArrayList<TopStory>();
 
-    public List<BannerData> getTop_stories() {
-        return top_stories;
-    }
-
-    public void setTop_stories(List<BannerData> top_stories) {
-        this.top_stories = top_stories;
-    }
-
+    /**
+     *
+     * @return
+     *     The date
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     *
+     * @param date
+     *     The date
+     */
     public void setDate(String date) {
         this.date = date;
     }
 
+    /**
+     *
+     * @return
+     *     The stories
+     */
     public List<Story> getStories() {
         return stories;
     }
 
+    /**
+     *
+     * @param stories
+     *     The stories
+     */
     public void setStories(List<Story> stories) {
         this.stories = stories;
+    }
+
+    /**
+     *
+     * @return
+     *     The topStories
+     */
+    public List<TopStory> getTopStories() {
+        return topStories;
+    }
+
+    /**
+     *
+     * @param topStories
+     *     The top_stories
+     */
+    public void setTopStories(List<TopStory> topStories) {
+        this.topStories = topStories;
     }
 }

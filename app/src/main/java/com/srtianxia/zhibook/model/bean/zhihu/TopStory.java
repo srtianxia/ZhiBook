@@ -1,39 +1,34 @@
 package com.srtianxia.zhibook.model.bean.zhihu;
 
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Created by srtianxia on 2016/1/23.
- */
-public class Story {
-    private List<String> images = new ArrayList<String>();
+public class TopStory {
+
+    private String image;
     private Integer type;
     private Integer id;
     private String gaPrefix;
     private String title;
-    private Boolean multipic;
 
     /**
-     *
+     * 
      * @return
-     *     The images
+     *     The image
      */
-    public List<String> getImages() {
-        return images;
+    public String getImage() {
+        return image;
     }
 
     /**
-     *
-     * @param images
-     *     The images
+     * 
+     * @param image
+     *     The image
      */
-    public void setImages(List<String> images) {
-        this.images = images;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     /**
-     *
+     * 
      * @return
      *     The type
      */
@@ -42,7 +37,7 @@ public class Story {
     }
 
     /**
-     *
+     * 
      * @param type
      *     The type
      */
@@ -51,7 +46,7 @@ public class Story {
     }
 
     /**
-     *
+     * 
      * @return
      *     The id
      */
@@ -60,7 +55,7 @@ public class Story {
     }
 
     /**
-     *
+     * 
      * @param id
      *     The id
      */
@@ -69,7 +64,7 @@ public class Story {
     }
 
     /**
-     *
+     * 
      * @return
      *     The gaPrefix
      */
@@ -78,7 +73,7 @@ public class Story {
     }
 
     /**
-     *
+     * 
      * @param gaPrefix
      *     The ga_prefix
      */
@@ -87,7 +82,7 @@ public class Story {
     }
 
     /**
-     *
+     * 
      * @return
      *     The title
      */
@@ -96,7 +91,7 @@ public class Story {
     }
 
     /**
-     *
+     * 
      * @param title
      *     The title
      */
@@ -104,21 +99,4 @@ public class Story {
         this.title = title;
     }
 
-    /**
-     *
-     * @return
-     *     The multipic
-     */
-    public Boolean getMultipic() {
-        return multipic;
-    }
-
-    /**
-     *
-     * @param multipic
-     *     The multipic
-     */
-    public void setMultipic(Boolean multipic) {
-        this.multipic = multipic;
-    }
 }

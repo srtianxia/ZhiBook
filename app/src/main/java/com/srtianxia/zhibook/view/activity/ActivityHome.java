@@ -17,7 +17,9 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
+import com.srtianxia.zhibook.view.fragment.FragmentDaily;
 import com.srtianxia.zhibook.view.fragment.FragmentQuestion;
+import com.srtianxia.zhibook.view.fragment.FragmentTest;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -44,7 +46,9 @@ public class ActivityHome extends BaseActivity
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
         FragmentQuestion fragmentQuestion = new FragmentQuestion();
-        transaction.replace(R.id.fragment_container, fragmentQuestion);
+//        FragmentTest fragmentTest = new FragmentTest();
+        FragmentDaily daily = new FragmentDaily();
+        transaction.replace(R.id.fragment_container, daily);
         transaction.commit();
         SimpleDraweeView draweeView = (SimpleDraweeView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
         draweeView.setImageURI(Uri.parse("http://www.91danji.com/attachments/201509/27/13/4cevsjye7.jpg"));
@@ -113,7 +117,7 @@ public class ActivityHome extends BaseActivity
 //            transaction.replace(R.id.fragment_container, fragmentAnswer);
 //            transaction.commit();
         } else if (id == R.id.nav_slideshow) {
-            Toast.makeText(ActivityHome.this, "nav_slideshow", Toast.LENGTH_SHORT).show();
+
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
