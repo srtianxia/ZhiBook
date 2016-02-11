@@ -1,7 +1,5 @@
 package com.srtianxia.zhibook.utils.http;
 
-import android.util.Log;
-
 import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
 
 import java.io.IOException;

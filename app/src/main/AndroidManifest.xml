@@ -23,7 +23,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.ActivityPhoneDisplay"/>
-        <activity android:name=".view.activity.ActivityLogin"/>
         <activity android:name=".view.activity.ActivitySetQuestion"/>
         <activity android:name=".view.activity.ActivityPersonInfo"/>
         <activity android:name=".view.activity.ActivityAnswer"/>

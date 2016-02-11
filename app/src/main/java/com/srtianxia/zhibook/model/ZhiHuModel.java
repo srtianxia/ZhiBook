@@ -2,17 +2,11 @@ package com.srtianxia.zhibook.model;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.srtianxia.zhibook.app.API;
 import com.srtianxia.zhibook.model.Imodel.IZhiHuModel;
-import com.srtianxia.zhibook.model.bean.zhihu.DailyBean;
 import com.srtianxia.zhibook.model.callback.OnGetDailyListener;
 import com.srtianxia.zhibook.utils.http.AsyNetUtils;
-import com.srtianxia.zhibook.utils.http.OkHttpUtils;
 import com.srtianxia.zhibook.utils.http.callback.NetUtilsCallback;
-import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
-
-import java.util.concurrent.locks.ReadWriteLock;
 
 /**
  * Created by srtianxia on 2016/1/23.

@@ -59,6 +59,8 @@ public class FragmentAnswer extends Fragment {
 
                 }
             });
+
+
         }
     };
     @Nullable

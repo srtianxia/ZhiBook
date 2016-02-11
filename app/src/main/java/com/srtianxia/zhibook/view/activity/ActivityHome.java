@@ -12,13 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
-import com.srtianxia.zhibook.view.fragment.FragmentAnswer;
 import com.srtianxia.zhibook.view.fragment.FragmentQuestion;
 
 import butterknife.Bind;

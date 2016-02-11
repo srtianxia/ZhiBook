@@ -14,7 +14,7 @@ public class LoginPresenter {
 
     public LoginPresenter(IActivityLogin iActivityLogin){
         this.iActivityLogin = iActivityLogin;
-        iAccountModel = AccountModel.getAccountModel();
+        this.iAccountModel = AccountModel.getAccountModel();
     }
 
     public void login(){
@@ -22,7 +22,7 @@ public class LoginPresenter {
                 iActivityLogin.getPassword(), new OnLoginListener() {
             @Override
             public void loginSuccess() {
-
+                iActivityLogin.LoginSuccess();
             }
 
             @Override

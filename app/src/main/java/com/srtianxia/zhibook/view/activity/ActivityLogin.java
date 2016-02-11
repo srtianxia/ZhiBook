@@ -3,6 +3,7 @@ package com.srtianxia.zhibook.view.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,7 +19,7 @@ import butterknife.ButterKnife;
 /**
  * Created by srtianxia on 2016/1/21.
  */
-public class ActivityLogin extends BaseActivity implements IActivityLogin{
+public class ActivityLogin extends BaseActivity implements IActivityLogin,View.OnClickListener{
 
 
     @Bind(R.id.toolbar)
@@ -48,7 +49,7 @@ public class ActivityLogin extends BaseActivity implements IActivityLogin{
 
     private void initView() {
 //        toolbar.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-
+        btLogin.setOnClickListener(this);
     }
 
 
@@ -64,7 +65,7 @@ public class ActivityLogin extends BaseActivity implements IActivityLogin{
 
     @Override
     public void LoginSuccess() {
-
+        tvRegister.setText("登陆成功");
     }
 
     @Override
@@ -76,6 +77,15 @@ public class ActivityLogin extends BaseActivity implements IActivityLogin{
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.bt_login:
+                presenter.login();
+                break;
+        }
     }
 }
 
