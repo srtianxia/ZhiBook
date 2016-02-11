@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by srtianxia on 2016/2/6.
  */
-public class QuestionHolder {
+public class QuestionBean {
     private List<Question> questions;
 
     public List<Question> getQuestions() {

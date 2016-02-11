@@ -1,10 +1,8 @@
 package com.srtianxia.zhibook.utils.http;
 
-import com.srtianxia.zhibook.model.bean.zhibook.Question;
-import com.srtianxia.zhibook.model.bean.zhibook.QuestionHolder;
+import com.srtianxia.zhibook.model.bean.zhibook.AnswerBean;
+import com.srtianxia.zhibook.model.bean.zhibook.QuestionBean;
 import com.srtianxia.zhibook.model.bean.zhibook.User;
-
-import java.util.List;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -33,7 +31,7 @@ public interface RetrofitAPI {
 
 
     @GET("getQuestion.php")
-    Observable<QuestionHolder> getQuestion();
+    Observable<QuestionBean> getQuestion();
 
     @FormUrlEncoded
     @POST("setQuestion.php")
@@ -41,4 +39,10 @@ public interface RetrofitAPI {
             @Field("title") String title,
             @Field("content") String content,
             @Field("token") String toke);
+
+    @FormUrlEncoded
+    @POST("getAnswer.php")
+    Observable<AnswerBean> getAnswer(
+      @Field("questionId") String id
+    );
 }

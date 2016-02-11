@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="357"
-            android:background="@drawable/drawable_bk_answer_count"
+            android:background="@drawable/drawable_bk_count"
             style="@style/TextAppearance.AppCompat.Body2"
             android:layout_below="@+id/img_question_author_head"
             android:layout_alignLeft="@+id/img_question_author_head"

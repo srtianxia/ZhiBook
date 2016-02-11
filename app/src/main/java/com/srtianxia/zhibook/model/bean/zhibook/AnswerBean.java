@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by srtianxia on 2016/2/8.
  */
-public class AnswerHolder {
+public class AnswerBean {
     private List<Answer> answers;
 
     public List<Answer> getAnswers() {

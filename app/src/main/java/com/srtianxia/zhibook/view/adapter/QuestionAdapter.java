@@ -26,11 +26,16 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionHolder> {
 
     private OnItemClickListener onItemClickListener;
 
-    public QuestionAdapter(Context context,List<Question> items){
-        this.context = context;
+    public void setData(List<Question> items) {
         this.items = items;
+        notifyDataSetChanged();
+    }
+
+    public QuestionAdapter(Context context){
+        this.context = context;
         inflater = LayoutInflater.from(context);
     }
+
     @Override
     public QuestionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_home_question,parent,false);
@@ -61,6 +66,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionHolder> {
 
     @Override
     public int getItemCount() {
-        return items.size();
+        if (items!=null){
+            return items.size();
+        }
+        return 0;
     }
 }

@@ -25,6 +25,16 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerHolder> {
         this.onItemClickListener = onItemClickListener;
     }
 
+    public AnswerAdapter(Context context){
+        this.context = context;
+        inflater = LayoutInflater.from(context);
+    }
+
+    public void setData(List<Answer> items) {
+        this.items = items;
+        notifyDataSetChanged();
+    }
+
     public AnswerAdapter(Context context, List<Answer> items){
         this.context = context;
         this.items = items;
@@ -60,6 +70,9 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerHolder> {
 
     @Override
     public int getItemCount() {
-        return items.size();
+        if (items!=null) {
+            return items.size();
+        }
+        return 0;
     }
 }

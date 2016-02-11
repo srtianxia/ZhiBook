@@ -3,7 +3,9 @@ package com.srtianxia.zhibook.model;
 import android.util.Log;
 
 import com.srtianxia.zhibook.model.Imodel.IZhiBookModel;
-import com.srtianxia.zhibook.model.bean.zhibook.QuestionHolder;
+import com.srtianxia.zhibook.model.bean.zhibook.AnswerBean;
+import com.srtianxia.zhibook.model.bean.zhibook.QuestionBean;
+import com.srtianxia.zhibook.model.callback.OnGetAnswerListener;
 import com.srtianxia.zhibook.model.callback.OnGetQuestionListener;
 import com.srtianxia.zhibook.utils.http.RetrofitAPI;
 
@@ -18,6 +20,7 @@ import rx.schedulers.Schedulers;
  * Created by srtianxia on 2016/2/11.
  */
 public class ZhiBookModel implements IZhiBookModel {
+
     private static final String TAG = "ZhiBookModel";
     private static ZhiBookModel zhiBookModel = new ZhiBookModel();
     private Retrofit retrofit;
@@ -42,11 +45,39 @@ public class ZhiBookModel implements IZhiBookModel {
     }
 
     @Override
-    public void getQuestion(OnGetQuestionListener listener) {
+    public void getQuestion(final OnGetQuestionListener listener) {
         retrofitAPI.getQuestion().
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Observer<QuestionHolder>() {
+                subscribe(new Observer<QuestionBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.failure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(QuestionBean questionBean) {
+                        listener.success(questionBean.getQuestions());
+                    }
+                });
+    }
+
+    @Override
+    public void setAnswer() {
+
+    }
+
+    @Override
+    public void getAnswer(String questionId, final OnGetAnswerListener listener) {
+        retrofitAPI.getAnswer(questionId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<AnswerBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -58,8 +89,8 @@ public class ZhiBookModel implements IZhiBookModel {
                     }
 
                     @Override
-                    public void onNext(QuestionHolder questionHolder) {
-                        Log.d(TAG,"size : " + questionHolder.getQuestions().size());
+                    public void onNext(AnswerBean answerBean) {
+                        listener.success(answerBean.getAnswers());
                     }
                 });
     }
