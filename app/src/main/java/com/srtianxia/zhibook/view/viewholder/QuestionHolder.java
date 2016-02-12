@@ -1,27 +1,13 @@
 package com.srtianxia.zhibook.view.viewholder;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.model.bean.zhibook.Question;
-import com.srtianxia.zhibook.utils.http.OkHttpUtils;
-import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import okhttp3.Response;
 
 /**
  * Created by srtianxia on 2016/2/6.

@@ -28,9 +28,6 @@ import java.util.List;
 
 
 public class Kanner extends FrameLayout implements OnClickListener {
-//    private List<Latest.TopStoriesEntity> topStoriesEntities;
-//    private ImageLoader mImageLoader;
-//    private DisplayImageOptions options;
     private List<BannerData> bannerData;
     private List<View> views;
     private Context context;

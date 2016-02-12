@@ -26,6 +26,7 @@
         <activity android:name=".view.activity.ActivitySetQuestion"/>
         <activity android:name=".view.activity.ActivityPersonInfo"/>
         <activity android:name=".view.activity.ActivityAnswer"/>
+        <activity android:name=".view.activity.ActivityDailyContent"/>
     </application>
 
 </manifest>

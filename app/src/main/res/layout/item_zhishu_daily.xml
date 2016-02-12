@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:padding="14dp"
+    android:background="@drawable/item_rv_daily_bg">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/img_daily_pic"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        fresco:roundAsCircle="true"
+        fresco:roundingBorderColor="@color/colorWhite"
+        fresco:roundingBorderWidth="1dp"/>
+
+    <TextView
+        android:id="@+id/tv_daily_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:maxLines="2"
+        android:textColor="#99000000"
+        android:textSize="14sp"
+        android:gravity="center_vertical|start"
+        android:lineSpacingMultiplier="1.2"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="12dp"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:freezesText="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        tools:text="年度热门 · 用了很多年的 QQ 表情要换了，新版是我设计的"/>
+</LinearLayout>

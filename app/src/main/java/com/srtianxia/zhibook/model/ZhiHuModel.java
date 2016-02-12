@@ -56,7 +56,7 @@ public class ZhiHuModel implements IZhiHuModel{
 
                     @Override
                     public void onNext(DailyBean bean) {
-                        Log.d(TAG,bean.getStories().get(0).getTitle());
+                        listener.onGetDailySuccess(bean);
                     }
                 });
     }

@@ -4,11 +4,14 @@ import com.srtianxia.zhibook.model.bean.zhibook.AnswerBean;
 import com.srtianxia.zhibook.model.bean.zhibook.QuestionBean;
 import com.srtianxia.zhibook.model.bean.zhibook.User;
 import com.srtianxia.zhibook.model.bean.zhihu.DailyBean;
+import com.srtianxia.zhibook.model.bean.zhihu.DailyContent;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import rx.Observable;
 
 
@@ -58,4 +61,7 @@ public interface RetrofitAPI {
     //日报部分
     @GET("news/latest")
     Observable<DailyBean> getDaily();
+
+    @GET("news/{id}")
+    Observable<DailyContent> getDailyContent(@Path("id") String id);
 }

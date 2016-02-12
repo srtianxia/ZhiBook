@@ -22,7 +22,7 @@ public class DailyPresenter {
         iZhiHuModel.getDaily(new OnGetDailyListener() {
             @Override
             public void onGetDailySuccess(DailyBean bean) {
-
+                iFragmentDaily.showDaily(bean);
             }
         });
     }
