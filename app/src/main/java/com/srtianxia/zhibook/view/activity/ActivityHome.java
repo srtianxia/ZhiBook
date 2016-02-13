@@ -1,5 +1,6 @@
 package com.srtianxia.zhibook.view.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -16,7 +17,6 @@ import android.view.View;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
-import com.srtianxia.zhibook.view.fragment.FragmentDaily;
 import com.srtianxia.zhibook.view.fragment.FragmentQuestion;
 
 import butterknife.Bind;
@@ -43,10 +43,8 @@ public class ActivityHome extends BaseActivity
         setSupportActionBar(toolbar);
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
-//        FragmentQuestion fragmentQuestion = new FragmentQuestion();
-//        FragmentTest fragmentTest = new FragmentTest();
-        FragmentDaily fragmentDaily = new FragmentDaily();
-        transaction.replace(R.id.fragment_container, fragmentDaily);
+        FragmentQuestion fragmentQuestion = new FragmentQuestion();
+        transaction.replace(R.id.fragment_container, fragmentQuestion);
         transaction.commit();
         SimpleDraweeView draweeView = (SimpleDraweeView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
         draweeView.setImageURI(Uri.parse("http://www.91danji.com/attachments/201509/27/13/4cevsjye7.jpg"));
@@ -106,18 +104,11 @@ public class ActivityHome extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-//            manager = getSupportFragmentManager();
-//            transaction = manager.beginTransaction();
-//            FragmentAnswer fragmentAnswer = new FragmentAnswer();
-//            transaction.replace(R.id.fragment_container, fragmentAnswer);
-//            transaction.commit();
-        } else if (id == R.id.nav_slideshow) {
+        if (id == R.id.nav_home) {
 
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_find) {
+            Intent intent = new Intent(this,ActivityFind.class);
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -126,6 +117,6 @@ public class ActivityHome extends BaseActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return false;
     }
 }

@@ -1,5 +1,6 @@
 package com.srtianxia.zhibook.model.Imodel;
 
+import com.srtianxia.zhibook.model.callback.OnGetDailyContentListener;
 import com.srtianxia.zhibook.model.callback.OnGetDailyListener;
 
 /**
@@ -7,4 +8,5 @@ import com.srtianxia.zhibook.model.callback.OnGetDailyListener;
  */
 public interface IZhiHuModel {
     void getDaily(OnGetDailyListener listener);
+    void getDailyContent(String id,OnGetDailyContentListener listener);
 }

@@ -9,16 +9,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.srtianxia.zhibook.R;
+import com.srtianxia.zhibook.model.bean.zhihu.BannerData;
 import com.srtianxia.zhibook.model.bean.zhihu.DailyBean;
 import com.srtianxia.zhibook.presenter.DailyPresenter;
 import com.srtianxia.zhibook.utils.ui.DividerItemDecoration;
+import com.srtianxia.zhibook.utils.ui.Kanner;
 import com.srtianxia.zhibook.view.IView.IFragmentDaily;
 import com.srtianxia.zhibook.view.activity.ActivityDailyContent;
 import com.srtianxia.zhibook.view.adapter.DailyAdapter;
 import com.srtianxia.zhibook.view.adapter.OnItemClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -77,7 +81,7 @@ public class FragmentDaily extends Fragment implements IFragmentDaily {
             @Override
             public void onClick(View view, int position) {
                 Intent intent = new Intent(getActivity(), ActivityDailyContent.class);
-                intent.putExtra("id",bean.getStories().get(position).getId());
+                intent.putExtra("id",String.valueOf(bean.getStories().get(position).getId()));
                 startActivity(intent);
             }
 
@@ -87,13 +91,13 @@ public class FragmentDaily extends Fragment implements IFragmentDaily {
             }
         });
         rvDaily.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL_LIST));
-//        View v = inflater.inflate(R.layout.header_banner,rvDaily,false);
-//        Kanner k = (Kanner) v.findViewById(R.id.rv_header);
-//        List<BannerData> datas = new ArrayList<>();
-//        datas.add(new BannerData("http://pic3.zhimg.com/112d19aee503dbb9ff8a7f48e0c4653e.jpg","年度热门 · 面试官问现在工资是多少该怎么回答他呢？"));
-//        datas.add(new BannerData("http://pic3.zhimg.com/0e42ddcbe5401a614a081891072f093e.jpg","4342343223"));
-//        datas.add(new BannerData("http://pic2.zhimg.com/23337493096e62113bd03f71db836bdd.jpg","43432423234"));
-//        k.setTopEntities(datas);
-//        adapter.setHeadView(v);
+        View v = inflater.inflate(R.layout.header_banner,rvDaily,false);
+        Kanner k = (Kanner) v.findViewById(R.id.rv_header);
+        List<BannerData> datas = new ArrayList<>();
+        datas.add(new BannerData("http://pic3.zhimg.com/112d19aee503dbb9ff8a7f48e0c4653e.jpg","年度热门 · 面试官问现在工资是多少该怎么回答他呢？"));
+        datas.add(new BannerData("http://pic3.zhimg.com/0e42ddcbe5401a614a081891072f093e.jpg","4342343223"));
+        datas.add(new BannerData("http://pic2.zhimg.com/23337493096e62113bd03f71db836bdd.jpg","43432423234"));
+        k.setTopEntities(datas);
+        adapter.setHeadView(v);
     }
 }

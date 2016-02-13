@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.srtianxia.zhibook.model.Imodel.IZhiHuModel;
 import com.srtianxia.zhibook.model.bean.zhihu.DailyBean;
+import com.srtianxia.zhibook.model.bean.zhihu.DailyContent;
+import com.srtianxia.zhibook.model.callback.OnGetDailyContentListener;
 import com.srtianxia.zhibook.model.callback.OnGetDailyListener;
 import com.srtianxia.zhibook.utils.http.RetrofitAPI;
 
@@ -57,6 +59,29 @@ public class ZhiHuModel implements IZhiHuModel{
                     @Override
                     public void onNext(DailyBean bean) {
                         listener.onGetDailySuccess(bean);
+                    }
+                });
+    }
+
+    @Override
+    public void getDailyContent(String id, final OnGetDailyContentListener listener) {
+        retrofitAPI.getDailyContent(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<DailyContent>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG,e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(DailyContent dailyContent) {
+                        listener.success(dailyContent);
                     }
                 });
     }

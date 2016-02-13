@@ -11,4 +11,7 @@
 
     <string name="menu_addPic">插入图片</string>
     <string name="menu_send">发布</string>
+
+    <string name="tab_home">首页</string>
+    <string name="tab_find">发现</string>
 </resources>
