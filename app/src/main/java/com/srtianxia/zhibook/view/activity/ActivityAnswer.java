@@ -26,7 +26,8 @@ import butterknife.ButterKnife;
 /**
  * Created by srtianxia on 2016/2/10.
  *  问题content在 CollapsingToolbarLayout中 回答在RecyclerView
- *  想让回答在RecyclerView响应滚动
+ *  想让回答在RecyclerView响应滚动 待完成
+ *  ..............  2/14 4:20
  */
 public class ActivityAnswer extends BaseActivity implements IActivityAnswer {
 
