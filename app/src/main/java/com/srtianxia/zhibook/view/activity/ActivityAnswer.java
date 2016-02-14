@@ -18,6 +18,7 @@ import com.srtianxia.zhibook.view.IView.IActivityAnswer;
 import com.srtianxia.zhibook.view.adapter.AnswerAdapter;
 import com.srtianxia.zhibook.view.adapter.OnItemClickListener;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.Bind;
@@ -72,18 +73,6 @@ public class ActivityAnswer extends BaseActivity implements IActivityAnswer {
         adapter = new AnswerAdapter(this);
         rvAnswer.setAdapter(adapter);
         rvAnswer.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Intent intent = new Intent(ActivityAnswer.this,ActivityAnswerDetail.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        });
     }
 
     @Override
@@ -92,8 +81,22 @@ public class ActivityAnswer extends BaseActivity implements IActivityAnswer {
     }
 
     @Override
-    public void initAnswerSuccess(List<Answer> answers) {
+    public void initAnswerSuccess(final List<Answer> answers) {
         adapter.setData(answers);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent intent = new Intent(ActivityAnswer.this,ActivityAnswerDetail.class);
+                intent.putExtra("answerDetail", (Serializable) answers.get(position));
+                intent.putExtra("questionTitle",questionTitle);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        });
     }
 
     @Override

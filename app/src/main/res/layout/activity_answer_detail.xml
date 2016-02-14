@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:fitsSystemWindows="true"
     tools:context=".view.activity.ActivityAnswerDetail">
@@ -121,6 +122,10 @@
                     android:paddingBottom="20dp"
                     android:textSize="16sp"
                     style="@style/TextAppearance.AppCompat.Body1"/>
+                <TextView
+                    android:id="@+id/answer_detail_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
         </LinearLayout>
@@ -131,7 +136,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        app:layout_behavior="com.srtianxia.zhibook.utils.ui.FooterBehavior">
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"

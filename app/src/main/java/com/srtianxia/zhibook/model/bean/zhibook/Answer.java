@@ -1,9 +1,11 @@
 package com.srtianxia.zhibook.model.bean.zhibook;
 
+import java.io.Serializable;
+
 /**
  * Created by srtianxia on 2016/2/8.
  */
-public class Answer {
+public class Answer implements Serializable {
     private int id;
     private String data;
     private String answerAuthorName;
