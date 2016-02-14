@@ -9,7 +9,7 @@ import java.util.List;
 public class DailyBean {
     private String date;
     private List<Story> stories = new ArrayList<Story>();
-    private List<TopStory> topStories = new ArrayList<TopStory>();
+    private List<TopStory> top_stories = new ArrayList<TopStory>();
 
     /**
      *
@@ -53,7 +53,7 @@ public class DailyBean {
      *     The topStories
      */
     public List<TopStory> getTopStories() {
-        return topStories;
+        return top_stories;
     }
 
     /**
@@ -62,6 +62,6 @@ public class DailyBean {
      *     The top_stories
      */
     public void setTopStories(List<TopStory> topStories) {
-        this.topStories = topStories;
+        this.top_stories = topStories;
     }
 }

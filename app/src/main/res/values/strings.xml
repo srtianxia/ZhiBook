@@ -14,4 +14,6 @@
 
     <string name="tab_home">首页</string>
     <string name="tab_find">发现</string>
+
+    <string name="find_zhihu">知乎日报</string>
 </resources>

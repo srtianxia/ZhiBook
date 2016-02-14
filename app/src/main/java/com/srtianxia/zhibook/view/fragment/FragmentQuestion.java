@@ -64,19 +64,6 @@ public class FragmentQuestion extends Fragment implements View.OnClickListener,S
         adapter = new QuestionAdapter(getActivity());
         rvHomeQuestion.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvHomeQuestion.setAdapter(adapter);
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Intent intent = new Intent(getActivity(), ActivityAnswer.class);
-                intent.putExtra("questionId", String.valueOf(position + 1));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        });
         rvHomeQuestion.addOnScrollListener(new HidingScrollListener() {
             @Override
             public void onHide() {
@@ -130,9 +117,24 @@ public class FragmentQuestion extends Fragment implements View.OnClickListener,S
     }
 
     @Override
-    public void showInitSuccess(List<Question> questions) {
+    public void showInitSuccess(final List<Question> questions) {
         adapter.setData(questions);
         swipeQuestion.setRefreshing(false);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent intent = new Intent(getActivity(), ActivityAnswer.class);
+                intent.putExtra("questionId", String.valueOf(position + 1));
+                intent.putExtra("title",questions.get(position).getTitle());
+                intent.putExtra("content",questions.get(position).getContent());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        });
     }
 
     @Override

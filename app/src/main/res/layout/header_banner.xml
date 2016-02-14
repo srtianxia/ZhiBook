@@ -4,9 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.srtianxia.zhibook.utils.ui.Kanner
+    <com.srtianxia.zhibook.utils.ui.Banner
         android:id="@+id/rv_header"
         android:layout_width="match_parent"
-        android:layout_height="230dp"></com.srtianxia.zhibook.utils.ui.Kanner>
+        android:layout_height="200dp">
+
+    </com.srtianxia.zhibook.utils.ui.Banner>
 
 </LinearLayout>

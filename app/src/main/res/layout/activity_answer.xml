@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout android:orientation="vertical"
+<android.support.design.widget.CoordinatorLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="96dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.CardView>
+
+
+            <include layout="@layout/include_toolbar"/>
         </android.support.design.widget.CollapsingToolbarLayout>
-        <include layout="@layout/include_toolbar"/>
+
     </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v7.widget.RecyclerView>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/answer_fab"
         android:layout_width="wrap_content"
@@ -26,5 +42,4 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@mipmap/ic_add_white"/>
-    <include layout="@layout/content_answer"/>
 </android.support.design.widget.CoordinatorLayout>

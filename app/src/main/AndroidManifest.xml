@@ -29,6 +29,9 @@
         <activity
             android:theme="@style/AppTheme"
             android:name=".view.activity.ActivityFind" />
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".view.activity.ActivityAnswerDetail"/>
     </application>
 
 </manifest>

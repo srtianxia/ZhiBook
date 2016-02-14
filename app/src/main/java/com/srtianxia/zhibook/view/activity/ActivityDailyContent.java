@@ -42,9 +42,10 @@ public class ActivityDailyContent extends BaseActivity implements IActivityDaily
     NestedScrollView nestedView;
     @Bind(R.id.cpb_loading)
     ContentLoadingProgressBar cpbLoading;
+
+
     private String dailyId;
     private ActivityDailyContentPresenter presenter;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class ActivityDailyContent extends BaseActivity implements IActivityDaily
         // 开启 DOM storage API 功能
         wvNews.getSettings().setDomStorageEnabled(true);
 
-        collapsingToolbarLayout.setTitle(getString(R.string.app_name));
+        collapsingToolbarLayout.setTitle(getText(R.string.find_zhihu));
     }
 
     @Override
