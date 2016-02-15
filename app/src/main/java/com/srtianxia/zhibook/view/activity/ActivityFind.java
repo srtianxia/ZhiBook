@@ -58,7 +58,7 @@ public class ActivityFind extends BaseActivity {
     }
 
     public class HomePagerAdapter extends FragmentPagerAdapter {
-        private final String[] titles = {"日报","其他"};
+        private final String[] titles = {"日报","收藏"};
 
         public HomePagerAdapter(FragmentManager fm) {
             super(fm);

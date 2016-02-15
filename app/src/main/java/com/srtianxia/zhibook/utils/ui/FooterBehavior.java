@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.Interpolator;
+import android.widget.FrameLayout;
 
 /**
  * Created by srtianxia on 2016/2/15.
@@ -47,7 +48,8 @@ public class FooterBehavior extends CoordinatorLayout.Behavior<View> {
 
 
     private void hide(final View view) {
-        ViewPropertyAnimator animator = view.animate().translationY(view.getHeight()).setInterpolator(INTERPOLATOR).setDuration(200);
+        CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) view.getLayoutParams();
+        ViewPropertyAnimator animator = view.animate().translationY(view.getHeight()+view.getBottom()).setInterpolator(INTERPOLATOR).setDuration(400);
         animator.setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -74,7 +76,7 @@ public class FooterBehavior extends CoordinatorLayout.Behavior<View> {
 
 
     private void show(final View view) {
-        ViewPropertyAnimator animator = view.animate().translationY(0).setInterpolator(INTERPOLATOR).setDuration(200);
+        ViewPropertyAnimator animator = view.animate().translationY(0).setInterpolator(INTERPOLATOR).setDuration(400);
         animator.setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {

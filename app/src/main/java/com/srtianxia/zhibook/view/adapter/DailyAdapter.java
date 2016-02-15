@@ -48,7 +48,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyViewHolder> {
     @Override
     public DailyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (headView!=null && viewType == TYPE_HEADER) return new DailyViewHolder(headView);
-        View view = inflater.inflate(R.layout.item_zhishu_daily,parent,false);
+        View view = inflater.inflate(R.layout.item_find_daily,parent,false);
         return new DailyViewHolder(view);
     }
 

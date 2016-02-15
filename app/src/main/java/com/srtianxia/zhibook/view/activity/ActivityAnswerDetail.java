@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 /**
  * Created by srtianxia on 2016/2/15.
  */
+
 public class ActivityAnswerDetail extends BaseActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -40,6 +41,14 @@ public class ActivityAnswerDetail extends BaseActivity {
     TextView answerDetailPraiseCount;
     @Bind(R.id.answer_detail_date)
     TextView answerDetailDate;
+    @Bind(R.id.img_bt_answer_flag)
+    ImageView imgBtAnswerFlag;
+    @Bind(R.id.img_bt_answer_favorite)
+    ImageView imgBtAnswerFavorite;
+    @Bind(R.id.img_bt_answer_collect)
+    ImageView imgBtAnswerCollect;
+    @Bind(R.id.img_bt_answer_comment)
+    ImageView imgBtAnswerComment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -15,7 +15,7 @@
         android:paddingRight="3dp"
         android:paddingBottom="5dp"
         android:background="@drawable/item_rv_daily_bg">
-        <TextView
+         <TextView
             android:layout_marginTop="8dp"
             android:id="@+id/tv_question_author"
             android:layout_width="290dp"
@@ -28,8 +28,9 @@
             android:layout_below="@+id/tv_question_author"
             android:text="中国菜到底能有多好吃"
             android:layout_marginTop="6dp"
-            android:textSize="16sp"
-            style="@style/TextAppearance.AppCompat.Body2"/>
+            android:textSize="15sp"
+            android:textStyle="bold"
+            style="@style/TextAppearance.AppCompat.Body1"/>
         <TextView
             android:id="@+id/tv_question_content"
             android:layout_width="290dp"
