@@ -18,7 +18,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.model.bean.zhihu.DailyContent;
-import com.srtianxia.zhibook.presenter.ActivityDailyContentPresenter;
+import com.srtianxia.zhibook.presenter.DailyContentPresenter;
 import com.srtianxia.zhibook.view.IView.IActivityDailyContent;
 
 import butterknife.Bind;
@@ -45,7 +45,7 @@ public class ActivityDailyContent extends BaseActivity implements IActivityDaily
 
 
     private String dailyId;
-    private ActivityDailyContentPresenter presenter;
+    private DailyContentPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class ActivityDailyContent extends BaseActivity implements IActivityDaily
         setContentView(R.layout.activity_daily_content);
         ButterKnife.bind(this);
         initView();
-        presenter = new ActivityDailyContentPresenter(this);
+        presenter = new DailyContentPresenter(this);
         dailyId = getIntent().getStringExtra("id");
         presenter.getDailyContent();
     }

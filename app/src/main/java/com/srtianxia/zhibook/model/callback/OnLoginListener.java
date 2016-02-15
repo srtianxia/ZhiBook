@@ -6,5 +6,5 @@ package com.srtianxia.zhibook.model.callback;
 public interface OnLoginListener {
     void loginSuccess();
 
-    void loginFailure(int i, String s);
+    void loginFailure(String s);
 }

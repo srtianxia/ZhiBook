@@ -5,6 +5,7 @@ import android.util.Log;
 import com.srtianxia.zhibook.model.Imodel.IAccountModel;
 import com.srtianxia.zhibook.model.bean.zhibook.User;
 import com.srtianxia.zhibook.model.callback.OnLoginListener;
+import com.srtianxia.zhibook.utils.cache.SharedPreferenceUtils;
 import com.srtianxia.zhibook.utils.http.RetrofitAPI;
 
 import retrofit2.Retrofit;
@@ -62,12 +63,13 @@ public class AccountModel implements IAccountModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d(TAG,e.getMessage());
+                        onLoginListener.loginFailure(e.getMessage());
                     }
 
                     @Override
                     public void onNext(User user) {
-                        Log.d(TAG,user.getToken());
+                        SharedPreferenceUtils.set(user.getToken());
+                        onLoginListener.loginSuccess();
                     }
                 });
     }

@@ -58,6 +58,7 @@ public class ActivityAnswer extends BaseActivity implements IActivityAnswer {
         ButterKnife.bind(this);
         initView();
         initRv();
+
         presenter = new GetAnswerPresenter(this);
         presenter.getAnswer();
     }

@@ -9,11 +9,11 @@ import com.srtianxia.zhibook.view.IView.IActivityDailyContent;
 /**
  * Created by srtianxia on 2016/2/12.
  */
-public class ActivityDailyContentPresenter {
+public class DailyContentPresenter {
     private IActivityDailyContent iActivityDailyContent;
     private IZhiHuModel iZhiHuModel;
 
-    public ActivityDailyContentPresenter(IActivityDailyContent iActivityDailyContent){
+    public DailyContentPresenter(IActivityDailyContent iActivityDailyContent){
         this.iActivityDailyContent = iActivityDailyContent;
         iZhiHuModel = ZhiHuModel.getInstance();
     }

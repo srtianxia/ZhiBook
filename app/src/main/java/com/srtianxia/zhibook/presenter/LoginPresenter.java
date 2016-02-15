@@ -26,7 +26,7 @@ public class LoginPresenter {
             }
 
             @Override
-            public void loginFailure(int i, String s) {
+            public void loginFailure(String s) {
 
             }
         });

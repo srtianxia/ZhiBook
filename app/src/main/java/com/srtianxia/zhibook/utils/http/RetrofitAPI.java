@@ -1,6 +1,7 @@
 package com.srtianxia.zhibook.utils.http;
 
 import com.srtianxia.zhibook.model.bean.zhibook.AnswerBean;
+import com.srtianxia.zhibook.model.bean.zhibook.CollectBean;
 import com.srtianxia.zhibook.model.bean.zhibook.QuestionBean;
 import com.srtianxia.zhibook.model.bean.zhibook.User;
 import com.srtianxia.zhibook.model.bean.zhihu.DailyBean;
@@ -56,6 +57,10 @@ public interface RetrofitAPI {
         @Field("questionId") String id,
         @Field("content") String content,
         @Field("token") String token);
+
+    @FormUrlEncoded
+    @GET("getCollection.php")
+    Observable<CollectBean> getCollection();
 
     //日报部分
     @GET("news/latest")
