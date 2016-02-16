@@ -9,10 +9,15 @@
         android:layout_height="wrap_content">
         <include layout="@layout/include_toolbar"/>
     </android.support.design.widget.AppBarLayout>
-    <TextView
-        android:id="@+id/tv_display"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/tv_display_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/TextAppearance.AppCompat.Body2"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <TextView
+            android:id="@+id/tv_display"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/TextAppearance.AppCompat.Body2" />
+    </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

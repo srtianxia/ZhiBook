@@ -26,8 +26,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by srtianxia on 2016/2/15.
- *
+ * Created by srtianxia on 2016/2/15
  */
 
 public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswerDetail,View.OnClickListener {
