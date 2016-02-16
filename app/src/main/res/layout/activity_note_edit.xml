@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
         <include layout="@layout/include_toolbar"/>
     </android.support.design.widget.AppBarLayout>
-    <TextView
-        android:id="@+id/tv_display"
+
+    <EditText
+        android:id="@+id/ed_note"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/TextAppearance.AppCompat.Body2"
+        android:gravity="start"
+        android:padding="8dp"
+        android:background="@null"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 </android.support.design.widget.CoordinatorLayout>

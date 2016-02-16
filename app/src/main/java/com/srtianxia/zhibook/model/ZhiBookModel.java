@@ -4,8 +4,9 @@ import android.util.Log;
 
 import com.srtianxia.zhibook.model.Imodel.IZhiBookModel;
 import com.srtianxia.zhibook.model.bean.zhibook.AnswerBean;
-import com.srtianxia.zhibook.model.bean.zhibook.CollectBean;
+import com.srtianxia.zhibook.model.bean.zhibook.CollectFolderBean;
 import com.srtianxia.zhibook.model.bean.zhibook.QuestionBean;
+import com.srtianxia.zhibook.model.callback.OnCollectListener;
 import com.srtianxia.zhibook.model.callback.OnGetAnswerListener;
 import com.srtianxia.zhibook.model.callback.OnGetCollectListener;
 import com.srtianxia.zhibook.model.callback.OnGetQuestionListener;
@@ -16,6 +17,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observer;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -109,11 +111,11 @@ public class ZhiBookModel implements IZhiBookModel {
     }
 
     @Override
-    public void getCollection(final OnGetCollectListener listener) {
-        retrofitAPI.getCollection()
+    public void getCollectionFolder(String token, final OnGetCollectListener listener) {
+        retrofitAPI.getCollection(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<CollectBean>() {
+                .subscribe(new Observer<CollectFolderBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -125,9 +127,45 @@ public class ZhiBookModel implements IZhiBookModel {
                     }
 
                     @Override
-                    public void onNext(CollectBean collectBean) {
-                        listener.success(collectBean);
+                    public void onNext(CollectFolderBean bean) {
+                        Log.d(TAG,bean.getFolders().get(0).getFolder());
+                        listener.success(bean);
                     }
                 });
     }
+
+    @Override
+    public void addCollectionFolder(String token,String folder, OnCollectListener listener) {
+        retrofitAPI.addFolder(token,folder)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG,e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Log.d(TAG,s);
+                    }
+                });
+    }
+
+    @Override
+    public void setCollect(String token, int answerId, OnCollectListener listener) {
+
+    }
+
+    @Override
+    public void cancelCollect(String token, int answerId, OnCollectListener listener) {
+
+    }
+
+
 }

@@ -10,18 +10,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.model.bean.zhibook.Answer;
+import com.srtianxia.zhibook.model.bean.zhibook.CollectFolder;
+import com.srtianxia.zhibook.presenter.AnswerDetailPresenter;
 import com.srtianxia.zhibook.view.IView.IActivityAnswerDetail;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
  * Created by srtianxia on 2016/2/15.
- * 实现到点赞逻辑 尚未完成
+ *
  */
 
 public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswerDetail,View.OnClickListener {
@@ -59,11 +65,14 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
     private Boolean ifCollect =  false;
     private Boolean ifFavorite = false;
     private Boolean ifPraise = false;
+
+    private AnswerDetailPresenter presenter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_detail);
         ButterKnife.bind(this);
+        presenter = new AnswerDetailPresenter(this);
         initData();
         initView();
         setClick();
@@ -96,13 +105,14 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.img_bt_answer_collect:
-                if (ifCollect){
-                    imgBtAnswerCollect.setImageResource(R.mipmap.ic_bookmark_outline_grey600);
-                    ifCollect = false;
-                }else {
-                    imgBtAnswerCollect.setImageResource(R.mipmap.ic_bookmark_grey600);
-                    ifCollect = true;
-                }
+                presenter.getFolder();
+//                if (ifCollect){
+//                    imgBtAnswerCollect.setImageResource(R.mipmap.ic_bookmark_outline_grey600);
+//                    ifCollect = false;
+//                }else {
+//                    imgBtAnswerCollect.setImageResource(R.mipmap.ic_bookmark_grey600);
+//                    ifCollect = true;
+//                }
                 break;
             case R.id.img_bt_answer_comment:
                 break;
@@ -152,5 +162,23 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
     @Override
     public void showPraiseFailure(String s) {
 
+    }
+
+    @Override
+    public void showFolders(List<CollectFolder> folders) {
+        String f[] = new String[folders.size()];
+        for (int i = 0;i<folders.size();i++){
+            f[i] = folders.get(i).getFolder();
+        }
+        new MaterialDialog.Builder(this)
+                .title("选择文件夹")
+                .items(f)
+                .theme(Theme.LIGHT)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+
+                    }
+                }).show();
     }
 }

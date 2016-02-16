@@ -113,6 +113,9 @@ public class ActivityHome extends BaseActivity
 
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.nav_note){
+            Intent intent = new Intent(this,ActivityNote.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

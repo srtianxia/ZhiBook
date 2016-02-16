@@ -1,7 +1,11 @@
 package com.srtianxia.zhibook.presenter;
 
+import android.util.Log;
+
 import com.srtianxia.zhibook.model.Imodel.IZhiBookModel;
 import com.srtianxia.zhibook.model.ZhiBookModel;
+import com.srtianxia.zhibook.model.bean.zhibook.CollectFolderBean;
+import com.srtianxia.zhibook.model.callback.OnGetCollectListener;
 import com.srtianxia.zhibook.model.callback.OnPraiseListener;
 import com.srtianxia.zhibook.view.IView.IActivityAnswerDetail;
 
@@ -32,6 +36,20 @@ public class AnswerDetailPresenter {
             @Override
             public void failure(String s) {
                 iActivityAnswerDetail.showPraiseFailure(s);
+            }
+        });
+    }
+
+    public void getFolder(){
+        iZhiBookModel.getCollectionFolder("20fbfa0105efad5d789427f50c2d112688400478", new OnGetCollectListener() {
+            @Override
+            public void success(CollectFolderBean bean) {
+                iActivityAnswerDetail.showFolders(bean.getFolders());
+            }
+
+            @Override
+            public void failure(String s) {
+
             }
         });
     }

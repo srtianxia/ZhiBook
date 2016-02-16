@@ -9,11 +9,7 @@
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; version 2 of the License.
  */
-package com.srtianxia.zhibook.utils.md;
-
-import java.util.List;
-
-
+package com.srtianxia.zhibook.utils.markdown;
 
 import android.graphics.Color;
 import android.text.Layout;
@@ -27,12 +23,15 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 
+import java.util.List;
+
+
 public class MDFormatter {    
         
     private final SpannableStringBuilder mBuilder = new SpannableStringBuilder();
     
-    public MDFormatter(List<MarkDown.MDLine> lines) {
-        for (MarkDown.MDLine line : lines) {
+    public MDFormatter(List<Markdown.MDLine> lines) {
+        for (Markdown.MDLine line : lines) {
             format(line);
         }        
         mBuilder.setSpan(new TypefaceSpan("monospace"),0,mBuilder.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);          
@@ -42,45 +41,45 @@ public class MDFormatter {
         return mBuilder;
     }
     
-    protected void format(MarkDown.MDLine line) {
+    protected void format(Markdown.MDLine line) {
         int start = mBuilder.length();
-        for (MarkDown.MDWord word : line.mMDWords) {
+        for (Markdown.MDWord word : line.mMDWords) {
             int index = mBuilder.length();
             mBuilder.append(word.mRawContent);
             mBuilder.setSpan(getSpan(word.mFormat), index, mBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);                
         }
         mBuilder.append("\n");
-        if (line.mFormat==MarkDown.MD_FMT_ORDER_LIST ||
-            line.mFormat==MarkDown.MD_FMT_UNORDER_LIST ||
-            line.mFormat==MarkDown.MD_FMT_QUOTE ) {
+        if (line.mFormat==Markdown.MD_FMT_ORDER_LIST ||
+            line.mFormat==Markdown.MD_FMT_UNORDER_LIST ||
+            line.mFormat==Markdown.MD_FMT_QUOTE ) {            
             mBuilder.setSpan(new LeadingMarginSpan.Standard(40), start, mBuilder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         }
-        if (line.mFormat != MarkDown.MD_FMT_TEXT) {
+        if (line.mFormat != Markdown.MD_FMT_TEXT) {
             mBuilder.setSpan(getSpan(line.mFormat), start, mBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);                         
         }     
     }
     
     protected static Object getSpan(int format) {
         switch(format) {
-        case MarkDown.MD_FMT_TEXT:
+        case Markdown.MD_FMT_TEXT:
              return new RelativeSizeSpan(1.1f);
-        case MarkDown.MD_FMT_HEADER1:
+        case Markdown.MD_FMT_HEADER1:
              return new RelativeSizeSpan(1.5f);
-        case MarkDown.MD_FMT_HEADER2:
+        case Markdown.MD_FMT_HEADER2:
              return new RelativeSizeSpan(1.4f);
-        case MarkDown.MD_FMT_HEADER3:
+        case Markdown.MD_FMT_HEADER3:
              return new RelativeSizeSpan(1.3f);
-        case MarkDown.MD_FMT_QUOTE:
+        case Markdown.MD_FMT_QUOTE:
              return new QuoteSpan(Color.GRAY);
-        case MarkDown.MD_FMT_ITALIC:
+        case Markdown.MD_FMT_ITALIC:
              return new StyleSpan(android.graphics.Typeface.ITALIC);
-        case MarkDown.MD_FMT_BOLD:
+        case Markdown.MD_FMT_BOLD:
              return new StyleSpan(android.graphics.Typeface.BOLD);
-        case MarkDown.MD_FMT_CENTER:
+        case Markdown.MD_FMT_CENTER:
              return new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER);
-        case MarkDown.MD_FMT_UNORDER_LIST:
+        case Markdown.MD_FMT_UNORDER_LIST:
              return new BulletSpan(10,Color.BLACK);
-        case MarkDown.MD_FMT_ORDER_LIST:
+        case Markdown.MD_FMT_ORDER_LIST:
              return new BulletSpan(10,Color.TRANSPARENT);
         default:
              break;

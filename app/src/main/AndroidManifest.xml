@@ -32,6 +32,12 @@
         <activity
             android:theme="@style/AppTheme"
             android:name=".view.activity.ActivityAnswerDetail"/>
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".view.activity.ActivityNote"/>
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".view.activity.ActivityNoteEdit"/>
     </application>
 
 </manifest>

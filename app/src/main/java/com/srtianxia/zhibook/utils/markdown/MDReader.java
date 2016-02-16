@@ -9,18 +9,18 @@
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; version 2 of the License.
  */
-package com.srtianxia.zhibook.utils.md;
-
+package com.srtianxia.zhibook.utils.markdown;
 
 import android.text.SpannableStringBuilder;
 import android.util.Log;
 
-import com.srtianxia.zhibook.utils.md.parser.BoldParser;
-import com.srtianxia.zhibook.utils.md.parser.CenterParser;
-import com.srtianxia.zhibook.utils.md.parser.HeaderParser;
-import com.srtianxia.zhibook.utils.md.parser.OrderListParser;
-import com.srtianxia.zhibook.utils.md.parser.QuoteParser;
-import com.srtianxia.zhibook.utils.md.parser.UnOrderListParser;
+
+import com.srtianxia.zhibook.utils.markdown.parser.BoldParser;
+import com.srtianxia.zhibook.utils.markdown.parser.CenterParser;
+import com.srtianxia.zhibook.utils.markdown.parser.HeaderParser;
+import com.srtianxia.zhibook.utils.markdown.parser.OrderListParser;
+import com.srtianxia.zhibook.utils.markdown.parser.QuoteParser;
+import com.srtianxia.zhibook.utils.markdown.parser.UnOrderListParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +28,8 @@ import java.util.List;
 public class MDReader {
         
     private final String mContent;
-    private List<MarkDown.MDLine> mMDLines = new ArrayList<MarkDown.MDLine>();
-    private static List<MarkDown.MDParser> mMDParsers = new ArrayList<MarkDown.MDParser>();
+    private List<Markdown.MDLine> mMDLines = new ArrayList<Markdown.MDLine>();
+    private static List<Markdown.MDParser> mMDParsers = new ArrayList<Markdown.MDParser>();
     
     static {
         mMDParsers.add(new HeaderParser());
@@ -65,7 +65,7 @@ public class MDReader {
     
     public String getRawContent() {
         StringBuilder builder = new StringBuilder();
-        for (MarkDown.MDLine line : mMDLines) {
+        for (Markdown.MDLine line : mMDLines) {
             builder.append(line.getRawContent());
             builder.append("\n");
         }
@@ -76,9 +76,9 @@ public class MDReader {
         return new MDFormatter(mMDLines).getFormattedContent();
     }
     
-    private MarkDown.MDLine parseLine(String lineContent) {
+    private Markdown.MDLine parseLine(String lineContent) {
         
-        MarkDown.MDLine mdline = new MarkDown.MDLine(lineContent);
+        Markdown.MDLine mdline = new Markdown.MDLine(lineContent);
         if ("".equals(lineContent)) {
             return mdline;
         }
@@ -86,9 +86,9 @@ public class MDReader {
         String pContent = lineContent;
         
         //Parse the start format        
-        for (MarkDown.MDParser parser : mMDParsers) {
-            MarkDown.MDWord word = parser.parseLineFmt(pContent);
-            if (word.mFormat != MarkDown.MD_FMT_TEXT) {
+        for (Markdown.MDParser parser : mMDParsers) {
+            Markdown.MDWord word = parser.parseLineFmt(pContent);
+            if (word.mFormat != Markdown.MD_FMT_TEXT) {
                 mdline.mFormat = word.mFormat;
                 pContent = lineContent.substring(word.mLength);
                 break;
@@ -100,14 +100,14 @@ public class MDReader {
         while(pContent.length() != 0) {
             boolean isFmtFound = false;
             //Check format start with pContent
-            for (MarkDown.MDParser parser : mMDParsers) {
-                MarkDown.MDWord word = parser.parseWordFmt(pContent);
+            for (Markdown.MDParser parser : mMDParsers) {
+                Markdown.MDWord word = parser.parseWordFmt(pContent);
                 if (word.mLength > 0) {
                     isFmtFound = true;
                     //Add no format string first 
                     int noFmtContentLen = mNoFmtContent.length(); 
                     if (noFmtContentLen!=0) {                
-                        mdline.mMDWords.add(new MarkDown.MDWord(mNoFmtContent.toString(),noFmtContentLen,MarkDown.MD_FMT_TEXT));
+                        mdline.mMDWords.add(new Markdown.MDWord(mNoFmtContent.toString(),noFmtContentLen,Markdown.MD_FMT_TEXT));
                         mNoFmtContent = new StringBuilder();
                     }                            
                     mdline.mMDWords.add(word);
@@ -120,7 +120,7 @@ public class MDReader {
                 mNoFmtContent.append(pContent.charAt(0));
                 pContent = pContent.substring(1);
                 if (pContent.length()==0) {
-                    mdline.mMDWords.add(new MarkDown.MDWord(mNoFmtContent.toString(),mNoFmtContent.length(),MarkDown.MD_FMT_TEXT));
+                    mdline.mMDWords.add(new Markdown.MDWord(mNoFmtContent.toString(),mNoFmtContent.length(),Markdown.MD_FMT_TEXT));
                     break;
                 }
             }
@@ -131,9 +131,9 @@ public class MDReader {
     protected void display() {
         StringBuilder builder = new StringBuilder();
         builder.append("Markdown Parse: \n" + mContent + "\n\n");
-        for (MarkDown.MDLine line : mMDLines) {
+        for (Markdown.MDLine line : mMDLines) {
             builder.append("Line format: " + line.mFormat + "\n");
-            for (MarkDown.MDWord word : line.mMDWords) {
+            for (Markdown.MDWord word : line.mMDWords) {
                 builder.append("Word: "+word.mRawContent+", "+word.mFormat+"\n");
             }
         }        
