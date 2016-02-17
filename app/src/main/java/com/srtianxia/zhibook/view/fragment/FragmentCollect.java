@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +14,10 @@ import android.view.ViewGroup;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.srtianxia.zhibook.R;
+import com.srtianxia.zhibook.model.bean.zhibook.CollectFolderBean;
 import com.srtianxia.zhibook.presenter.CollectPresenter;
 import com.srtianxia.zhibook.view.IView.IFragmentCollect;
+import com.srtianxia.zhibook.view.adapter.CollectAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,14 +31,24 @@ public class FragmentCollect extends Fragment implements IFragmentCollect,View.O
     private View view;
     private CollectPresenter presenter;
 
+    private CollectAdapter adapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_collect, container, false);
         presenter = new CollectPresenter(this);
         ButterKnife.bind(this, view);
+        initView();
         getActivity().findViewById(R.id.find_fab).setOnClickListener(this);
+        presenter.getCollectionFolder();
         return view;
+    }
+
+    private void initView() {
+        adapter = new CollectAdapter(getActivity());
+        rvQuestionCollect.setAdapter(adapter);
+        rvQuestionCollect.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
     }
 
     @Override
@@ -46,7 +58,7 @@ public class FragmentCollect extends Fragment implements IFragmentCollect,View.O
     }
 
     @Override
-    public void showCollection() {
+    public void showCollection(CollectFolderBean bean) {
 
     }
 

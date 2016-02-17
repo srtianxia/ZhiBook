@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class ActivityPhoneDisplay extends BaseActivity {
         setContentView(R.layout.activity_phone_display);
         ButterKnife.bind(this);
         initView();
+        checkStorageDir();
         String data = getIntent().getStringExtra("content");
         mdReader = new MDReader(data);
         tvDisplay.setTextKeepState(mdReader.getFormattedContent(), TextView.BufferType.SPANNABLE);
@@ -72,6 +74,15 @@ public class ActivityPhoneDisplay extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void checkStorageDir() {
+        if (FileUtils.isSDCardMounted()) {
+            File directory = new File(DEFAULT_DIR);
+            if ( !directory.exists() ) {
+                directory.mkdir();
+            }
+        }
     }
 
     public boolean checkSaveEnv() {
@@ -117,6 +128,14 @@ public class ActivityPhoneDisplay extends BaseActivity {
         Bitmap bitmap = Bitmap.createBitmap(width,height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         v.draw(canvas);
+        return bitmap;
+    }
+
+    public static Bitmap createBitmap(View v) {
+        v.setDrawingCacheEnabled(true);
+        v.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(v.getDrawingCache());
+        v.setDrawingCacheEnabled(false);
         return bitmap;
     }
 }

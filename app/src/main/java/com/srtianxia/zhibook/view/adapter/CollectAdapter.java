@@ -21,6 +21,13 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectHolder> {
     private LayoutInflater inflater;
     private OnItemClickListener onItemClickListener;
 
+
+
+    public void setData(List<Collect> items) {
+        this.items = items;
+        notifyDataSetChanged();
+    }
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }

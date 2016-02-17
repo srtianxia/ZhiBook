@@ -15,7 +15,8 @@ public class API {
     public static String getQuestion = "http://115.28.64.168/zhishu/getQuestion.php";
     public static String setAnswer = "http://115.28.64.168/zhishu/setAnswer.php";
     public static String getAnswer = "http://115.28.64.168/zhishu/getAnswer.php";
-
+    public static String getCollectFolder = "http://115.28.64.168/zhishu/getCollectFolder.php";
+    public static String addCollectFolder = "http://115.28.64.168/zhishu/addCollectFolder.php";
     public static String updatePersonInfo = "http://115.28.64.168/zhishu/updatePersonInfo.php";
     public static String addPraise = "http://115.28.64.168/zhishu/addPraise.php";
 

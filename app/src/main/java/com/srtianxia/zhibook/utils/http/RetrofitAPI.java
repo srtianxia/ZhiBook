@@ -2,6 +2,8 @@ package com.srtianxia.zhibook.utils.http;
 
 import com.srtianxia.zhibook.model.bean.zhibook.AnswerBean;
 import com.srtianxia.zhibook.model.bean.zhibook.CollectFolderBean;
+import com.srtianxia.zhibook.model.bean.zhibook.Essay;
+import com.srtianxia.zhibook.model.bean.zhibook.EssayBean;
 import com.srtianxia.zhibook.model.bean.zhibook.QuestionBean;
 import com.srtianxia.zhibook.model.bean.zhibook.User;
 import com.srtianxia.zhibook.model.bean.zhihu.DailyBean;
@@ -68,6 +70,14 @@ public interface RetrofitAPI {
     Observable<String> addFolder(
             @Field("token") String token,
             @Field("folder") String folder);
+
+    @FormUrlEncoded
+    @POST("setEssay.php")
+    Observable<EssayBean> setEssay(
+            @Field("title") String title,
+            @Field("content") String content,
+            @Field("authorId") String authorId,
+            @Field("isPrivate") String isPrivate);
 
     //日报部分
     @GET("news/latest")

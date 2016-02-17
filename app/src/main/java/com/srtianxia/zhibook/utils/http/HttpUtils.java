@@ -35,7 +35,6 @@ public class HttpUtils {
                 conn.setConnectTimeout(10000);
                 conn.setDoOutput(true);
 
-                // post请求的参数
                 String data = post;
 
                 OutputStream out = conn.getOutputStream();

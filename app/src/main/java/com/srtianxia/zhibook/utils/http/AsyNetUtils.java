@@ -1,7 +1,6 @@
 package com.srtianxia.zhibook.utils.http;
 
 import android.os.Handler;
-import android.util.Log;
 
 import com.srtianxia.zhibook.utils.http.callback.NetUtilsCallback;
 

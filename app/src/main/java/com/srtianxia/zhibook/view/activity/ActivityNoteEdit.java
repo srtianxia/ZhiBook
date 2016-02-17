@@ -12,6 +12,7 @@ import android.widget.EditText;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.utils.markdown.MDWriter;
+import com.srtianxia.zhibook.view.IView.IActivityNoteEdit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,7 +20,7 @@ import butterknife.ButterKnife;
 /**
  * Created by srtianxia on 2016/2/17.
  */
-public class ActivityNoteEdit extends BaseActivity implements View.OnClickListener {
+public class ActivityNoteEdit extends BaseActivity implements View.OnClickListener,IActivityNoteEdit {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.ed_note)

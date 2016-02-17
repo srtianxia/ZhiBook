@@ -20,11 +20,11 @@ public class CollectPresenter {
         iZhiBookModel = ZhiBookModel.getInstance();
     }
 
-    public void getCollectionFolder(String folder){
+    public void getCollectionFolder(){
         iZhiBookModel.getCollectionFolder("20fbfa0105efad5d789427f50c2d112688400478", new OnGetCollectListener() {
             @Override
             public void success(CollectFolderBean bean) {
-
+                iFragmentCollect.showCollection(bean);
             }
 
             @Override
