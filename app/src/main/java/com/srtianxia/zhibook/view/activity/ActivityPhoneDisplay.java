@@ -57,6 +57,13 @@ public class ActivityPhoneDisplay extends BaseActivity {
     private void initView() {
         toolbar.setTitle(getString(R.string.toolbar_display));
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override

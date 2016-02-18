@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -46,9 +45,9 @@ public class FragmentCollect extends Fragment implements IFragmentCollect,View.O
     }
 
     private void initView() {
-        adapter = new CollectAdapter(getActivity());
-        rvQuestionCollect.setAdapter(adapter);
-        rvQuestionCollect.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+//        adapter = new CollectAdapter(getActivity());
+//        rvQuestionCollect.setAdapter(adapter);
+//        rvQuestionCollect.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
     }
 
     @Override

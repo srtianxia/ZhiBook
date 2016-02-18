@@ -63,6 +63,13 @@ public class ActivityFind extends BaseActivity {
         tabLayoutAppbar.setTabsFromPagerAdapter(pagerAdapter);
         toolbar.setTitle(getResources().getString(R.string.tab_find));
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         vpFind.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

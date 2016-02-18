@@ -61,7 +61,13 @@ public class ActivityDailyContent extends BaseActivity implements IActivityDaily
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initView() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         nestedView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         nestedView.setElevation(0);
         wvNews.getSettings().setJavaScriptEnabled(true);

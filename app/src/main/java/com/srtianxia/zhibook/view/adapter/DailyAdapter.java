@@ -17,14 +17,18 @@ import java.util.List;
  * 添加 headView 的 RecyclerView adapter
  */
 public class DailyAdapter extends RecyclerView.Adapter<DailyViewHolder> {
-    public static final int TYPE_HEADER = 0;
-    public static final int TYPE_NORMAL = 1;
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_NORMAL = 1;
+    private static final int TYPE_FOOTER = 2;
 
     private Context context;
     private LayoutInflater inflater;
     private View headView;
+    private View footView;
     private List<Story> items;
     private OnItemClickListener onItemClickListener;
+
+
 
     public DailyAdapter(Context context){
         this.context = context;
@@ -45,16 +49,22 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyViewHolder> {
         this.headView = headView;
     }
 
+    public void setFootView(View footView) {
+        this.footView = footView;
+    }
+
     @Override
     public DailyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (headView!=null && viewType == TYPE_HEADER) return new DailyViewHolder(headView);
-        View view = inflater.inflate(R.layout.item_find_daily,parent,false);
+        if (footView!=null && viewType == TYPE_FOOTER) return new DailyViewHolder(footView);
+         View view = inflater.inflate(R.layout.item_find_daily,parent,false);
         return new DailyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final DailyViewHolder holder, final int position) {
         if(getItemViewType(position) == TYPE_HEADER) return;
+        if (getItemViewType(position) == TYPE_FOOTER) return;
         final int pos = getRealPosition(holder);
         holder.bindData(items.get(pos),pos);
         if (onItemClickListener!=null){
