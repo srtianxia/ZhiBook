@@ -18,6 +18,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.view.fragment.FragmentQuestion;
+import com.srtianxia.zhibook.view.fragment.FragmentTest;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,8 +44,9 @@ public class ActivityHome extends BaseActivity
         setSupportActionBar(toolbar);
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
-        FragmentQuestion fragmentQuestion = new FragmentQuestion();
-        transaction.replace(R.id.fragment_container, fragmentQuestion);
+//        FragmentQuestion fragmentQuestion = new FragmentQuestion();
+        FragmentTest fragmentTest = new FragmentTest();
+        transaction.replace(R.id.fragment_container, fragmentTest);
         transaction.commit();
         SimpleDraweeView draweeView = (SimpleDraweeView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
         draweeView.setImageURI(Uri.parse("http://www.91danji.com/attachments/201509/27/13/4cevsjye7.jpg"));

@@ -63,7 +63,8 @@ public class ZhiHuModel implements IZhiHuModel{
                             .removeHeader("Pragma")// 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
                             .build();
                 } else {
-                    int maxStale = 60 * 60 * 24 * 28; // 无网络时，设置超时为4周
+                    // 无网络时，设置超时为4周
+                    int maxStale = 60 * 60 * 24 * 28;
                     response.newBuilder()
                             .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
                             .removeHeader("Pragma")
