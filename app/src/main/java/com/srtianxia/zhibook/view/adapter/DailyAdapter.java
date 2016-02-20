@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by srtianxia on 2016/1/23.
  * 添加 headView和上拉加载更多的RecyclerView adapter
- * 2/20 1.46 未完成
+ * 2/20 16:51
  */
 public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 0;

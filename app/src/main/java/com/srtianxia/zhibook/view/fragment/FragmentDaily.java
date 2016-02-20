@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -69,6 +70,7 @@ public class FragmentDaily extends Fragment implements IFragmentDaily {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+
     }
 
     @Override
@@ -83,6 +85,7 @@ public class FragmentDaily extends Fragment implements IFragmentDaily {
             public void onClick(View view, int position) {
                 Intent intent = new Intent(getActivity(), ActivityDailyContent.class);
                 intent.putExtra("id",String.valueOf(bean.getStories().get(position).getId()));
+                intent.addFlags(IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
 

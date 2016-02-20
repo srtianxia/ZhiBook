@@ -18,7 +18,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.view.fragment.FragmentQuestion;
-import com.srtianxia.zhibook.view.fragment.FragmentTest;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -111,11 +110,7 @@ public class ActivityHome extends BaseActivity
         } else if (id == R.id.nav_find) {
             Intent intent = new Intent(this,ActivityFind.class);
             startActivity(intent);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        } else if (id == R.id.nav_note){
+        }  else if (id == R.id.nav_note){
             Intent intent = new Intent(this,ActivityNote.class);
             startActivity(intent);
         }

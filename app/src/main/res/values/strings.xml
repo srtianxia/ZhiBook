@@ -20,6 +20,8 @@
     <string name="tab_find">发现</string>
     <string name="tab_note">笔记</string>
 
+    <string name="tab_theme">切换主题</string>
+
     <string name="find_zhihu">知乎日报</string>
 
 </resources>
