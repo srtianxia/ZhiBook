@@ -33,4 +33,8 @@ public class GetAnswerPresenter {
             }
         });
     }
+
+    public void onRelieveView() {
+        if (iActivityAnswer != null) iActivityAnswer = null;
+    }
 }

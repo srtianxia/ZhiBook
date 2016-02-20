@@ -43,4 +43,8 @@ public class CollectPresenter {
             }
         });
     }
+
+    public void onRelieveView() {
+        if (iFragmentCollect != null) iFragmentCollect = null;
+    }
 }

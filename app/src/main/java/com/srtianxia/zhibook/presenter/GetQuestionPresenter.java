@@ -33,4 +33,8 @@ public class GetQuestionPresenter {
             }
         });
     }
+
+    public void onRelieveView() {
+        if (iFragmentQuestion != null) iFragmentQuestion = null;
+    }
 }

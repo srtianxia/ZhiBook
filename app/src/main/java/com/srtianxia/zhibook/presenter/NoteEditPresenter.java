@@ -22,7 +22,7 @@ public class NoteEditPresenter {
         return iActivityNoteEdit;
     }
 
-//    public void saveNote(){
-//        iZhiBookModel.addNote();
-//    }
+    public void onRelieveView() {
+        if (iActivityNoteEdit != null) iActivityNoteEdit = null;
+    }
 }

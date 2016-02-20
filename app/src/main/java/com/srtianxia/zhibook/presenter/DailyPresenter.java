@@ -45,4 +45,8 @@ public class DailyPresenter {
             }
         });
     }
+
+    public void onRelieveView() {
+        if (iFragmentDaily != null) iFragmentDaily = null;
+    }
 }

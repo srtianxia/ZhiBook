@@ -53,4 +53,8 @@ public class AnswerDetailPresenter {
             }
         });
     }
+
+    public void onRelieveView() {
+        if (iActivityAnswerDetail != null) iActivityAnswerDetail = null;
+    }
 }

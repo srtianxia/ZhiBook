@@ -31,4 +31,8 @@ public class DailyContentPresenter {
             }
         });
     }
+
+    public void onRelieveView() {
+        if (iActivityDailyContent != null) iActivityDailyContent = null;
+    }
 }

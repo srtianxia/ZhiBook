@@ -31,4 +31,8 @@ public class LoginPresenter {
             }
         });
     }
+
+    public void onRelieveView() {
+        if (iActivityLogin != null) iActivityLogin = null;
+    }
 }
