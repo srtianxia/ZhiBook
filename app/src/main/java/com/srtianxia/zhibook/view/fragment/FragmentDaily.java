@@ -6,24 +6,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.srtianxia.zhibook.R;
-import com.srtianxia.zhibook.model.bean.zhihu.BannerData;
 import com.srtianxia.zhibook.model.bean.zhihu.DailyBean;
 import com.srtianxia.zhibook.presenter.DailyPresenter;
-import com.srtianxia.zhibook.utils.ui.DividerItemDecoration;
 import com.srtianxia.zhibook.utils.ui.Banner;
+import com.srtianxia.zhibook.utils.ui.DividerItemDecoration;
 import com.srtianxia.zhibook.view.IView.IFragmentDaily;
 import com.srtianxia.zhibook.view.activity.ActivityDailyContent;
 import com.srtianxia.zhibook.view.adapter.DailyAdapter;
 import com.srtianxia.zhibook.view.adapter.OnItemClickListener;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.srtianxia.zhibook.view.adapter.RefreshFootAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,6 +35,10 @@ public class FragmentDaily extends Fragment implements IFragmentDaily {
 
     private DailyAdapter adapter;
     private LayoutInflater inflater;
+    private LinearLayoutManager manager;
+    private int lastVisibleItem;
+    //最新日报的日期
+    private Integer initDate;
 
     @Nullable
     @Override
@@ -73,10 +73,11 @@ public class FragmentDaily extends Fragment implements IFragmentDaily {
 
     @Override
     public void showDaily(final DailyBean bean) {
-//        Log.d(TAG,bean.getTopStories().get(0).getImage());
+        initDate = Integer.valueOf(bean.getDate());
         adapter = new DailyAdapter(getActivity(),bean.getStories());
         rvDaily.setAdapter(adapter);
-        rvDaily.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        manager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        rvDaily.setLayoutManager(manager);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -90,10 +91,37 @@ public class FragmentDaily extends Fragment implements IFragmentDaily {
 
             }
         });
+        rvDaily.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adapter.getItemCount()) {
+                    adapter.changeFootStatus(RefreshFootAdapter.LOADING_MORE);
+                    presenter.loadMore(String.valueOf(-- initDate));
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = manager.findLastVisibleItemPosition();
+            }
+        });
         rvDaily.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL_LIST));
         View v = inflater.inflate(R.layout.header_banner,rvDaily,false);
         Banner banner = (Banner) v.findViewById(R.id.rv_header);
         banner.setTopEntities(bean.getTopStories());
         adapter.setHeadView(v);
+    }
+
+    @Override
+    public void showLoadMoreSuccess(DailyBean bean) {
+        adapter.addItems(bean.getStories());
+        adapter.changeFootStatus(DailyAdapter.PULL_TO_MORE);
+    }
+
+    @Override
+    public void showLoadMoreNoMore() {
+        adapter.changeFootStatus(DailyAdapter.LOAD_NO_MORE);
     }
 }

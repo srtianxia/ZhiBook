@@ -16,7 +16,8 @@
         android:layout_height="50dp"
         fresco:roundAsCircle="true"
         fresco:roundingBorderColor="@color/colorWhite"
-        fresco:roundingBorderWidth="1dp"/>
+        fresco:roundingBorderWidth="1dp"
+        fresco:placeholderImage="@drawable/ic_placeholder"/>
 
     <TextView
         android:id="@+id/tv_daily_title"

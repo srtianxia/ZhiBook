@@ -44,9 +44,9 @@ public class ActivityHome extends BaseActivity
         setSupportActionBar(toolbar);
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
-//        FragmentQuestion fragmentQuestion = new FragmentQuestion();
-        FragmentTest fragmentTest = new FragmentTest();
-        transaction.replace(R.id.fragment_container, fragmentTest);
+        FragmentQuestion fragmentQuestion = new FragmentQuestion();
+//        FragmentTest fragmentTest = new FragmentTest();
+        transaction.replace(R.id.fragment_container, fragmentQuestion);
         transaction.commit();
         SimpleDraweeView draweeView = (SimpleDraweeView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
         draweeView.setImageURI(Uri.parse("http://www.91danji.com/attachments/201509/27/13/4cevsjye7.jpg"));

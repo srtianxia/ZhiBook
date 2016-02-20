@@ -2,7 +2,6 @@ package com.srtianxia.zhibook.utils.http;
 
 import com.srtianxia.zhibook.model.bean.zhibook.AnswerBean;
 import com.srtianxia.zhibook.model.bean.zhibook.CollectFolderBean;
-import com.srtianxia.zhibook.model.bean.zhibook.Essay;
 import com.srtianxia.zhibook.model.bean.zhibook.EssayBean;
 import com.srtianxia.zhibook.model.bean.zhibook.QuestionBean;
 import com.srtianxia.zhibook.model.bean.zhibook.User;
@@ -85,4 +84,7 @@ public interface RetrofitAPI {
 
     @GET("news/{id}")
     Observable<DailyContent> getDailyContent(@Path("id") String id);
+
+    @GET("news/before/{data}")
+    Observable<DailyBean> getBefore(@Path("data") String data);
 }

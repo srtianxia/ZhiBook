@@ -7,4 +7,7 @@ import com.srtianxia.zhibook.model.bean.zhihu.DailyBean;
  */
 public interface IFragmentDaily {
     void showDaily(DailyBean bean);
+
+    void showLoadMoreSuccess(DailyBean bean);
+    void showLoadMoreNoMore();
 }

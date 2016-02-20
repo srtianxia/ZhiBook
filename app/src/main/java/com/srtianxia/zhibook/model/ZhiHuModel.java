@@ -131,4 +131,26 @@ public class ZhiHuModel implements IZhiHuModel{
                     }
                 });
     }
+
+    @Override
+    public void loadMore(String data, final OnGetDailyListener listener) {
+        retrofitAPI.getBefore(data).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<DailyBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.LoadNoMore();
+                    }
+
+                    @Override
+                    public void onNext(DailyBean bean) {
+                        listener.onGetDailySuccess(bean);
+                    }
+                });
+    }
 }

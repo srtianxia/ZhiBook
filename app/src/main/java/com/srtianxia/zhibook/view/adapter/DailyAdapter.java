@@ -32,6 +32,7 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public static final int PULL_TO_MORE = 0;
     public static final int LOADING_MORE = 1;
+    public static final int LOAD_NO_MORE = 2;
 
     private int load_status = 0;
 
@@ -74,7 +75,7 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        if(getItemViewType(position) == TYPE_HEADER) return;
+        if (getItemViewType(position) == TYPE_HEADER) return;
         final int pos = getRealPosition(holder);
         if (holder instanceof DailyViewHolder) {
             final DailyViewHolder viewHolder = (DailyViewHolder) holder;
@@ -95,8 +96,21 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     }
                 });
             }
-        }else if (holder instanceof FootViewHolder){
-
+        } else if (holder instanceof FootViewHolder) {
+            FootViewHolder footViewHolder = (FootViewHolder) holder;
+            switch (load_status) {
+                case PULL_TO_MORE:
+                    footViewHolder.tv_foot_status.setText("上拉加载更多...");
+                    footViewHolder.pb_foot_status.setVisibility(View.GONE);
+                    break;
+                case LOADING_MORE:
+                    footViewHolder.tv_foot_status.setText("正在加载更多数据...");
+                    footViewHolder.pb_foot_status.setVisibility(View.VISIBLE);
+                    break;
+                case LOAD_NO_MORE:
+                    footViewHolder.tv_foot_status.setText("无更多数据...");
+                    footViewHolder.pb_foot_status.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -107,15 +121,33 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemViewType(int position) {
-        if(headView == null) return TYPE_NORMAL;
-        if (position == 0) {
+        if (headView == null) {
+            if (position + 1 == getItemCount()) {
+                return TYPE_FOOTER;
+            } else {
+                return TYPE_NORMAL;
+            }
+        }
+        if (position==0){
             return TYPE_HEADER;
-        } else return TYPE_NORMAL;
+        }else {
+            if (position + 1 == getItemCount()) {
+                return TYPE_FOOTER;
+            } else {
+                return TYPE_NORMAL;
+            }
+        }
     }
+
 
     public int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
         return headView == null ? position : position - 1;
+    }
+
+    public void changeFootStatus(int status){
+        load_status=status;
+        notifyDataSetChanged();
     }
 
     public class FootViewHolder extends RecyclerView.ViewHolder {
@@ -123,7 +155,8 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private ProgressBar pb_foot_status;
         public FootViewHolder(View itemView) {
             super(itemView);
-
+            pb_foot_status = (ProgressBar) itemView.findViewById(R.id.pb_item_daily_foot);
+            tv_foot_status = (TextView) itemView.findViewById(R.id.tv_item_daily_foot);
         }
     }
 }

@@ -24,6 +24,25 @@ public class DailyPresenter {
             public void onGetDailySuccess(DailyBean bean) {
                 iFragmentDaily.showDaily(bean);
             }
+
+            @Override
+            public void LoadNoMore() {
+
+            }
+        });
+    }
+
+    public void loadMore(String data){
+        iZhiHuModel.loadMore(data, new OnGetDailyListener() {
+            @Override
+            public void onGetDailySuccess(DailyBean bean) {
+                iFragmentDaily.showLoadMoreSuccess(bean);
+            }
+
+            @Override
+            public void LoadNoMore() {
+                iFragmentDaily.showLoadMoreNoMore();
+            }
         });
     }
 }

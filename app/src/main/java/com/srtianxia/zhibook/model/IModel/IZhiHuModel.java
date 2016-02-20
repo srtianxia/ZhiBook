@@ -9,4 +9,6 @@ import com.srtianxia.zhibook.model.callback.OnGetDailyListener;
 public interface IZhiHuModel {
     void getDaily(OnGetDailyListener listener);
     void getDailyContent(String id,OnGetDailyContentListener listener);
+
+    void loadMore(String data,OnGetDailyListener listener);
 }

@@ -7,4 +7,6 @@ import com.srtianxia.zhibook.model.bean.zhihu.DailyBean;
  */
 public interface OnGetDailyListener {
     void onGetDailySuccess(DailyBean bean);
+
+    void LoadNoMore();
 }
