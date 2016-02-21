@@ -3,6 +3,7 @@ package com.srtianxia.zhibook.model.Imodel;
 import com.srtianxia.zhibook.model.callback.OnCollectListener;
 import com.srtianxia.zhibook.model.callback.OnGetAnswerListener;
 import com.srtianxia.zhibook.model.callback.OnGetCollectListener;
+import com.srtianxia.zhibook.model.callback.OnGetNoteListener;
 import com.srtianxia.zhibook.model.callback.OnGetQuestionListener;
 import com.srtianxia.zhibook.model.callback.OnPraiseListener;
 import com.srtianxia.zhibook.model.callback.OnSaveListener;
@@ -27,4 +28,8 @@ public interface IZhiBookModel {
 
     void addNote(String token, String title, String content,
                  String authorId, String isPrivate, OnSaveListener listener);
+    //数据库操作
+    void saveNoteToDB(String content,Integer authorId,OnSaveListener listener);
+
+    void getNoteList(Integer authorId,OnGetNoteListener listener);
 }

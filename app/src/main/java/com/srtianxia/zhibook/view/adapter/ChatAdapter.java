@@ -50,13 +50,13 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (holder instanceof RightHolder) {
             RightHolder rightHolder = (RightHolder) holder;
             if (items != null) {
-                rightHolder.tvChatContent.setText(items.get(position).getContent());
+                rightHolder.tvChatContent.setText(items.get(position).getText());
                 rightHolder.imgChatHead.setImageURI(Uri.parse(items.get(position).getHeadUrl()));
             }
         }else if (holder instanceof LeftHolder){
             LeftHolder leftHolder = (LeftHolder) holder;
             if (items!=null){
-                leftHolder.tvChatContent.setText(items.get(position).getContent());
+                leftHolder.tvChatContent.setText(items.get(position).getText());
             }
         }
     }

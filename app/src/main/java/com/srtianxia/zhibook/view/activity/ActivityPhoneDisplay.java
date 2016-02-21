@@ -76,7 +76,6 @@ public class ActivityPhoneDisplay extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_save:
-                Log.d("123","213");
                 saveAsBitmap();
                 break;
         }

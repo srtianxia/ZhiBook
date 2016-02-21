@@ -66,8 +66,14 @@ public class ActivityAnswer extends BaseActivity implements IActivityAnswer {
     private void initView() {
 //        toolbar.setTitle(questionTitle);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         collapsingToolbarLayout.setTitle(questionContent);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initRv() {

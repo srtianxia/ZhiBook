@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -64,6 +65,7 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
     private Boolean ifCollect =  false;
     private Boolean ifFavorite = false;
     private Boolean ifPraise = false;
+    private Integer answerId;
 
     private AnswerDetailPresenter presenter;
     @Override
@@ -82,11 +84,19 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
         imgBtAnswerComment.setOnClickListener(this);
         imgBtAnswerFavorite.setOnClickListener(this);
         imgBtAnswerFlag.setOnClickListener(this);
+        answerDetailPraise.setOnClickListener(this);
     }
 
     private void initView() {
         toolbar.setTitle(getString(R.string.toolbar_answer));
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initData() {
@@ -97,6 +107,8 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
         answerDetailHead.setImageURI(Uri.parse(answer.getAnswerAuthorHead()));
         answerDetailAuthor.setText(answer.getAnswerAuthorName());
         answerDetailContent.setText(answer.getContent());
+        answerId = answer.getId();
+        Log.d(TAG,"123  "+answerId);
     }
 
 
@@ -128,9 +140,10 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
                 break;
             case R.id.answer_detail_praise:
                 if (ifPraise){
-
+                    Toast.makeText(ActivityAnswerDetail.this, "已经点过赞啦", Toast.LENGTH_SHORT).show();
                 }else {
-
+                    presenter.praise(answerId);
+                    ifPraise = true;
                 }
                 break;
             default:

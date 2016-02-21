@@ -34,4 +34,6 @@ dependencies {
     compile('com.github.afollestad.material-dialogs:core:0.8.5.4@aar') {
         transitive = true
     }
+    compile 'org.hybridsquad.android.photocropper:library:2.1.0'
+    compile 'com.qiniu:qiniu-android-sdk:7.1.+'
 }

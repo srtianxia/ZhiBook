@@ -24,7 +24,7 @@ public class NotePresenter {
         iZhiBookModel.getNoteList(1, new OnGetNoteListener() {
             @Override
             public void success(List<Note> notes) {
-                iActivityNote.showNotesuccess(notes);
+                iActivityNote.showNoteSuccess(notes);
             }
 
             @Override

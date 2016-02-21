@@ -13,6 +13,8 @@ import android.widget.EditText;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.model.bean.ChatBean;
+import com.srtianxia.zhibook.presenter.ChatPresenter;
+import com.srtianxia.zhibook.view.IView.IActivityChat;
 import com.srtianxia.zhibook.view.adapter.ChatAdapter;
 
 import butterknife.Bind;
@@ -21,26 +23,28 @@ import butterknife.ButterKnife;
 /**
  * Created by srtianxia on 2016/2/20.
  */
-public class ActivityChat extends BaseActivity implements View.OnClickListener {
+public class ActivityChat extends BaseActivity implements IActivityChat, View.OnClickListener {
+
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.ed_chat_content)
-    EditText edChatContent;
-    @Bind(R.id.bt_chat_send)
-    Button btChatSend;
     @Bind(R.id.rv_chat)
     RecyclerView rvChat;
-    @Bind(R.id.bt_chat_send2)
-    Button btChatSend2;
-
+    @Bind(R.id.ed_chat_msg)
+    EditText edChatMsg;
+    @Bind(R.id.bt_chat_send)
+    Button btChatSend;
     private ChatAdapter adapter;
     private LinearLayoutManager manager;
+
+
+    private ChatPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
+        presenter = new ChatPresenter(this);
         initView();
         adapter = new ChatAdapter(this);
         rvChat.setItemAnimator(new DefaultItemAnimator());
@@ -51,7 +55,6 @@ public class ActivityChat extends BaseActivity implements View.OnClickListener {
 
     private void initView() {
         btChatSend.setOnClickListener(this);
-        btChatSend2.setOnClickListener(this);
         toolbar.setTitle(getString(R.string.toolbar_chat));
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
         setSupportActionBar(toolbar);
@@ -67,17 +70,28 @@ public class ActivityChat extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_chat_send:
+                ChatBean tempBean = new ChatBean();
                 int type = ChatBean.TYPE_RIGHT;
-                String s = edChatContent.getText().toString();
+                String s = edChatMsg.getText().toString();
                 String url = "http://www.91danji.com/attachments/201509/27/13/4cevsjye7.jpg";
-                adapter.addMsg(new ChatBean(s, url,type));
-                break;
-            case R.id.bt_chat_send2:
-                String s1 = edChatContent.getText().toString();
-                String url1 = "http://cdn.duitang.com/uploads/item/201412/31/20141231121257_YQAeZ.png";
-                int type1 = ChatBean.TYPE_LEFT;
-                adapter.addMsg(new ChatBean(s1,url1,type1));
+                tempBean.setText(s);
+                tempBean.setHeadUrl(url);
+                tempBean.setType(type);
+                adapter.addMsg(tempBean);
+                presenter.sendMsg(tempBean);
                 break;
         }
+    }
+
+
+    @Override
+    public void onResponse(ChatBean chatBean) {
+        ChatBean tempBean = new ChatBean();
+        int type = ChatBean.TYPE_LEFT;
+        String s = chatBean.getText();
+        tempBean.setText(s);
+        tempBean.setType(type);
+        adapter.addMsg(tempBean);
+        rvChat.smoothScrollToPosition(adapter.getItemCount());
     }
 }

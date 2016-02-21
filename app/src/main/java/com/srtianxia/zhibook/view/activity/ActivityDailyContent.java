@@ -58,7 +58,6 @@ public class ActivityDailyContent extends BaseActivity implements IActivityDaily
         presenter.getDailyContent();
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initView() {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));

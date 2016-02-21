@@ -1,5 +1,6 @@
 package com.srtianxia.zhibook.utils.http;
 
+import com.srtianxia.zhibook.model.bean.ChatBean;
 import com.srtianxia.zhibook.model.bean.zhibook.AnswerBean;
 import com.srtianxia.zhibook.model.bean.zhibook.CollectFolderBean;
 import com.srtianxia.zhibook.model.bean.zhibook.EssayBean;
@@ -79,6 +80,7 @@ public interface RetrofitAPI {
             @Field("authorId") String authorId,
             @Field("isPrivate") String isPrivate);
 
+
     //日报部分
     @GET("news/latest")
     Observable<DailyBean> getDaily();
@@ -88,4 +90,11 @@ public interface RetrofitAPI {
 
     @GET("news/before/{data}")
     Observable<DailyBean> getBefore(@Path("data") String data);
+
+    //聊天机器人部分
+    @FormUrlEncoded
+    @POST("http://www.tuling123.com/openapi/api")
+    Observable<ChatBean> getMsg(
+            @Field("key") String apiKey,
+            @Field("info") String sendMsg);
 }

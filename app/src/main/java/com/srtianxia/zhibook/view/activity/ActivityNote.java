@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,7 +13,9 @@ import android.view.View;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.model.bean.zhibook.Note;
+import com.srtianxia.zhibook.presenter.NotePresenter;
 import com.srtianxia.zhibook.view.IView.IActivityNote;
+import com.srtianxia.zhibook.view.adapter.NoteAdapter;
 
 import java.util.List;
 
@@ -29,21 +32,24 @@ public class ActivityNote extends BaseActivity implements IActivityNote,View.OnC
     FloatingActionButton fabNote;
     @Bind(R.id.rv_note)
     RecyclerView rvNote;
-    @Bind(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
+
+    private NoteAdapter adapter;
+    private LinearLayoutManager manager;
+    private NotePresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
+        presenter = new NotePresenter(this);
         ButterKnife.bind(this);
         initView();
         setClick();
+        presenter.getNote();
     }
 
     private void setClick() {
         fabNote.setOnClickListener(this);
-        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     private void initView() {
@@ -56,6 +62,7 @@ public class ActivityNote extends BaseActivity implements IActivityNote,View.OnC
                 finish();
             }
         });
+
     }
 
     @Override
@@ -81,6 +88,9 @@ public class ActivityNote extends BaseActivity implements IActivityNote,View.OnC
 
     @Override
     public void showNoteSuccess(List<Note> notes) {
-
+        adapter = new NoteAdapter(this,notes);
+        manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        rvNote.setAdapter(adapter);
+        rvNote.setLayoutManager(manager);
     }
 }

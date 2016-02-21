@@ -3,6 +3,7 @@ package com.srtianxia.zhibook.model;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
 import android.util.Log;
 
 import com.srtianxia.zhibook.app.API;
@@ -117,13 +118,20 @@ public class ZhiBookModel implements IZhiBookModel {
     }
 
     @Override
-    public void praise(int i, OnPraiseListener listener) {
-        //对点赞进行判断 ！！
-        if (i == 1){
-            listener.add();
-        }else {
-            listener.reduce();
-        }
+    public void praise(int i, final OnPraiseListener listener) {
+        final Handler handler = new Handler();
+        OkHttpUtils.asyPost("http://115.28.64.168/zhishu/addPraise.php", new OkHttpUtilsCallback() {
+            @Override
+            public void onResponse(Response response, String status) throws IOException {
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        listener.add();
+//                    }
+//                });
+                Log.d("123",""+response.body().string());
+            }
+        },new OkHttpUtils.Param("id",String.valueOf(i)));
     }
 
     @Override

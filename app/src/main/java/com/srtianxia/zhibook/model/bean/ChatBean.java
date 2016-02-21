@@ -7,22 +7,25 @@ public class ChatBean {
     public static final int TYPE_RIGHT = 0;
     public static final int TYPE_LEFT = 1;
 
-    private String content;
+    private String text;
     private String headUrl;
+    private int code;
     private int type;
 
-    public ChatBean(String content,String headUrl,int type){
-        this.content = content;
-        this.headUrl = headUrl;
-        this.type = type;
+    public String getText() {
+        return text;
     }
 
-    public String getContent() {
-        return content;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getHeadUrl() {
