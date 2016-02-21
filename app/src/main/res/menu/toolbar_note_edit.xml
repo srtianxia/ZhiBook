@@ -6,4 +6,5 @@
         android:title="@string/action_preview"
         android:icon="@drawable/ic_action_expand"
         app:showAsAction="always"/>
+
 </menu>

@@ -11,6 +11,10 @@ import android.view.View;
 
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
+import com.srtianxia.zhibook.model.bean.zhibook.Note;
+import com.srtianxia.zhibook.view.IView.IActivityNote;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -18,7 +22,7 @@ import butterknife.ButterKnife;
 /**
  * Created by srtianxia on 2016/2/17.
  */
-public class ActivityNote extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class ActivityNote extends BaseActivity implements IActivityNote,View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.fab_note)
@@ -66,6 +70,17 @@ public class ActivityNote extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onRefresh() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void showNoteSuccess(List<Note> notes) {
 
     }
 }

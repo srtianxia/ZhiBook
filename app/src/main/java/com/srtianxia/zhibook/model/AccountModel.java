@@ -1,7 +1,5 @@
 package com.srtianxia.zhibook.model;
 
-import android.util.Log;
-
 import com.srtianxia.zhibook.model.Imodel.IAccountModel;
 import com.srtianxia.zhibook.model.bean.zhibook.User;
 import com.srtianxia.zhibook.model.callback.OnLoginListener;

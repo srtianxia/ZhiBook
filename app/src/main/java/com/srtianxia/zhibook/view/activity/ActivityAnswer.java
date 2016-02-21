@@ -104,4 +104,11 @@ public class ActivityAnswer extends BaseActivity implements IActivityAnswer {
     public void initAnswerFailure(String s) {
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        presenter.onRelieveView();
+    }
 }

@@ -93,4 +93,11 @@ public class ActivityDailyContent extends BaseActivity implements IActivityDaily
         wvNews.loadDataWithBaseURL("x-data://base", html, "text/html", "UTF-8", null);
         ivHeader.setImageURI(Uri.parse(dailyContent.getImage()));
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        presenter.onRelieveView();
+    }
 }

@@ -1,24 +1,33 @@
 package com.srtianxia.zhibook.model;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.srtianxia.zhibook.app.API;
+import com.srtianxia.zhibook.app.APP;
 import com.srtianxia.zhibook.model.Imodel.IZhiBookModel;
 import com.srtianxia.zhibook.model.bean.zhibook.AnswerBean;
 import com.srtianxia.zhibook.model.bean.zhibook.CollectFolderBean;
 import com.srtianxia.zhibook.model.bean.zhibook.EssayBean;
+import com.srtianxia.zhibook.model.bean.zhibook.Note;
 import com.srtianxia.zhibook.model.bean.zhibook.QuestionBean;
 import com.srtianxia.zhibook.model.callback.OnCollectListener;
 import com.srtianxia.zhibook.model.callback.OnGetAnswerListener;
 import com.srtianxia.zhibook.model.callback.OnGetCollectListener;
+import com.srtianxia.zhibook.model.callback.OnGetNoteListener;
 import com.srtianxia.zhibook.model.callback.OnGetQuestionListener;
 import com.srtianxia.zhibook.model.callback.OnPraiseListener;
 import com.srtianxia.zhibook.model.callback.OnSaveListener;
+import com.srtianxia.zhibook.utils.db.DataBaseHelper;
 import com.srtianxia.zhibook.utils.http.OkHttpUtils;
 import com.srtianxia.zhibook.utils.http.RetrofitAPI;
 import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Response;
 import retrofit2.Retrofit;
@@ -179,6 +188,8 @@ public class ZhiBookModel implements IZhiBookModel {
 
     }
 
+
+
     @Override
     public void addNote(String token, String title, String content, String authorId, String isPrivate, OnSaveListener listener) {
         retrofitAPI.setEssay(title,content,token,isPrivate)
@@ -200,6 +211,48 @@ public class ZhiBookModel implements IZhiBookModel {
 
                     }
                 });
+    }
+
+    @Override
+    public void saveNoteToDB(String content, Integer authorId, OnSaveListener listener) {
+        //考虑下这里存数据应该在io线程中，不应该在主线程
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(APP.getContext(),
+                "zhibook.db",null,1);
+        SQLiteDatabase db = dataBaseHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("content",content);
+        values.put("authorId",authorId);
+        if (db.insert("note",null,values)!= -1){
+            values.clear();
+            listener.success();
+        }else {
+            values.clear();
+            listener.failure();
+        }
+
+    }
+
+    @Override
+    public void getNoteList(Integer authorId, OnGetNoteListener listener) {
+        List<Note> notes = new ArrayList<>();
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(APP.getContext(),
+                "zhibook.db",null,1);
+        SQLiteDatabase db = dataBaseHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM note WHERE authorId = "+ authorId,null);
+        if (cursor.moveToFirst()){
+            do {
+                notes.add(new Note(
+                        cursor.getString(cursor.getColumnIndex("content")),
+                        cursor.getInt(cursor.getColumnIndex("authorId")),
+                        cursor.getInt(cursor.getColumnIndex("id"))));
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        if (notes.size()!=0){
+            listener.success(notes);
+        }else {
+            listener.failure();
+        }
     }
 
 

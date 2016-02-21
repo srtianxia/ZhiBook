@@ -17,7 +17,8 @@
         android:id="@+id/img_person_head"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        fresco:roundAsCircle="true"/>
+        fresco:roundAsCircle="true"
+        fresco:placeholderImage="@drawable/ic_placeholder"/>
 
     <TextView
         android:id="@+id/tv_person_name"

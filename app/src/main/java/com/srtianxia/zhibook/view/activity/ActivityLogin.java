@@ -77,6 +77,7 @@ public class ActivityLogin extends BaseActivity implements IActivityLogin,View.O
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        presenter.onRelieveView();
     }
 
     @Override

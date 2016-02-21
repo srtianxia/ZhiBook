@@ -180,4 +180,11 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
                     }
                 }).show();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        presenter.onRelieveView();
+    }
 }

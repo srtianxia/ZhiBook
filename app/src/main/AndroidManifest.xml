@@ -39,6 +39,9 @@
         <activity
             android:theme="@style/AppTheme"
             android:name=".view.activity.ActivityNoteEdit"/>
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".view.activity.ActivityChat"/>
     </application>
 
 </manifest>

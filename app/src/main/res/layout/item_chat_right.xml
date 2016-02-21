@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/img_chat_head_right"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="16dp"
+        fresco:roundAsCircle="true"
+        fresco:roundingBorderColor="@color/colorWhite"
+        fresco:placeholderImage="@drawable/ic_placeholder"
+        fresco:roundingBorderWidth="1dp"/>
+
+    <TextView
+        android:id="@+id/tv_chat_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_item_chat_right"
+        android:layout_toLeftOf="@+id/img_chat_head_right"
+        android:textIsSelectable="true"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="78dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="2dp"
+        android:minHeight="60dp"
+        android:paddingBottom="14dp"
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp"
+        android:paddingTop="16dp"
+        android:textColor="#FFFFFFFF"
+        android:textSize="15sp" />
+</RelativeLayout>

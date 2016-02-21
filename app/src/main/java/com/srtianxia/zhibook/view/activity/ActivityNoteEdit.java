@@ -8,10 +8,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
-import com.srtianxia.zhibook.utils.markdown.MDWriter;
+import com.srtianxia.zhibook.presenter.NoteEditPresenter;
 import com.srtianxia.zhibook.view.IView.IActivityNoteEdit;
 
 import butterknife.Bind;
@@ -26,24 +27,24 @@ public class ActivityNoteEdit extends BaseActivity implements View.OnClickListen
     @Bind(R.id.ed_note)
     EditText edNote;
 
-    private MDWriter writer;
-
+    private NoteEditPresenter presenter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_edit);
         ButterKnife.bind(this);
+        presenter = new NoteEditPresenter(this);
         initView();
     }
 
     private void initView() {
-        writer = new MDWriter(edNote);
         toolbar.setTitle(getString(R.string.toolbar_edit_note));
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                presenter.saveNoteToDB();
                 finish();
             }
         });
@@ -70,5 +71,20 @@ public class ActivityNoteEdit extends BaseActivity implements View.OnClickListen
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public String getNoteContent() {
+        return edNote.getText().toString();
+    }
+
+    @Override
+    public void saveDBsuccess() {
+        Toast.makeText(ActivityNoteEdit.this, "success", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void saveDBfailure() {
+        Toast.makeText(ActivityNoteEdit.this, "failure", Toast.LENGTH_SHORT).show();
     }
 }

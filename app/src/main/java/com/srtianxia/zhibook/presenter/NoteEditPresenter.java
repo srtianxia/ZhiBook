@@ -2,6 +2,7 @@ package com.srtianxia.zhibook.presenter;
 
 import com.srtianxia.zhibook.model.Imodel.IZhiBookModel;
 import com.srtianxia.zhibook.model.ZhiBookModel;
+import com.srtianxia.zhibook.model.callback.OnSaveListener;
 import com.srtianxia.zhibook.view.IView.IActivityNoteEdit;
 
 /**
@@ -18,8 +19,18 @@ public class NoteEditPresenter {
         iZhiBookModel = ZhiBookModel.getInstance();
     }
 
-    public IActivityNoteEdit getiActivityNoteEdit() {
-        return iActivityNoteEdit;
+    public void saveNoteToDB(){
+        iZhiBookModel.saveNoteToDB(iActivityNoteEdit.getNoteContent(), 1, new OnSaveListener() {
+            @Override
+            public void success() {
+                iActivityNoteEdit.saveDBsuccess();
+            }
+
+            @Override
+            public void failure() {
+                iActivityNoteEdit.saveDBfailure();
+            }
+        });
     }
 
     public void onRelieveView() {
