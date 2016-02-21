@@ -185,15 +185,14 @@ public class ActivityHome extends BaseActivity
             String _encodedSign = UrlSafeBase64.encodeToString(_sign);
             String _uploadToken = "5rP0uETgTI0QGWYS0WJ2yNySaxO9q2tQMLj4F-HT" + ':' + _encodedSign + ':'
                     + _encodedPutPolicy;
-//            String SAVE_FILE_DIRECTORY = Environment
-//                    .getExternalStorageDirectory() + "/testdir/test.jpg";
+            String SAVE_FILE_DIRECTORY = Environment.getExternalStorageDirectory() + File.separator + "crop_cache_file.jpg";
             UploadManager uploadManager = new UploadManager();
-            uploadManager.put(uri.getPath(), null, _uploadToken,
+            uploadManager.put(SAVE_FILE_DIRECTORY, null, _uploadToken,
                     new UpCompletionHandler() {
                         @Override
-                        public void complete(String key, ResponseInfo info, JSONObject res) {
-                            //  res 包含hash、key等信息，具体字段取决于上传策略的设置。
-                            Log.i("qiniu", key + ",\r\n " + info + ",\r\n " + res);
+                        public void complete(String key, ResponseInfo info,
+                                             JSONObject response) {
+                            Log.e("qiniu", info.toString());
                         }
                     }, null);
 
