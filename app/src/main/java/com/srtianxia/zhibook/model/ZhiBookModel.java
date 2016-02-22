@@ -3,9 +3,13 @@ package com.srtianxia.zhibook.model;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 
+import com.bmob.BTPFileResponse;
+import com.bmob.BmobProFile;
+import com.bmob.btp.callback.UploadListener;
 import com.srtianxia.zhibook.app.API;
 import com.srtianxia.zhibook.app.APP;
 import com.srtianxia.zhibook.model.Imodel.IZhiBookModel;
@@ -21,6 +25,7 @@ import com.srtianxia.zhibook.model.callback.OnGetNoteListener;
 import com.srtianxia.zhibook.model.callback.OnGetQuestionListener;
 import com.srtianxia.zhibook.model.callback.OnPraiseListener;
 import com.srtianxia.zhibook.model.callback.OnSaveListener;
+import com.srtianxia.zhibook.model.callback.OnUploadListener;
 import com.srtianxia.zhibook.utils.db.DataBaseHelper;
 import com.srtianxia.zhibook.utils.http.OkHttpUtils;
 import com.srtianxia.zhibook.utils.http.RetrofitAPI;
@@ -30,6 +35,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.datatype.BmobFile;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -261,6 +267,34 @@ public class ZhiBookModel implements IZhiBookModel {
         }else {
             listener.failure();
         }
+    }
+
+    @Override
+    public void upLoadHead(Uri uri, final String token, final OnUploadListener listener) {
+
+        BTPFileResponse response = BmobProFile.getInstance(APP.getContext()).upload(uri.getPath(), new UploadListener() {
+            @Override
+            public void onSuccess(String fileName,String url,BmobFile file) {
+                Log.i("bmob","文件上传成功："+fileName+",可访问的文件地址："+file.getUrl());
+                OkHttpUtils.asyPost(API.updatePersonInfo, new OkHttpUtilsCallback() {
+                    @Override
+                    public void onResponse(Response response, String status) throws IOException {
+
+                    }
+                },new OkHttpUtils.Param("token",token),new OkHttpUtils.Param("headurl",file.getUrl()));
+            }
+
+            @Override
+            public void onProgress(int progress) {
+                Log.i("bmob","onProgress :"+progress);
+                listener.progress(progress);
+            }
+
+            @Override
+            public void onError(int statuscode, String errormsg) {
+                Log.i("bmob","文件上传失败："+errormsg);
+            }
+        });
     }
 
 

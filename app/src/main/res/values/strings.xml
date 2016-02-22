@@ -9,6 +9,7 @@
     <string name="action_addPic">插入图片</string>
     <string name="action_send">发布</string>
     <string name="action_save_to_pic">保存为图片</string>
+    <string name="action_login">登录</string>
 
     <string name="toolbar_home">首页</string>
     <string name="toolbar_answer">回答</string>

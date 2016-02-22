@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,38 +18,33 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
+import com.bmob.BTPFileResponse;
+import com.bmob.BmobProFile;
+import com.bmob.btp.callback.UploadListener;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.qiniu.android.http.ResponseInfo;
-import com.qiniu.android.storage.UpCompletionHandler;
-import com.qiniu.android.storage.UploadManager;
-import com.qiniu.android.utils.UrlSafeBase64;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
+import com.srtianxia.zhibook.presenter.HomePresenter;
+import com.srtianxia.zhibook.view.IView.IActivityHome;
 import com.srtianxia.zhibook.view.fragment.FragmentQuestion;
 
 import org.hybridsquad.android.library.CropHandler;
 import org.hybridsquad.android.library.CropHelper;
 import org.hybridsquad.android.library.CropParams;
-import org.json.JSONObject;
-
-import java.io.File;
-
-import javax.crypto.Mac;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.bmob.v3.datatype.BmobFile;
 
 public class ActivityHome extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener,CropHandler  {
+        implements NavigationView.OnNavigationItemSelectedListener,CropHandler,IActivityHome {
     private static final String TAG = "ActivityHome";
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.nav_view)
     NavigationView navView;
 
-
+    private HomePresenter presenter;
     private FragmentManager manager;
     private FragmentTransaction transaction;
 
@@ -60,6 +54,7 @@ public class ActivityHome extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        presenter = new HomePresenter(this);
         ButterKnife.bind(this);
         toolbar.setTitle(R.string.toolbar_home);
         setSupportActionBar(toolbar);
@@ -128,7 +123,7 @@ public class ActivityHome extends BaseActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.toolbar_home_unlogin, menu);
         return true;
     }
 
@@ -140,7 +135,7 @@ public class ActivityHome extends BaseActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_login) {
             return true;
         }
 
@@ -173,32 +168,7 @@ public class ActivityHome extends BaseActivity
 
     @Override
     public void onPhotoCropped(Uri uri) {
-        try {
-            // 1 构造上传策略
-            JSONObject _json = new JSONObject();
-            long _dataline = System.currentTimeMillis() / 1000 + 3600;
-            _json.put("deadline", _dataline);// 有效时间为一个小时
-            _json.put("scope", "kymobile");
-            String _encodedPutPolicy = UrlSafeBase64.encodeToString(_json
-                    .toString().getBytes());
-            byte[] _sign = HmacSHA1Encrypt(_encodedPutPolicy, "Gn4RGayGkbnePw0vT4VU1LDpZlVGGnSdmG9CKSuA");
-            String _encodedSign = UrlSafeBase64.encodeToString(_sign);
-            String _uploadToken = "5rP0uETgTI0QGWYS0WJ2yNySaxO9q2tQMLj4F-HT" + ':' + _encodedSign + ':'
-                    + _encodedPutPolicy;
-            String SAVE_FILE_DIRECTORY = Environment.getExternalStorageDirectory() + File.separator + "crop_cache_file.jpg";
-            UploadManager uploadManager = new UploadManager();
-            uploadManager.put(SAVE_FILE_DIRECTORY, null, _uploadToken,
-                    new UpCompletionHandler() {
-                        @Override
-                        public void complete(String key, ResponseInfo info,
-                                             JSONObject response) {
-                            Log.e("qiniu", info.toString());
-                        }
-                    }, null);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        presenter.upLoadHead(uri);
     }
 
     @Override
@@ -208,7 +178,6 @@ public class ActivityHome extends BaseActivity
 
     @Override
     public void onCropFailed(String message) {
-        Log.d("123",message);
     }
 
     @Override
@@ -221,31 +190,5 @@ public class ActivityHome extends BaseActivity
         return getContext();
     }
 
-    private static final String MAC_NAME = "HmacSHA1";
-    private static final String ENCODING = "UTF-8";
 
-    /**
-     *
-     * 这个签名方法找了半天 一个个对出来的、、、、程序猿辛苦啊、、、 使用 HMAC-SHA1 签名方法对对encryptText进行签名
-     *
-     * @param encryptText
-     *            被签名的字符串
-     * @param encryptKey
-     *            密钥
-     * @return
-     * @throws Exception
-     */
-    public static byte[] HmacSHA1Encrypt(String encryptText, String encryptKey)
-            throws Exception {
-        byte[] data = encryptKey.getBytes(ENCODING);
-        // 根据给定的字节数组构造一个密钥,第二参数指定一个密钥算法的名称
-        SecretKey secretKey = new SecretKeySpec(data, MAC_NAME);
-        // 生成一个指定 Mac 算法 的 Mac 对象
-        Mac mac = Mac.getInstance(MAC_NAME);
-        // 用给定密钥初始化 Mac 对象
-        mac.init(secretKey);
-        byte[] text = encryptText.getBytes(ENCODING);
-        // 完成 Mac 操作
-        return mac.doFinal(text);
-    }
 }

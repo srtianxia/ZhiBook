@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
+import cn.bmob.v3.Bmob;
+
 /**
  * Created by srtianxia on 2016/1/20.
  */
@@ -15,6 +17,7 @@ public class APP extends Application {
         super.onCreate();
         context = getApplicationContext();
         Fresco.initialize(this);
+        Bmob.initialize(this, "cfdeeb9c25ea74674dee63513743090a");
     }
 
     public static Context getContext(){

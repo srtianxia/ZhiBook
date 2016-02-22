@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -108,7 +107,6 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
         answerDetailAuthor.setText(answer.getAnswerAuthorName());
         answerDetailContent.setText(answer.getContent());
         answerId = answer.getId();
-        Log.d(TAG,"123  "+answerId);
     }
 
 

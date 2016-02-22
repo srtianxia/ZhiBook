@@ -1,5 +1,7 @@
 package com.srtianxia.zhibook.model.Imodel;
 
+import android.net.Uri;
+
 import com.srtianxia.zhibook.model.callback.OnCollectListener;
 import com.srtianxia.zhibook.model.callback.OnGetAnswerListener;
 import com.srtianxia.zhibook.model.callback.OnGetCollectListener;
@@ -7,6 +9,7 @@ import com.srtianxia.zhibook.model.callback.OnGetNoteListener;
 import com.srtianxia.zhibook.model.callback.OnGetQuestionListener;
 import com.srtianxia.zhibook.model.callback.OnPraiseListener;
 import com.srtianxia.zhibook.model.callback.OnSaveListener;
+import com.srtianxia.zhibook.model.callback.OnUploadListener;
 
 /**
  * Created by srtianxia on 2016/2/11.
@@ -32,4 +35,7 @@ public interface IZhiBookModel {
     void saveNoteToDB(String content,Integer authorId,OnSaveListener listener);
 
     void getNoteList(Integer authorId,OnGetNoteListener listener);
+
+    //bmob
+    void upLoadHead(Uri uri,String authorId,OnUploadListener listener);
 }

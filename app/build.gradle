@@ -35,5 +35,5 @@ dependencies {
         transitive = true
     }
     compile 'org.hybridsquad.android.photocropper:library:2.1.0'
-    compile 'com.qiniu:qiniu-android-sdk:7.1.+'
+    compile 'cn.bmob.android:bmob-sdk:3.4.5'
 }
