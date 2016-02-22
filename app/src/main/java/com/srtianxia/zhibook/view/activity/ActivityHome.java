@@ -5,22 +5,21 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
-import com.bmob.BTPFileResponse;
-import com.bmob.BmobProFile;
-import com.bmob.btp.callback.UploadListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
@@ -34,7 +33,6 @@ import org.hybridsquad.android.library.CropParams;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cn.bmob.v3.datatype.BmobFile;
 
 public class ActivityHome extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener,CropHandler,IActivityHome {
@@ -49,6 +47,9 @@ public class ActivityHome extends BaseActivity
     private FragmentTransaction transaction;
 
     private CropParams cropParams = new CropParams();
+    private View dialogView;
+    private MaterialDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +137,25 @@ public class ActivityHome extends BaseActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_login) {
+            dialogView = new MaterialDialog.Builder(this)
+                    .customView(R.layout.ui_layout_dialog,false).build().getCustomView();
+            TextView btlogin = (TextView) dialogView.findViewById(R.id.bt_login);
+            btlogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenter.login();
+                }
+            });
+            TextView btRegiser = (TextView) dialogView.findViewById(R.id.bt_register);
+            btRegiser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenter.register();
+                }
+            });
+            dialog = new MaterialDialog.Builder(this)
+                    .customView(dialogView,false)
+                    .title("登录").show();
             return true;
         }
 
@@ -191,4 +211,34 @@ public class ActivityHome extends BaseActivity
     }
 
 
+    @Override
+    public String getUsername() {
+        return ((TextInputLayout)dialogView.findViewById(R.id.input_username)).getEditText().getText().toString();
+    }
+
+    @Override
+    public String getPassword() {
+        return ((TextInputLayout)dialogView.findViewById(R.id.input_password)).getEditText().getText().toString();
+    }
+
+    @Override
+    public void loginSuccess() {
+        dialog.dismiss();
+        Toast.makeText(ActivityHome.this, "登陆成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void loginFailure() {
+        Toast.makeText(ActivityHome.this, "登录失败，账号或者密码错误", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void registerSuccess() {
+
+    }
+
+    @Override
+    public void registerFailure() {
+
+    }
 }

@@ -22,9 +22,14 @@
     <string name="tab_find">发现</string>
     <string name="tab_note">笔记</string>
     <string name="tab_chat">聊天</string>
-
     <string name="tab_theme">切换主题</string>
 
     <string name="find_zhihu">知乎日报</string>
 
+
+    <string name="bt_login">登录</string>
+    <string name="bt_register">注册</string>
+
+    <string name="hint_username">用户名</string>
+    <string name="hint_password">密码</string>
 </resources>

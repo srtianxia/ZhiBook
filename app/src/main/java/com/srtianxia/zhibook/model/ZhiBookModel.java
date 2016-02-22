@@ -271,7 +271,6 @@ public class ZhiBookModel implements IZhiBookModel {
 
     @Override
     public void upLoadHead(Uri uri, final String token, final OnUploadListener listener) {
-
         BTPFileResponse response = BmobProFile.getInstance(APP.getContext()).upload(uri.getPath(), new UploadListener() {
             @Override
             public void onSuccess(String fileName,String url,BmobFile file) {

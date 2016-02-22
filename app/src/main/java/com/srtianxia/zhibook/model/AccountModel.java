@@ -1,11 +1,18 @@
 package com.srtianxia.zhibook.model;
 
+import com.srtianxia.zhibook.app.API;
 import com.srtianxia.zhibook.model.Imodel.IAccountModel;
 import com.srtianxia.zhibook.model.bean.zhibook.User;
 import com.srtianxia.zhibook.model.callback.OnLoginListener;
-import com.srtianxia.zhibook.utils.cache.SharedPreferenceUtils;
+import com.srtianxia.zhibook.model.callback.OnRegisterListener;
+import com.srtianxia.zhibook.utils.SharedPreferenceUtils;
+import com.srtianxia.zhibook.utils.http.OkHttpUtils;
 import com.srtianxia.zhibook.utils.http.RetrofitAPI;
+import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
 
+import java.io.IOException;
+
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -38,18 +45,6 @@ public class AccountModel implements IAccountModel {
 
     @Override
     public void login(final String username, String password, final OnLoginListener onLoginListener) {
-//        Call<User> call = retrofitAPI.getLoginUser(username,password);
-//        call.enqueue(new Callback<User>() {
-//            @Override
-//            public void onResponse(Call<User> call, Response<User> response) {
-//                Log.d(TAG, "token "+response.code());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<User> call, Throwable t) {
-//                Log.d(TAG,t.getMessage());
-//            }
-//        });
         retrofitAPI.getLoginUser(username,password).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
@@ -66,9 +61,24 @@ public class AccountModel implements IAccountModel {
 
                     @Override
                     public void onNext(User user) {
-                        SharedPreferenceUtils.set(user.getToken());
+                        SharedPreferenceUtils.set(user.getToken(), String.valueOf(user.getId())
+                                ,user.getHeadurl(),user.getName());
                         onLoginListener.loginSuccess();
                     }
                 });
+    }
+
+    @Override
+    public void register(String username, String password, final OnRegisterListener listener) {
+        OkHttpUtils.asyPost(API.register, new OkHttpUtilsCallback() {
+            @Override
+            public void onResponse(Response response, String status) throws IOException {
+                if (response.code() == 200){
+                    listener.success();
+                }else if (response.code() == 400){
+                    listener.failure();
+                }
+            }
+        },new OkHttpUtils.Param("name",username),new OkHttpUtils.Param("password",password));
     }
 }

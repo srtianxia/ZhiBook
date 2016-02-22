@@ -26,7 +26,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private LayoutInflater inflater;
     private List<ChatBean> items = new ArrayList<>();
 
-
     public ChatAdapter(Context context){
         this.context = context;
         inflater = LayoutInflater.from(context);
