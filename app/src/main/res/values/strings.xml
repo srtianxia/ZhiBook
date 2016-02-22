@@ -10,7 +10,7 @@
     <string name="action_send">发布</string>
     <string name="action_save_to_pic">保存为图片</string>
     <string name="action_login">登录</string>
-
+    <string name="action_un_login">退出登录</string>
     <string name="toolbar_home">首页</string>
     <string name="toolbar_answer">回答</string>
     <string name="toolbar_edit_note">编辑笔记</string>
@@ -23,7 +23,7 @@
     <string name="tab_note">笔记</string>
     <string name="tab_chat">聊天</string>
     <string name="tab_theme">切换主题</string>
-
+        
     <string name="find_zhihu">知乎日报</string>
 
 

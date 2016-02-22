@@ -1,6 +1,8 @@
 package com.srtianxia.zhibook.utils;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v4.content.SharedPreferencesCompat;
 
 import com.srtianxia.zhibook.app.APP;
 
@@ -38,5 +40,12 @@ public class SharedPreferenceUtils {
         SharedPreferences preferences = APP.getContext().getSharedPreferences("ZhiBookSp",APP.getContext().MODE_PRIVATE);
         String name = preferences.getString("name","");
         return name;
+    }
+
+    public static void clear() {
+        SharedPreferences sp = APP.getContext().getSharedPreferences("ZhiBookSp", APP.getContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.commit();
     }
 }

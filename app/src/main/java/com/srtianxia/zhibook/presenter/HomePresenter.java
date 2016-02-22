@@ -6,8 +6,10 @@ import com.srtianxia.zhibook.model.AccountModel;
 import com.srtianxia.zhibook.model.Imodel.IAccountModel;
 import com.srtianxia.zhibook.model.Imodel.IZhiBookModel;
 import com.srtianxia.zhibook.model.ZhiBookModel;
+import com.srtianxia.zhibook.model.bean.zhibook.User;
 import com.srtianxia.zhibook.model.callback.OnLoginListener;
 import com.srtianxia.zhibook.model.callback.OnRegisterListener;
+import com.srtianxia.zhibook.model.callback.OnUpdateInfoListener;
 import com.srtianxia.zhibook.model.callback.OnUploadListener;
 import com.srtianxia.zhibook.view.IView.IActivityHome;
 
@@ -63,7 +65,21 @@ public class HomePresenter {
         iAccountModel.register(iActivityHome.getUsername(), iActivityHome.getPassword(), new OnRegisterListener() {
             @Override
             public void success() {
+                iActivityHome.registerSuccess();
+            }
 
+            @Override
+            public void failure() {
+                iActivityHome.registerFailure();
+            }
+        });
+    }
+
+    public void updateInfo(){
+        iAccountModel.updateUserInfo(new OnUpdateInfoListener() {
+            @Override
+            public void success(User user) {
+                iActivityHome.updateInfo(user);
             }
 
             @Override

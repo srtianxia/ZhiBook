@@ -1,10 +1,13 @@
 package com.srtianxia.zhibook.model;
 
+import android.os.Handler;
+
 import com.srtianxia.zhibook.app.API;
 import com.srtianxia.zhibook.model.Imodel.IAccountModel;
 import com.srtianxia.zhibook.model.bean.zhibook.User;
 import com.srtianxia.zhibook.model.callback.OnLoginListener;
 import com.srtianxia.zhibook.model.callback.OnRegisterListener;
+import com.srtianxia.zhibook.model.callback.OnUpdateInfoListener;
 import com.srtianxia.zhibook.utils.SharedPreferenceUtils;
 import com.srtianxia.zhibook.utils.http.OkHttpUtils;
 import com.srtianxia.zhibook.utils.http.RetrofitAPI;
@@ -70,15 +73,29 @@ public class AccountModel implements IAccountModel {
 
     @Override
     public void register(String username, String password, final OnRegisterListener listener) {
+        final Handler handler = new Handler();
         OkHttpUtils.asyPost(API.register, new OkHttpUtilsCallback() {
             @Override
-            public void onResponse(Response response, String status) throws IOException {
-                if (response.code() == 200){
-                    listener.success();
-                }else if (response.code() == 400){
-                    listener.failure();
-                }
+            public void onResponse(final Response response, String status) throws IOException {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (response.code() == 200){
+                            listener.success();
+                        }else if (response.code() == 400){
+                            listener.failure();
+                        }
+                    }
+                });
             }
         },new OkHttpUtils.Param("name",username),new OkHttpUtils.Param("password",password));
+    }
+
+    @Override
+    public void updateUserInfo(OnUpdateInfoListener listener) {
+        User user = new User();
+        user.setName(SharedPreferenceUtils.getName());
+        user.setHeadurl(SharedPreferenceUtils.gethead());
+        listener.success(user);
     }
 }

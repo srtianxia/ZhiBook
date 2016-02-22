@@ -23,7 +23,9 @@ import com.afollestad.materialdialogs.Theme;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
+import com.srtianxia.zhibook.model.bean.zhibook.User;
 import com.srtianxia.zhibook.presenter.HomePresenter;
+import com.srtianxia.zhibook.utils.SharedPreferenceUtils;
 import com.srtianxia.zhibook.view.IView.IActivityHome;
 import com.srtianxia.zhibook.view.fragment.FragmentQuestion;
 
@@ -50,7 +52,8 @@ public class ActivityHome extends BaseActivity
     private View dialogView;
     private MaterialDialog dialog;
 
-
+    //判断登录状态的标记
+    private Boolean ifLogin = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,50 +62,22 @@ public class ActivityHome extends BaseActivity
         ButterKnife.bind(this);
         toolbar.setTitle(R.string.toolbar_home);
         setSupportActionBar(toolbar);
+        //判断是否登录了用户
+        if (!SharedPreferenceUtils.getToken().equals("")){
+            ifLogin = true;
+        }
 
-        manager = getSupportFragmentManager();
-        transaction = manager.beginTransaction();
-        FragmentQuestion fragmentQuestion = new FragmentQuestion();
-        transaction.replace(R.id.fragment_container, fragmentQuestion);
-        transaction.commit();
-
-
-        SimpleDraweeView draweeView = (SimpleDraweeView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
-        draweeView.setImageURI(Uri.parse("http://www.91danji.com/attachments/201509/27/13/4cevsjye7.jpg"));
-        draweeView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String item[] = new String[]{"相册", "拍照"};
-                new MaterialDialog.Builder(ActivityHome.this)
-                        .theme(Theme.LIGHT)
-                        .title("选择")
-                        .items(item)
-                        .itemsCallback(new MaterialDialog.ListCallback() {
-                            @Override
-                            public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                                if (which == 0){
-                                    Intent intent = CropHelper.buildCropFromGalleryIntent(new CropParams());
-                                    CropHelper.clearCachedCropFile(cropParams.uri);
-                                    startActivityForResult(intent, CropHelper.REQUEST_CROP);
-                                }else {
-
-                                }
-                            }
-                        }).show();
-            }
-        });
-
-
+        if (ifLogin){
+            presenter.updateInfo();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
@@ -122,9 +97,23 @@ public class ActivityHome extends BaseActivity
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
+        FragmentQuestion fragmentQuestion = new FragmentQuestion();
+        transaction.replace(R.id.fragment_container, fragmentQuestion);
+        transaction.commit();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.toolbar_home_unlogin, menu);
+        if (!ifLogin) {
+            getMenuInflater().inflate(R.menu.toolbar_home_unlogin, menu);
+        }else {
+            getMenuInflater().inflate(R.menu.toolbar_home_login,menu);
+        }
         return true;
     }
 
@@ -157,6 +146,9 @@ public class ActivityHome extends BaseActivity
                     .customView(dialogView,false)
                     .title("登录").show();
             return true;
+        }else if (id == R.id.menu_item_unlogin){
+            SharedPreferenceUtils.clear();
+            presenter.updateInfo();
         }
 
         return super.onOptionsItemSelected(item);
@@ -225,6 +217,7 @@ public class ActivityHome extends BaseActivity
     public void loginSuccess() {
         dialog.dismiss();
         Toast.makeText(ActivityHome.this, "登陆成功", Toast.LENGTH_SHORT).show();
+        presenter.updateInfo();
     }
 
     @Override
@@ -234,11 +227,51 @@ public class ActivityHome extends BaseActivity
 
     @Override
     public void registerSuccess() {
-
+        Toast.makeText(ActivityHome.this, "注册成功，点击右侧登录", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void registerFailure() {
+        Toast.makeText(ActivityHome.this, "用户名已被占用", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void updateInfo(User user) {
+            toolbar.getMenu().clear();
+            getMenuInflater().inflate(R.menu.toolbar_home_login, toolbar.getMenu());
+            MenuItem item_search = toolbar.getMenu().findItem(R.id.menu_item_unlogin);
+            item_search.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    SharedPreferenceUtils.clear();
+                    presenter.updateInfo();
+                    return false;
+                }
+            });
+
+        SimpleDraweeView draweeView = (SimpleDraweeView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
+        draweeView.setImageURI(Uri.parse(user.getHeadurl()));
+        draweeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String item[] = new String[]{"相册", "拍照"};
+                new MaterialDialog.Builder(ActivityHome.this)
+                        .theme(Theme.LIGHT)
+                        .title("选择")
+                        .items(item)
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                                if (which == 0){
+                                    Intent intent = CropHelper.buildCropFromGalleryIntent(new CropParams());
+                                    CropHelper.clearCachedCropFile(cropParams.uri);
+                                    startActivityForResult(intent, CropHelper.REQUEST_CROP);
+                                }else {
+
+                                }
+                            }
+                        }).show();
+            }
+        });
     }
 }
