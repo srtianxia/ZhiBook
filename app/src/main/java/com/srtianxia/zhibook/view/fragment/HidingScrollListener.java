@@ -2,26 +2,24 @@ package com.srtianxia.zhibook.view.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
-/*
-* This class is a ScrollListener for RecyclerView that allows to show/hide
-* views when list is scrolled. It assumes that you have added a header
-* to your list. @see pl.michalz.hideonscrollexample.adapter.partone.RecyclerAdapter
-* */
+/**
+ * rv的滑动监听，复写了onScrolled方法实现fab的出现与消失
+ */
+
 public abstract class HidingScrollListener extends RecyclerView.OnScrollListener {
+    private static final String TAG = "HidingScrollListener";
 
     private static final int HIDE_THRESHOLD = 20;
 
     private int mScrolledDistance = 0;
     private boolean mControlsVisible = true;
 
-
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-
         int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-
         if (firstVisibleItem == 0) {
             if(!mControlsVisible) {
                 onShow();
@@ -41,6 +39,7 @@ public abstract class HidingScrollListener extends RecyclerView.OnScrollListener
         if((mControlsVisible && dy>0) || (!mControlsVisible && dy<0)) {
             mScrolledDistance += dy;
         }
+        Log.d(TAG,"firstVisibleItem "+firstVisibleItem+" mScrolledDistance"+mScrolledDistance);
     }
 
     public abstract void onHide();

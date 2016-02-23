@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * 用线程池封装的异步get/post请求
  * Created by srtianxia on 2016/1/23.
  * 应该再考虑下线程池各个参数的大小
  */

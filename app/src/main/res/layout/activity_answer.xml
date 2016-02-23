@@ -19,22 +19,23 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="96dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </android.support.v7.widget.CardView>
-
 
             <include layout="@layout/include_toolbar"/>
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_answer"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sw_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v7.widget.RecyclerView>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_answer"
+          ></android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/answer_fab"
         android:layout_width="wrap_content"

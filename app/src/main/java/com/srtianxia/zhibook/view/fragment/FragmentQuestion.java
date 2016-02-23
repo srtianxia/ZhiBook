@@ -44,7 +44,6 @@ public class FragmentQuestion extends Fragment implements View.OnClickListener,S
     @Bind(R.id.swipe_question)
     SwipeRefreshLayout swipeQuestion;
 
-
     private GetQuestionPresenter presenter;
     private View view;
     private QuestionAdapter adapter;
@@ -61,6 +60,12 @@ public class FragmentQuestion extends Fragment implements View.OnClickListener,S
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        onRefresh();
+    }
+    //初始化rv和sw
     private void initRvSw() {
         adapter = new QuestionAdapter(getActivity());
         rvHomeQuestion.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -139,9 +144,7 @@ public class FragmentQuestion extends Fragment implements View.OnClickListener,S
     }
 
     @Override
-    public void showInitFailure(String s) {
-
-    }
+    public void showInitFailure(String s) {}
 
     @Override
     public void onRefresh() {

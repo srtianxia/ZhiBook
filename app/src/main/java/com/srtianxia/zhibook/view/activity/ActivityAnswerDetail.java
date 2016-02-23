@@ -162,6 +162,8 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
     @Override
     public void showAddPraise() {
         Toast.makeText(ActivityAnswerDetail.this, "+1", Toast.LENGTH_SHORT).show();
+        Integer nowCount = Integer.valueOf(answerDetailPraiseCount.getText().toString()) + 1;
+        answerDetailPraiseCount.setText(String.valueOf(nowCount));
     }
 
     @Override

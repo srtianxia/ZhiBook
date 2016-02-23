@@ -9,7 +9,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.Interpolator;
-import android.widget.FrameLayout;
 
 /**
  * Created by srtianxia on 2016/2/15.
@@ -17,9 +16,7 @@ import android.widget.FrameLayout;
 public class FooterBehavior extends CoordinatorLayout.Behavior<View> {
     private static final Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
 
-
     private int sinceDirectionChange;
-
 
     public FooterBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -25,6 +25,8 @@ import com.srtianxia.zhibook.model.callback.OnGetNoteListener;
 import com.srtianxia.zhibook.model.callback.OnGetQuestionListener;
 import com.srtianxia.zhibook.model.callback.OnPraiseListener;
 import com.srtianxia.zhibook.model.callback.OnSaveListener;
+import com.srtianxia.zhibook.model.callback.OnSetAnswerListener;
+import com.srtianxia.zhibook.model.callback.OnSetQuestionListener;
 import com.srtianxia.zhibook.model.callback.OnUploadListener;
 import com.srtianxia.zhibook.utils.SharedPreferenceUtils;
 import com.srtianxia.zhibook.utils.TimeUtils;
@@ -72,8 +74,25 @@ public class ZhiBookModel implements IZhiBookModel {
     }
 
     @Override
-    public void setQuestion(String title, String content, String token) {
-
+    public void setQuestion(String title, String content, String token, final OnSetQuestionListener listener) {
+        final Handler handler = new Handler();
+        OkHttpUtils.asyPost(API.setQuestion, new OkHttpUtilsCallback() {
+            @Override
+            public void onResponse(final Response response, String status) throws IOException {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(response.code() == 200){
+                            listener.success();
+                        }else {
+                            listener.failure();
+                        }
+                    }
+                });
+            }
+        },new OkHttpUtils.Param("title",title)
+         ,new OkHttpUtils.Param("content",content)
+         ,new OkHttpUtils.Param("token",SharedPreferenceUtils.getToken()));
     }
 
     @Override
@@ -100,8 +119,26 @@ public class ZhiBookModel implements IZhiBookModel {
     }
 
     @Override
-    public void setAnswer() {
-
+    public void setAnswer(String content, String questionId, String token, final OnSetAnswerListener listener) {
+        final Handler handler = new Handler();
+        OkHttpUtils.asyPost(API.setAnswer, new OkHttpUtilsCallback() {
+            @Override
+            public void onResponse(final Response response, String status) throws IOException {
+                Log.d(TAG,response.body().string());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (response.code() == 200){
+                            listener.success();
+                        }else {
+                            listener.failure();
+                        }
+                    }
+                });
+            }
+        },new OkHttpUtils.Param("questionId",questionId)
+         ,new OkHttpUtils.Param("content",content)
+         ,new OkHttpUtils.Param("token",SharedPreferenceUtils.getToken()));
     }
 
     @Override
@@ -130,16 +167,15 @@ public class ZhiBookModel implements IZhiBookModel {
     @Override
     public void praise(int i, final OnPraiseListener listener) {
         final Handler handler = new Handler();
-        OkHttpUtils.asyPost("http://115.28.64.168/zhishu/addPraise.php", new OkHttpUtilsCallback() {
+        OkHttpUtils.asyPost(API.addPraise, new OkHttpUtilsCallback() {
             @Override
             public void onResponse(Response response, String status) throws IOException {
-//                handler.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        listener.add();
-//                    }
-//                });
-                Log.d("123",""+response.body().string());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.add();
+                    }
+                });
             }
         },new OkHttpUtils.Param("id",String.valueOf(i)));
     }

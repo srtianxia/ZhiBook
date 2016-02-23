@@ -11,6 +11,7 @@ import com.srtianxia.zhibook.model.bean.zhibook.Note;
 import com.srtianxia.zhibook.utils.ui.ItemTouchHelperAdapter;
 import com.srtianxia.zhibook.view.viewholder.NoteHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,11 +19,20 @@ import java.util.List;
  */
 public class NoteAdapter extends RecyclerView.Adapter<NoteHolder>  implements ItemTouchHelperAdapter {
     private Context context;
-    private List<Note> items;
+    private List<Note> items = new ArrayList<>();
     private LayoutInflater inflater;
     private OnItemClickListener onItemClickListener;
 
-    public NoteAdapter(Context context,List<Note> items){
+    public NoteAdapter(Context context){
+        this.context = context;
+    }
+
+    public void setItems(List<Note> items) {
+        this.items = items;
+        notifyDataSetChanged();
+    }
+
+    public NoteAdapter(Context context, List<Note> items){
         this.context = context;
         this.items = items;
         inflater = LayoutInflater.from(context);
@@ -76,5 +86,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteHolder>  implements It
     public void onItemDismiss(int position) {
         items.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void clear(){
+        items.clear();
+        notifyDataSetChanged();
     }
 }

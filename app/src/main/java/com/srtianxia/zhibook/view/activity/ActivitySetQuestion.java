@@ -8,9 +8,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
+import com.srtianxia.zhibook.presenter.SetQuestionPresenter;
+import com.srtianxia.zhibook.view.IView.IActivitySetQuestion;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -18,24 +21,28 @@ import butterknife.ButterKnife;
 /**
  * Created by srtianxia on 2016/2/9.
  */
-public class ActivitySetQuestion extends BaseActivity implements View.OnClickListener {
+public class ActivitySetQuestion extends BaseActivity implements View.OnClickListener, IActivitySetQuestion {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.ed_question_title)
     EditText edQuestionTitle;
     @Bind(R.id.til_question_title)
     TextInputLayout tilQuestionTitle;
+    @Bind(R.id.ed_question_content)
+    EditText edQuestionContent;
 
+    private SetQuestionPresenter presenter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_question);
+        presenter = new SetQuestionPresenter(this);
         ButterKnife.bind(this);
         initToolbar();
     }
 
     private void initToolbar() {
-        toolbar.setTitle("");
+        toolbar.setTitle("编辑问题");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_chevron_left_grey600));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -62,13 +69,15 @@ public class ActivitySetQuestion extends BaseActivity implements View.OnClickLis
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_addPic:
-
+                //功能尚未添加，但是以前做过一次方案有bug，正在寻求更好的解决方案
+                Toast.makeText(ActivitySetQuestion.this, "功能尚未添加", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu_item_send:
-                if (edQuestionTitle.getText().length()<=10){
+                if (edQuestionTitle.getText().length() <= 10) {
                     tilQuestionTitle.setError("问题长度过短");
-                }else {
+                } else {
                     tilQuestionTitle.setErrorEnabled(false);
+                    presenter.setQuestion();
                 }
                 break;
         }
@@ -77,6 +86,28 @@ public class ActivitySetQuestion extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+
+    }
+
+
+    @Override
+    public String getQTitle() {
+        return edQuestionTitle.getText().toString();
+    }
+
+    @Override
+    public String getQContent() {
+        return edQuestionContent.getText().toString();
+    }
+
+    @Override
+    public void setQuestionSuccess() {
+        Toast.makeText(ActivitySetQuestion.this, "发布成功", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    @Override
+    public void setQuestionFailure() {
 
     }
 }

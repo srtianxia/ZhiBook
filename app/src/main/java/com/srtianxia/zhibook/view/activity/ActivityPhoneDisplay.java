@@ -7,7 +7,6 @@ import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +29,7 @@ import butterknife.ButterKnife;
 /**
  * Created by srtianxia on 2016/1/20.
  * 2/17 展示页面存为bitmap
+ * 考虑下保存应该在io线程而不是主线程
  */
 public class ActivityPhoneDisplay extends BaseActivity {
     @Bind(R.id.tv_display)

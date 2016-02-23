@@ -17,6 +17,7 @@
     <string name="toolbar_display">预览</string>
     <string name="toolbar_note">MarkDown笔记</string>
     <string name="toolbar_chat">吵吵机器人</string>
+    <string name="toolbar_answer_edit">撰写回答</string>
 
     <string name="tab_home">首页</string>
     <string name="tab_find">发现</string>

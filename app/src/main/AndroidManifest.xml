@@ -44,6 +44,8 @@
         <activity
             android:theme="@style/AppTheme"
             android:name=".view.activity.ActivityChat"/>
+        <activity android:name=".view.activity.ActivityEditAnswer"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

@@ -85,9 +85,19 @@ public interface RetrofitAPI {
     @GET("news/latest")
     Observable<DailyBean> getDaily();
 
+    /**
+     * 日报详情部分
+     * @param id
+     * @return
+     */
     @GET("news/{id}")
     Observable<DailyContent> getDailyContent(@Path("id") String id);
 
+    /**
+     * 上拉加载更多的时候传入data（当前的data - 1）
+     * @param data
+     * @return
+     */
     @GET("news/before/{data}")
     Observable<DailyBean> getBefore(@Path("data") String data);
 

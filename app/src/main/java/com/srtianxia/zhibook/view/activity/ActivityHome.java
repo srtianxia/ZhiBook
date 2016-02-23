@@ -28,6 +28,7 @@ import com.srtianxia.zhibook.presenter.HomePresenter;
 import com.srtianxia.zhibook.utils.SharedPreferenceUtils;
 import com.srtianxia.zhibook.view.IView.IActivityHome;
 import com.srtianxia.zhibook.view.fragment.FragmentQuestion;
+import com.srtianxia.zhibook.view.fragment.FragmentTest;
 
 import org.hybridsquad.android.library.CropHandler;
 import org.hybridsquad.android.library.CropHelper;
