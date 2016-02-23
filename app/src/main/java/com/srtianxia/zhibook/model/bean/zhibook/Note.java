@@ -7,11 +7,21 @@ public class Note {
     private String content;
     private Integer id;
     private Integer authorId;
+    private String date;
 
-    public Note(String content,Integer id,Integer authorId){
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Note(String content, Integer id, Integer authorId,String date){
         this.content = content;
         this.authorId = authorId;
         this.id = id;
+        this.date = date;
     }
     public String getContent() {
         return content;

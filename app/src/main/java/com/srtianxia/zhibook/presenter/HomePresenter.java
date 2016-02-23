@@ -30,8 +30,8 @@ public class HomePresenter {
     public void upLoadHead(Uri uri){
         iZhiBookModel.upLoadHead(uri, "spToken", new OnUploadListener() {
             @Override
-            public void success() {
-
+            public void success(String url) {
+                iActivityHome.changHead(url);
             }
 
             @Override
@@ -87,5 +87,9 @@ public class HomePresenter {
 
             }
         });
+    }
+
+    public void onRelieveView() {
+        if (iActivityHome != null) iActivityHome = null;
     }
 }

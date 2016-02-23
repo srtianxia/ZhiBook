@@ -215,6 +215,7 @@ public class ActivityHome extends BaseActivity
 
     @Override
     public void loginSuccess() {
+        ifLogin = true;
         dialog.dismiss();
         Toast.makeText(ActivityHome.this, "登陆成功", Toast.LENGTH_SHORT).show();
         presenter.updateInfo();
@@ -235,21 +236,32 @@ public class ActivityHome extends BaseActivity
         Toast.makeText(ActivityHome.this, "用户名已被占用", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 登录或者退出登录的回调
+     * @param user
+     */
     @Override
     public void updateInfo(User user) {
-            toolbar.getMenu().clear();
-            getMenuInflater().inflate(R.menu.toolbar_home_login, toolbar.getMenu());
-            MenuItem item_search = toolbar.getMenu().findItem(R.id.menu_item_unlogin);
-            item_search.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    SharedPreferenceUtils.clear();
-                    presenter.updateInfo();
-                    return false;
-                }
-            });
+            if (ifLogin) {
+                toolbar.getMenu().clear();
+                getMenuInflater().inflate(R.menu.toolbar_home_login, toolbar.getMenu());
+                MenuItem item_search = toolbar.getMenu().findItem(R.id.menu_item_unlogin);
+                item_search.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        ifLogin = false;
+                        SharedPreferenceUtils.clear();
+                        presenter.updateInfo();
+                        toolbar.getMenu().clear();
+                        getMenuInflater().inflate(R.menu.toolbar_home_unlogin, toolbar.getMenu());
+                        return false;
+                    }
+                });
+            }
 
         SimpleDraweeView draweeView = (SimpleDraweeView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
+        TextView tvName = (TextView) navView.getHeaderView(0).findViewById(R.id.tv_person_name);
+        tvName.setText(""+user.getName());
         draweeView.setImageURI(Uri.parse(user.getHeadurl()));
         draweeView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -273,5 +285,23 @@ public class ActivityHome extends BaseActivity
                         }).show();
             }
         });
+    }
+
+    /**
+     * 更改头像后的回调
+     * @param url
+     */
+    @Override
+    public void changHead(String url) {
+        SimpleDraweeView draweeView = (SimpleDraweeView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
+        if (ifLogin) {
+            draweeView.setImageURI(Uri.parse(url));
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onRelieveView();
     }
 }

@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.BounceInterpolator;
 
+import com.srtianxia.zhibook.utils.ui.callback.OnAnimationEndListener;
+
 /**
  * Created by srtianxia on 2016/2/15.
  */

@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
     <TextView
-        android:id="@+id/tv_note_title"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/tv_note_time"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="13sp" />
     <TextView
         android:id="@+id/tv_note_preview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:textSize="17sp"
+        android:text="孙靖淇是大傻子"
+        android:singleLine="true"
+        android:ellipsize="end"
+        style="@style/TextAppearance.AppCompat.Body1"/>
 </LinearLayout>

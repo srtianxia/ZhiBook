@@ -32,6 +32,6 @@
         android:id="@+id/tv_person_sign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="android.studio@android.com" />
+        android:text="我是尚未添加的个性签名~" />
 
 </LinearLayout>

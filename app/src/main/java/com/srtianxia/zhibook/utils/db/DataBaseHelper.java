@@ -13,7 +13,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     private static final String CREATE_TABLE_NOTE = "create table note (" +
             "id integer primary key autoincrement," +
             "content text," +
-            "authorId integer)";
+            "authorId integer," +
+            "date text)";
 
     public DataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.model.bean.zhibook.Note;
+import com.srtianxia.zhibook.utils.ui.ItemTouchHelperAdapter;
 import com.srtianxia.zhibook.view.viewholder.NoteHolder;
 
 import java.util.List;
@@ -15,15 +16,21 @@ import java.util.List;
 /**
  * Created by srtianxia on 2016/2/17.
  */
-public class NoteAdapter extends RecyclerView.Adapter<NoteHolder> {
+public class NoteAdapter extends RecyclerView.Adapter<NoteHolder>  implements ItemTouchHelperAdapter {
     private Context context;
     private List<Note> items;
     private LayoutInflater inflater;
+    private OnItemClickListener onItemClickListener;
 
     public NoteAdapter(Context context,List<Note> items){
         this.context = context;
         this.items = items;
         inflater = LayoutInflater.from(context);
+
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -34,12 +41,40 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteHolder> {
     }
 
     @Override
-    public void onBindViewHolder(NoteHolder holder, int position) {
+    public void onBindViewHolder(final NoteHolder holder, final int position) {
         holder.setData(items.get(position),position);
+        if (onItemClickListener!=null){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onClick(holder.itemView,position);
+                }
+            });
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    onItemClickListener.onLongClick(holder.itemView,position);
+                    return false;
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        Note prev = items.remove(fromPosition);
+        items.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        items.remove(position);
+        notifyItemRemoved(position);
     }
 }

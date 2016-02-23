@@ -13,7 +13,7 @@ import android.view.View;
 
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
-import com.srtianxia.zhibook.utils.ui.OnAnimationEndListener;
+import com.srtianxia.zhibook.utils.ui.callback.OnAnimationEndListener;
 import com.srtianxia.zhibook.utils.ui.ScaleXYAnimation;
 import com.srtianxia.zhibook.view.fragment.FragmentCollect;
 import com.srtianxia.zhibook.view.fragment.FragmentDaily;

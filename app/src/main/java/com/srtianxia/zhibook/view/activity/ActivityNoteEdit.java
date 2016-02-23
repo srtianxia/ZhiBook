@@ -45,7 +45,6 @@ public class ActivityNoteEdit extends BaseActivity implements View.OnClickListen
             @Override
             public void onClick(View v) {
                 presenter.saveNoteToDB();
-                finish();
             }
         });
     }
@@ -81,6 +80,7 @@ public class ActivityNoteEdit extends BaseActivity implements View.OnClickListen
     @Override
     public void saveDBsuccess() {
         Toast.makeText(ActivityNoteEdit.this, "success", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override

@@ -16,4 +16,5 @@ public interface IActivityHome {
     void registerFailure();
 
     void updateInfo(User user);
+    void changHead(String url);
 }

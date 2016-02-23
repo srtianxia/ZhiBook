@@ -21,7 +21,7 @@ public class NotePresenter {
     }
 
     public void getNote(){
-        iZhiBookModel.getNoteList(1, new OnGetNoteListener() {
+        iZhiBookModel.getNoteList(0, new OnGetNoteListener() {
             @Override
             public void success(List<Note> notes) {
                 iActivityNote.showNoteSuccess(notes);
@@ -33,5 +33,7 @@ public class NotePresenter {
             }
         });
     }
-
+    public void onRelieveView() {
+        if (iActivityNote != null) iActivityNote = null;
+    }
 }

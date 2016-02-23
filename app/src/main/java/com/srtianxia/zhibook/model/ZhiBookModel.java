@@ -26,6 +26,8 @@ import com.srtianxia.zhibook.model.callback.OnGetQuestionListener;
 import com.srtianxia.zhibook.model.callback.OnPraiseListener;
 import com.srtianxia.zhibook.model.callback.OnSaveListener;
 import com.srtianxia.zhibook.model.callback.OnUploadListener;
+import com.srtianxia.zhibook.utils.SharedPreferenceUtils;
+import com.srtianxia.zhibook.utils.TimeUtils;
 import com.srtianxia.zhibook.utils.db.DataBaseHelper;
 import com.srtianxia.zhibook.utils.http.OkHttpUtils;
 import com.srtianxia.zhibook.utils.http.RetrofitAPI;
@@ -40,7 +42,9 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
 import rx.Observer;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -227,60 +231,155 @@ public class ZhiBookModel implements IZhiBookModel {
                 });
     }
 
-    @Override
-    public void saveNoteToDB(String content, Integer authorId, OnSaveListener listener) {
-        //考虑下这里存数据应该在io线程中，不应该在主线程
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(APP.getContext(),
-                "zhibook.db",null,1);
-        SQLiteDatabase db = dataBaseHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("content",content);
-        values.put("authorId",authorId);
-        if (db.insert("note",null,values)!= -1){
-            values.clear();
-            listener.success();
-        }else {
-            values.clear();
-            listener.failure();
-        }
+    /**
+     * 考虑这里存储应该在io线程，回调告知保存成功
+     * @param content
+     * @param authorId
+     * @param listener
+     */
 
+    @Override
+    public void saveNoteToDB(final String content, final Integer authorId, final OnSaveListener listener) {
+        Observable.create(new Observable.OnSubscribe<Long>() {
+            @Override
+            public void call(Subscriber<? super Long> subscriber) {
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(APP.getContext(),
+                        "zhibook.db",null,1);
+                SQLiteDatabase db = dataBaseHelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("content",content);
+                values.put("authorId",authorId);
+                values.put("date", TimeUtils.getTime());
+                subscriber.onNext(db.insert("note",null,values));
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                    @Override
+                    public void onNext(Long l) {
+                        if (l!=-1){
+                            listener.success();
+                        }else {
+                            listener.failure();
+                        }
+                    }
+                });
+
+//        DataBaseHelper dataBaseHelper = new DataBaseHelper(APP.getContext(),
+//                "zhibook.db",null,1);
+//        SQLiteDatabase db = dataBaseHelper.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put("content",content);
+//        values.put("authorId",authorId);
+//        if (db.insert("note",null,values)!= -1){
+//            values.clear();
+//            listener.success();
+//        }else {
+//            values.clear();
+//            listener.failure();
+//        }
+    }
+
+    /**
+     * rx
+     * @param authorId
+     * @param listener
+     */
+    @Override
+    public void getNoteList(final Integer authorId, final OnGetNoteListener listener) {
+        Observable.create(new Observable.OnSubscribe<List<Note>>() {
+            @Override
+            public void call(Subscriber<? super List<Note>> subscriber) {
+                List<Note> notes = new ArrayList<>();
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(APP.getContext(),
+                        "zhibook.db",null,1);
+                SQLiteDatabase db = dataBaseHelper.getReadableDatabase();
+                Cursor cursor = db.rawQuery("SELECT * FROM note WHERE authorId = "+ authorId,null);
+                if (cursor.moveToFirst()){
+                    do {
+                        notes.add(new Note(
+                                cursor.getString(cursor.getColumnIndex("content")),
+                                cursor.getInt(cursor.getColumnIndex("authorId")),
+                                cursor.getInt(cursor.getColumnIndex("id")),
+                                cursor.getString(cursor.getColumnIndex("date"))));
+                    }while (cursor.moveToNext());
+                }
+                subscriber.onNext(notes);
+            }
+        }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Observer<List<Note>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG,e.getMessage());
+            }
+
+            @Override
+            public void onNext(List<Note> notes) {
+                listener.success(notes);
+            }
+        });
+
+//        List<Note> notes = new ArrayList<>();
+//        DataBaseHelper dataBaseHelper = new DataBaseHelper(APP.getContext(),
+//                "zhibook.db",null,1);
+//        SQLiteDatabase db = dataBaseHelper.getReadableDatabase();
+//        Cursor cursor = db.rawQuery("SELECT * FROM note WHERE authorId = "+ authorId,null);
+//        if (cursor.moveToFirst()){
+//            do {
+//                notes.add(new Note(
+//                        cursor.getString(cursor.getColumnIndex("content")),
+//                        cursor.getInt(cursor.getColumnIndex("authorId")),
+//                        cursor.getInt(cursor.getColumnIndex("id"))));
+//            }while (cursor.moveToNext());
+//        }
+//        cursor.close();
+//        if (notes.size()!=0){
+//            listener.success(notes);
+//        }else {
+//            listener.failure();
+//        }
     }
 
     @Override
-    public void getNoteList(Integer authorId, OnGetNoteListener listener) {
-        List<Note> notes = new ArrayList<>();
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(APP.getContext(),
-                "zhibook.db",null,1);
-        SQLiteDatabase db = dataBaseHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM note WHERE authorId = "+ authorId,null);
-        if (cursor.moveToFirst()){
-            do {
-                notes.add(new Note(
-                        cursor.getString(cursor.getColumnIndex("content")),
-                        cursor.getInt(cursor.getColumnIndex("authorId")),
-                        cursor.getInt(cursor.getColumnIndex("id"))));
-            }while (cursor.moveToNext());
-        }
-        cursor.close();
-        if (notes.size()!=0){
-            listener.success(notes);
-        }else {
-            listener.failure();
-        }
-    }
-
-    @Override
-    public void upLoadHead(Uri uri, final String token, final OnUploadListener listener) {
+    public void upLoadHead(Uri uri, String token, final OnUploadListener listener) {
+        token = SharedPreferenceUtils.getToken();
+        final String finalToken = token;
+        final Handler handler = new Handler();
         BTPFileResponse response = BmobProFile.getInstance(APP.getContext()).upload(uri.getPath(), new UploadListener() {
             @Override
-            public void onSuccess(String fileName,String url,BmobFile file) {
+            public void onSuccess(final String fileName, String url, final BmobFile file) {
                 Log.i("bmob","文件上传成功："+fileName+",可访问的文件地址："+file.getUrl());
                 OkHttpUtils.asyPost(API.updatePersonInfo, new OkHttpUtilsCallback() {
                     @Override
-                    public void onResponse(Response response, String status) throws IOException {
-
+                    public void onResponse(final Response response, String status) throws IOException {
+                        SharedPreferenceUtils.changeHead(file.getUrl());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (response.code() == 200){
+                                    listener.success(file.getUrl());
+                                }else if (response.code() == 400){
+                                    listener.failure();
+                                }
+                            }
+                        });
                     }
-                },new OkHttpUtils.Param("token",token),new OkHttpUtils.Param("headurl",file.getUrl()));
+                },new OkHttpUtils.Param("token", finalToken),new OkHttpUtils.Param("headurl",file.getUrl()));
             }
 
             @Override

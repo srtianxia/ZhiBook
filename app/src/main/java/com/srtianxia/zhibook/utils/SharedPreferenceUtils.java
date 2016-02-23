@@ -48,4 +48,10 @@ public class SharedPreferenceUtils {
         editor.clear();
         editor.commit();
     }
+
+    public static void changeHead(String url){
+        SharedPreferences.Editor editor = APP.getContext().getSharedPreferences("ZhiBookSp",APP.getContext().MODE_PRIVATE).edit();
+        editor.putString("headUrl",url);
+        editor.commit();
+    }
 }

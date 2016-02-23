@@ -13,7 +13,7 @@ public class TimeUtils {
     }
 
     public static String getTime() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy/MM/dd  HH:mm");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy年MM月dd日  HH点mm分");
         return simpleDateFormat.format(getCurrentTime());
     }
 }

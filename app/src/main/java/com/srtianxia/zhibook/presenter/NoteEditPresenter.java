@@ -20,7 +20,7 @@ public class NoteEditPresenter {
     }
 
     public void saveNoteToDB(){
-        iZhiBookModel.saveNoteToDB(iActivityNoteEdit.getNoteContent(), 1, new OnSaveListener() {
+        iZhiBookModel.saveNoteToDB(iActivityNoteEdit.getNoteContent(), 0, new OnSaveListener() {
             @Override
             public void success() {
                 iActivityNoteEdit.saveDBsuccess();
