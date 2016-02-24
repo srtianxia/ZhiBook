@@ -17,6 +17,7 @@ import com.srtianxia.zhibook.utils.ui.callback.OnAnimationEndListener;
 import com.srtianxia.zhibook.utils.ui.ScaleXYAnimation;
 import com.srtianxia.zhibook.view.fragment.FragmentCollect;
 import com.srtianxia.zhibook.view.fragment.FragmentDaily;
+import com.srtianxia.zhibook.view.fragment.FragmentThemeDaily;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,7 +36,8 @@ public class ActivityFind extends BaseActivity {
     FloatingActionButton findFab;
 
     private static final String TAG = "ActivityFind";
-    private FragmentCollect fragmentCollect;
+//    private FragmentCollect fragmentCollect;
+    private FragmentThemeDaily fragmentThemeDaily;
     private FragmentDaily fragmentDaily;
     private HomePagerAdapter pagerAdapter;
 
@@ -110,7 +112,7 @@ public class ActivityFind extends BaseActivity {
     }
 
     public class HomePagerAdapter extends FragmentPagerAdapter {
-        private final String[] titles = {"日报", "收藏"};
+        private final String[] titles = {"日报", "分栏"};
 
         public HomePagerAdapter(FragmentManager fm) {
             super(fm);
@@ -130,10 +132,10 @@ public class ActivityFind extends BaseActivity {
                     }
                     return fragmentDaily;
                 case 1:
-                    if (fragmentCollect == null) {
-                        fragmentCollect = new FragmentCollect();
+                    if (fragmentThemeDaily == null) {
+                        fragmentThemeDaily = new FragmentThemeDaily();
                     }
-                    return fragmentCollect;
+                    return fragmentThemeDaily;
                 default:
                     return null;
             }

@@ -1,7 +1,5 @@
 package com.srtianxia.zhibook.model.bean.zhibook;
 
-import android.graphics.Bitmap;
-
 /**
  * Created by srtianxia on 2016/2/6.
  */
@@ -13,14 +11,15 @@ public class Question {
     private String bestAnswerId;
     private String data;
     private int answerCount;
-    private Bitmap authorHeadBitmap;
+    private String id;
 
-    public Bitmap getAuthorHeadBitmap() {
-        return authorHeadBitmap;
+
+    public String getId() {
+        return id;
     }
 
-    public void setAuthorHeadBitmap(Bitmap authorHeadBitmap) {
-        this.authorHeadBitmap = authorHeadBitmap;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getAnswerCount() {

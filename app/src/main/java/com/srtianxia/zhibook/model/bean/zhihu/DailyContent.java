@@ -11,7 +11,7 @@ public class DailyContent {
     private String imageSource;
     private String title;
     private String image;
-    private String shareUrl;
+    private String share_url;
     private List<Object> js = new ArrayList<Object>();
     private String gaPrefix;
     private Integer type;
@@ -96,7 +96,7 @@ public class DailyContent {
      *     The shareUrl
      */
     public String getShareUrl() {
-        return shareUrl;
+        return share_url;
     }
 
     /**
@@ -105,7 +105,7 @@ public class DailyContent {
      *     The share_url
      */
     public void setShareUrl(String shareUrl) {
-        this.shareUrl = shareUrl;
+        this.share_url = shareUrl;
     }
 
     /**

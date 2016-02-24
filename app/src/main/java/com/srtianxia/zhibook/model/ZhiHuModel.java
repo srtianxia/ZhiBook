@@ -6,8 +6,10 @@ import com.srtianxia.zhibook.app.APP;
 import com.srtianxia.zhibook.model.Imodel.IZhiHuModel;
 import com.srtianxia.zhibook.model.bean.zhihu.DailyBean;
 import com.srtianxia.zhibook.model.bean.zhihu.DailyContent;
+import com.srtianxia.zhibook.model.bean.zhihu.ThemeDailyBean;
 import com.srtianxia.zhibook.model.callback.OnGetDailyContentListener;
 import com.srtianxia.zhibook.model.callback.OnGetDailyListener;
+import com.srtianxia.zhibook.model.callback.OnGetThemeListener;
 import com.srtianxia.zhibook.utils.http.HttpUtils;
 import com.srtianxia.zhibook.utils.http.RetrofitAPI;
 
@@ -150,6 +152,29 @@ public class ZhiHuModel implements IZhiHuModel{
                     @Override
                     public void onNext(DailyBean bean) {
                         listener.onGetDailySuccess(bean);
+                    }
+                });
+    }
+
+    @Override
+    public void getThemeList(final OnGetThemeListener listener) {
+        retrofitAPI.getTheme().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ThemeDailyBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG,e.getMessage());
+                        listener.failure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(ThemeDailyBean bean) {
+                        listener.success(bean);
                     }
                 });
     }

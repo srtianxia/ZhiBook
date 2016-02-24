@@ -43,7 +43,7 @@ public class ActivityEditAnswer extends BaseActivity implements IActivityEditAns
     private void initToolbar() {
         toolbar.setTitle(getString(R.string.toolbar_answer_edit));
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_chevron_left_grey600));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

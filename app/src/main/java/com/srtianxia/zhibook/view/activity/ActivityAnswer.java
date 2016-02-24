@@ -11,9 +11,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.TextView;
 
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
@@ -33,11 +35,12 @@ import butterknife.ButterKnife;
 /**
  * Created by srtianxia on 2016/2/10.
  * 问题content在 CollapsingToolbarLayout中 回答在RecyclerView
- * 想让回答在RecyclerView响应滚动 待完成
+ * 想让回答在RecyclerView响应滚动
  * ..............  2/14 4:20
  */
 public class ActivityAnswer extends BaseActivity implements IActivityAnswer,
-        SwipeRefreshLayout.OnRefreshListener,View.OnClickListener {
+        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
+    private static final String TAG = "ActivityAnswer";
     @Bind(R.id.collapsingToolbarLayout)
     CollapsingToolbarLayout collapsingToolbarLayout;
     @Bind(R.id.toolbar)
@@ -48,6 +51,7 @@ public class ActivityAnswer extends BaseActivity implements IActivityAnswer,
     RecyclerView rvAnswer;
     @Bind(R.id.sw_answer)
     SwipeRefreshLayout swAnswer;
+
 
     private AnswerAdapter adapter;
 
@@ -70,7 +74,6 @@ public class ActivityAnswer extends BaseActivity implements IActivityAnswer,
         swAnswer.setOnRefreshListener(this);
         initToolbar();
         initRv();
-//        presenter.getAnswer();
     }
 
     @Override
@@ -102,7 +105,10 @@ public class ActivityAnswer extends BaseActivity implements IActivityAnswer,
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
                         .getDisplayMetrics()));
         swAnswer.setRefreshing(true);
-        onRefresh();
+        View view = LayoutInflater.from(this).inflate(R.layout.header_answer, rvAnswer, false);
+        TextView answerQuestionContent = (TextView) view.findViewById(R.id.answer_question_content);
+        answerQuestionContent.setText(questionTitle);
+        adapter.setHeadView(view);
     }
 
     @Override
@@ -114,6 +120,18 @@ public class ActivityAnswer extends BaseActivity implements IActivityAnswer,
     public void initAnswerSuccess(final List<Answer> answers) {
         swAnswer.setRefreshing(false);
         adapter.setData(answers);
+        rvAnswer.addOnScrollListener(new HidingScrollListener() {
+            @Override
+            public void onHide() {
+                hideViews();
+            }
+
+            @Override
+            public void onShow() {
+                showViews();
+            }
+        });
+
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -126,17 +144,6 @@ public class ActivityAnswer extends BaseActivity implements IActivityAnswer,
             @Override
             public void onLongClick(View view, int position) {
 
-            }
-        });
-        rvAnswer.addOnScrollListener(new HidingScrollListener() {
-            @Override
-            public void onHide() {
-                hideViews();
-            }
-
-            @Override
-            public void onShow() {
-                showViews();
             }
         });
     }
@@ -160,10 +167,10 @@ public class ActivityAnswer extends BaseActivity implements IActivityAnswer,
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.answer_fab:
-                Intent intent = new Intent(this,ActivityEditAnswer.class);
-                intent.putExtra("questionId",questionId);
+                Intent intent = new Intent(this, ActivityEditAnswer.class);
+                intent.putExtra("questionId", questionId);
                 startActivity(intent);
                 break;
         }

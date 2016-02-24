@@ -13,6 +13,7 @@ import com.bmob.btp.callback.UploadListener;
 import com.srtianxia.zhibook.app.API;
 import com.srtianxia.zhibook.app.APP;
 import com.srtianxia.zhibook.model.Imodel.IZhiBookModel;
+import com.srtianxia.zhibook.model.bean.zhibook.Answer;
 import com.srtianxia.zhibook.model.bean.zhibook.AnswerBean;
 import com.srtianxia.zhibook.model.bean.zhibook.CollectFolderBean;
 import com.srtianxia.zhibook.model.bean.zhibook.EssayBean;
@@ -160,6 +161,10 @@ public class ZhiBookModel implements IZhiBookModel {
                     @Override
                     public void onNext(AnswerBean answerBean) {
                         listener.success(answerBean.getAnswers());
+                        Log.d(TAG,"answer.size = "+answerBean.getAnswers().size());
+                        for (Answer a:answerBean.getAnswers()){
+                            Log.d(TAG,a.getContent());
+                        }
                     }
                 });
     }

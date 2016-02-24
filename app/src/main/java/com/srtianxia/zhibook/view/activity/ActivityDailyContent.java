@@ -1,6 +1,7 @@
 package com.srtianxia.zhibook.view.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -47,6 +51,8 @@ public class ActivityDailyContent extends BaseActivity implements IActivityDaily
     private String dailyId;
     private DailyContentPresenter presenter;
 
+    private String shareUrl;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +74,7 @@ public class ActivityDailyContent extends BaseActivity implements IActivityDaily
             }
         });
         nestedView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        nestedView.setElevation(0);
+//        nestedView.setElevation(0);
         wvNews.getSettings().setJavaScriptEnabled(true);
         wvNews.getSettings().setLoadsImagesAutomatically(true);
         //设置 缓存模式
@@ -86,11 +92,13 @@ public class ActivityDailyContent extends BaseActivity implements IActivityDaily
 
     @Override
     public void showContentSuccess(DailyContent dailyContent) {
+        shareUrl = dailyContent.getShareUrl();
         String css = "<link rel=\"stylesheet\" href=\"file:///android_asset/css/news.css\" type=\"text/css\">";
         String html = "<html><head>" + css + "</head><body>" + dailyContent.getBody() + "</body></html>";
         html = html.replace("<div class=\"img-place-holder\">", "");
         wvNews.loadDataWithBaseURL("x-data://base", html, "text/html", "UTF-8", null);
         ivHeader.setImageURI(Uri.parse(dailyContent.getImage()));
+        Log.d("123",shareUrl);
     }
 
     @Override
@@ -98,5 +106,26 @@ public class ActivityDailyContent extends BaseActivity implements IActivityDaily
         super.onDestroy();
         ButterKnife.unbind(this);
         presenter.onRelieveView();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_daily_content,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_share:
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareUrl);
+                shareIntent.setType("text/url");
+                startActivity(Intent.createChooser(shareIntent, "分享到"));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

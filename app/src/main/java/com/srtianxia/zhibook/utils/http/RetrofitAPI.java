@@ -8,6 +8,7 @@ import com.srtianxia.zhibook.model.bean.zhibook.QuestionBean;
 import com.srtianxia.zhibook.model.bean.zhibook.User;
 import com.srtianxia.zhibook.model.bean.zhihu.DailyBean;
 import com.srtianxia.zhibook.model.bean.zhihu.DailyContent;
+import com.srtianxia.zhibook.model.bean.zhihu.ThemeDailyBean;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -100,6 +101,9 @@ public interface RetrofitAPI {
      */
     @GET("news/before/{data}")
     Observable<DailyBean> getBefore(@Path("data") String data);
+
+    @GET("themes")
+    Observable<ThemeDailyBean> getTheme();
 
     //聊天机器人部分
     @FormUrlEncoded

@@ -87,7 +87,7 @@ public class FragmentQuestion extends Fragment implements View.OnClickListener,S
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
                         .getDisplayMetrics()));
         swipeQuestion.setRefreshing(true);
-        onRefresh();
+//        onRefresh();
     }
 
     private void setOnClickRefresh() {
@@ -122,6 +122,10 @@ public class FragmentQuestion extends Fragment implements View.OnClickListener,S
         }
     }
 
+    /***
+     * questionId 错乱
+     * @param questions
+     */
     @Override
     public void showInitSuccess(final List<Question> questions) {
         adapter.setData(questions);
@@ -130,7 +134,7 @@ public class FragmentQuestion extends Fragment implements View.OnClickListener,S
             @Override
             public void onClick(View view, int position) {
                 Intent intent = new Intent(getActivity(), ActivityAnswer.class);
-                intent.putExtra("questionId", String.valueOf(position + 1));
+                intent.putExtra("questionId", questions.get(position).getId());
                 intent.putExtra("title",questions.get(position).getTitle());
                 intent.putExtra("content",questions.get(position).getContent());
                 startActivity(intent);

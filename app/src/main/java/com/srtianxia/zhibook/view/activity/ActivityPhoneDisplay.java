@@ -97,7 +97,7 @@ public class ActivityPhoneDisplay extends BaseActivity {
             return false;
         }
         if ("".equals(mdReader.getContent())) {
-            Toast.makeText(this, "没有内容,无法保存 !", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "内容为空 !", Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
@@ -126,22 +126,14 @@ public class ActivityPhoneDisplay extends BaseActivity {
     }
 
     public static Bitmap createBitmap(NestedScrollView v) {
-        int width = 0, height = 0;
+        int width = v.getWidth();
+        int height = 0;
         for (int i = 0; i < v.getChildCount(); i++) {
-            width  += v.getChildAt(i).getWidth();
             height += v.getChildAt(i).getHeight();
         }
         Bitmap bitmap = Bitmap.createBitmap(width,height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         v.draw(canvas);
-        return bitmap;
-    }
-
-    public static Bitmap createBitmap(View v) {
-        v.setDrawingCacheEnabled(true);
-        v.buildDrawingCache();
-        Bitmap bitmap = Bitmap.createBitmap(v.getDrawingCache());
-        v.setDrawingCacheEnabled(false);
         return bitmap;
     }
 }
