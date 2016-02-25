@@ -38,4 +38,7 @@ public interface IZhiBookModel {
 
     //bmob
     void upLoadHead(Uri uri,String authorId,OnUploadListener listener);
+
+    //
+    void upLoadPic(Uri uri,OnUploadListener listener);
 }

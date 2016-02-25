@@ -9,4 +9,6 @@ public interface IActivitySetQuestion {
 
     void setQuestionSuccess();
     void setQuestionFailure();
+
+    void uploadPicAfter(String url);
 }

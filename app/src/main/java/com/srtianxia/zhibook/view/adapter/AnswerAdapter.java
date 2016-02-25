@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.model.bean.zhibook.Answer;
 import com.srtianxia.zhibook.view.viewholder.AnswerHolder;
-import com.srtianxia.zhibook.view.viewholder.DailyViewHolder;
 
 import java.util.List;
 

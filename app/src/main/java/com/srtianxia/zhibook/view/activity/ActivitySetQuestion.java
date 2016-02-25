@@ -1,5 +1,8 @@
 package com.srtianxia.zhibook.view.activity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -15,13 +18,18 @@ import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.presenter.SetQuestionPresenter;
 import com.srtianxia.zhibook.view.IView.IActivitySetQuestion;
 
+import org.hybridsquad.android.library.CropHandler;
+import org.hybridsquad.android.library.CropHelper;
+import org.hybridsquad.android.library.CropParams;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
  * Created by srtianxia on 2016/2/9.
  */
-public class ActivitySetQuestion extends BaseActivity implements View.OnClickListener, IActivitySetQuestion {
+public class ActivitySetQuestion extends BaseActivity implements
+        View.OnClickListener, IActivitySetQuestion,CropHandler {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.ed_question_title)
@@ -32,6 +40,8 @@ public class ActivitySetQuestion extends BaseActivity implements View.OnClickLis
     EditText edQuestionContent;
 
     private SetQuestionPresenter presenter;
+
+    private CropParams cropParams = new CropParams();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +80,10 @@ public class ActivitySetQuestion extends BaseActivity implements View.OnClickLis
         switch (item.getItemId()) {
             case R.id.menu_item_addPic:
                 //功能尚未添加，但是以前做过一次方案有bug，正在寻求更好的解决方案
-                Toast.makeText(ActivitySetQuestion.this, "功能尚未添加", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ActivitySetQuestion.this, "功能尚未添加", Toast.LENGTH_SHORT).show();
+                Intent intent = CropHelper.buildCropFromGalleryIntent(new CropParams());
+                CropHelper.clearCachedCropFile(cropParams.uri);
+                startActivityForResult(intent, CropHelper.REQUEST_CROP);
                 break;
             case R.id.menu_item_send:
                 if (edQuestionTitle.getText().length() <= 10) {
@@ -89,7 +102,6 @@ public class ActivitySetQuestion extends BaseActivity implements View.OnClickLis
 
     }
 
-
     @Override
     public String getQTitle() {
         return edQuestionTitle.getText().toString();
@@ -107,7 +119,51 @@ public class ActivitySetQuestion extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void setQuestionFailure() {
+    public void setQuestionFailure() {}
 
+    /***
+     * url为上传后图片的bomb返回的图片链接
+     * @param url
+     */
+    @Override
+    public void uploadPicAfter(String url) {
+
+    }
+
+    /***
+     * 裁剪照片后的回调
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        CropHelper.handleResult(this, requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onPhotoCropped(Uri uri) {
+        presenter.uploadPic(uri);
+    }
+
+    @Override
+    public void onCropCancel() {
+
+    }
+
+    @Override
+    public void onCropFailed(String message) {
+
+    }
+
+    @Override
+    public CropParams getCropParams() {
+        return cropParams;
+    }
+
+    @Override
+    public Activity getContext() {
+        return getContext();
     }
 }

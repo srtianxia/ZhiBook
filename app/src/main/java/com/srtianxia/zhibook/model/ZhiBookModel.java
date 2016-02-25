@@ -144,6 +144,7 @@ public class ZhiBookModel implements IZhiBookModel {
 
     @Override
     public void getAnswer(String questionId, final OnGetAnswerListener listener) {
+        Log.d(TAG,"questionId = "+questionId);
         retrofitAPI.getAnswer(questionId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -427,6 +428,28 @@ public class ZhiBookModel implements IZhiBookModel {
             public void onProgress(int progress) {
                 Log.i("bmob","onProgress :"+progress);
                 listener.progress(progress);
+            }
+
+            @Override
+            public void onError(int statuscode, String errormsg) {
+                Log.i("bmob","文件上传失败："+errormsg);
+            }
+        });
+    }
+
+    @Override
+    public void upLoadPic(Uri uri, final OnUploadListener listener) {
+        BTPFileResponse response = BmobProFile.getInstance(APP.getContext()).upload(uri.getPath(), new UploadListener() {
+            @Override
+            public void onSuccess(final String fileName, String url, final BmobFile file) {
+                Log.i("bmob","文件上传成功："+fileName+",可访问的文件地址："+file.getUrl());
+                listener.success(file.getUrl());
+            }
+
+            @Override
+            public void onProgress(int progress) {
+                Log.i("bmob","onProgress :"+progress);
+
             }
 
             @Override

@@ -12,5 +12,4 @@ public class FileModel implements IFileModel {
         return instance;
     }
 
-
 }

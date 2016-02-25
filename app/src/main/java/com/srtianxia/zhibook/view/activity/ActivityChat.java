@@ -14,6 +14,7 @@ import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.model.bean.ChatBean;
 import com.srtianxia.zhibook.presenter.ChatPresenter;
+import com.srtianxia.zhibook.utils.SharedPreferenceUtils;
 import com.srtianxia.zhibook.view.IView.IActivityChat;
 import com.srtianxia.zhibook.view.adapter.ChatAdapter;
 
@@ -51,6 +52,16 @@ public class ActivityChat extends BaseActivity implements IActivityChat, View.On
         manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvChat.setAdapter(adapter);
         rvChat.setLayoutManager(manager);
+
+        initChatData();
+    }
+
+    private void initChatData() {
+        ChatBean tempBean = new ChatBean();
+        int type = ChatBean.TYPE_LEFT;
+        tempBean.setText("我是人见人爱的吵吵，欢迎调戏~");
+        tempBean.setType(type);
+        adapter.addMsg(tempBean);
     }
 
     private void initView() {
@@ -73,7 +84,7 @@ public class ActivityChat extends BaseActivity implements IActivityChat, View.On
                 ChatBean tempBean = new ChatBean();
                 int type = ChatBean.TYPE_RIGHT;
                 String s = edChatMsg.getText().toString();
-                String url = "http://www.91danji.com/attachments/201509/27/13/4cevsjye7.jpg";
+                String url = SharedPreferenceUtils.gethead();
                 tempBean.setText(s);
                 tempBean.setHeadUrl(url);
                 tempBean.setType(type);
@@ -93,5 +104,11 @@ public class ActivityChat extends BaseActivity implements IActivityChat, View.On
         tempBean.setType(type);
         adapter.addMsg(tempBean);
         rvChat.smoothScrollToPosition(adapter.getItemCount());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onRelieveView();
     }
 }

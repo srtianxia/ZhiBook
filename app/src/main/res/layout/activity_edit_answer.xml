@@ -29,17 +29,20 @@
         android:background="@null"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:elevation="3dp">
+        android:background="@color/colorWhite"
+        android:elevation="4dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="匿名回答"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:layout_marginLeft="10dp"/>
         <android.support.v7.widget.SwitchCompat
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"/>
     </LinearLayout>
 </RelativeLayout>

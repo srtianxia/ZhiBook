@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="6dp"
+    android:elevation="2dp">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/item_rv_daily_bg">
+    android:background="@drawable/item_rv_daily_bg"
+    android:paddingTop="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="3dp"
+    android:paddingBottom="5dp">
     <TextView
         android:id="@+id/tv_answer_authorName"
         android:layout_width="260dp"
@@ -27,11 +37,11 @@
         android:ellipsize="end"
         android:lines="4" />
 
-    <ImageView
-        android:src="@drawable/spilt_line"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_answer_content"/>
+    <!--<ImageView-->
+        <!--android:src="@drawable/spilt_line"-->
+        <!--android:layout_width="270dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/tv_answer_content"/>-->
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/img_answer_authorHead"
         android:layout_width="40dp"
@@ -54,3 +64,5 @@
         android:gravity="center"
         android:background="@drawable/drawable_bk_count"/>
 </RelativeLayout>
+
+</android.support.v7.widget.CardView>

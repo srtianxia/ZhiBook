@@ -26,4 +26,8 @@ public class ChatPresenter {
             }
         });
     }
+
+    public void onRelieveView() {
+        if (iActivityChat != null) iActivityChat = null;
+    }
 }

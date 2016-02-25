@@ -56,6 +56,7 @@ public class ActivityHome extends BaseActivity
 
     //判断登录状态的标记
     private Boolean ifLogin = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +84,12 @@ public class ActivityHome extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    /***
+     * 裁剪照片后的回调
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

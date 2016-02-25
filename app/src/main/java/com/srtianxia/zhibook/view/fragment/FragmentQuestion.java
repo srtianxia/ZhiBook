@@ -22,6 +22,7 @@ import com.srtianxia.zhibook.model.bean.zhibook.Question;
 import com.srtianxia.zhibook.presenter.GetQuestionPresenter;
 import com.srtianxia.zhibook.view.IView.IFragmentQuestion;
 import com.srtianxia.zhibook.view.activity.ActivityAnswer;
+import com.srtianxia.zhibook.view.activity.ActivityAnswerUpdata;
 import com.srtianxia.zhibook.view.activity.ActivitySetQuestion;
 import com.srtianxia.zhibook.view.adapter.OnItemClickListener;
 import com.srtianxia.zhibook.view.adapter.QuestionAdapter;
@@ -133,7 +134,7 @@ public class FragmentQuestion extends Fragment implements View.OnClickListener,S
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Intent intent = new Intent(getActivity(), ActivityAnswer.class);
+                Intent intent = new Intent(getActivity(), ActivityAnswerUpdata.class);
                 intent.putExtra("questionId", questions.get(position).getId());
                 intent.putExtra("title",questions.get(position).getTitle());
                 intent.putExtra("content",questions.get(position).getContent());

@@ -22,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:hint="问题" />
         </android.support.design.widget.TextInputLayout>
+
     </android.support.v7.widget.Toolbar>
     <EditText
         android:padding="10dp"
