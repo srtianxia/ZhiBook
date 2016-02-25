@@ -57,6 +57,12 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp" />
 
+        <ProgressBar
+            android:id="@+id/progress_login"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/bt_login"
             android:layout_width="wrap_content"

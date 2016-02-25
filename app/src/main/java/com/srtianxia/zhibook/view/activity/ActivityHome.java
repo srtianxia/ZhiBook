@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,6 @@ import com.srtianxia.zhibook.presenter.HomePresenter;
 import com.srtianxia.zhibook.utils.SharedPreferenceUtils;
 import com.srtianxia.zhibook.view.IView.IActivityHome;
 import com.srtianxia.zhibook.view.fragment.FragmentQuestion;
-import com.srtianxia.zhibook.view.fragment.FragmentTest;
 
 import org.hybridsquad.android.library.CropHandler;
 import org.hybridsquad.android.library.CropHelper;
@@ -52,6 +52,7 @@ public class ActivityHome extends BaseActivity
     private CropParams cropParams = new CropParams();
     private View dialogView;
     private MaterialDialog dialog;
+    private ProgressBar progressBar;
 
     //判断登录状态的标记
     private Boolean ifLogin = false;
@@ -63,6 +64,7 @@ public class ActivityHome extends BaseActivity
         ButterKnife.bind(this);
         toolbar.setTitle(R.string.toolbar_home);
         setSupportActionBar(toolbar);
+
         //判断是否登录了用户
         if (!SharedPreferenceUtils.getToken().equals("")){
             ifLogin = true;
@@ -130,9 +132,11 @@ public class ActivityHome extends BaseActivity
             dialogView = new MaterialDialog.Builder(this)
                     .customView(R.layout.ui_layout_dialog,false).build().getCustomView();
             TextView btlogin = (TextView) dialogView.findViewById(R.id.bt_login);
+            progressBar = (ProgressBar) dialogView.findViewById(R.id.progress_login);
             btlogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    progressBar.setVisibility(View.VISIBLE);
                     presenter.login();
                 }
             });
@@ -140,6 +144,7 @@ public class ActivityHome extends BaseActivity
             btRegiser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    progressBar.setVisibility(View.VISIBLE);
                     presenter.register();
                 }
             });
@@ -216,6 +221,7 @@ public class ActivityHome extends BaseActivity
 
     @Override
     public void loginSuccess() {
+        progressBar.setVisibility(View.GONE);
         ifLogin = true;
         dialog.dismiss();
         Toast.makeText(ActivityHome.this, "登陆成功", Toast.LENGTH_SHORT).show();
@@ -225,16 +231,19 @@ public class ActivityHome extends BaseActivity
     @Override
     public void loginFailure() {
         Toast.makeText(ActivityHome.this, "登录失败，账号或者密码错误", Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void registerSuccess() {
         Toast.makeText(ActivityHome.this, "注册成功，点击右侧登录", Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void registerFailure() {
         Toast.makeText(ActivityHome.this, "用户名已被占用", Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(View.GONE);
     }
 
     /**
