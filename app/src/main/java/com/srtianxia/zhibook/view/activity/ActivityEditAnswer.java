@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
@@ -90,6 +90,11 @@ public class ActivityEditAnswer extends BaseActivity implements IActivityEditAns
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver()
                     .openInputStream(uri));
+            float scaleWidth = ((float) getResources().getDisplayMetrics().widthPixels);
+            Matrix matrix = new Matrix();
+            matrix.postScale(scaleWidth, scaleWidth);
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix,
+                    true);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
