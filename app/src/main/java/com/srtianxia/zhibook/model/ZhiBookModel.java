@@ -28,6 +28,7 @@ import com.srtianxia.zhibook.model.callback.OnPraiseListener;
 import com.srtianxia.zhibook.model.callback.OnSaveListener;
 import com.srtianxia.zhibook.model.callback.OnSetAnswerListener;
 import com.srtianxia.zhibook.model.callback.OnSetQuestionListener;
+import com.srtianxia.zhibook.model.callback.OnUpLoadPicLisener;
 import com.srtianxia.zhibook.model.callback.OnUploadListener;
 import com.srtianxia.zhibook.utils.SharedPreferenceUtils;
 import com.srtianxia.zhibook.utils.TimeUtils;
@@ -421,7 +422,7 @@ public class ZhiBookModel implements IZhiBookModel {
                             }
                         });
                     }
-                },new OkHttpUtils.Param("token", finalToken),new OkHttpUtils.Param("headurl",file.getUrl()));
+                },new OkHttpUtils.Param("token", finalToken), new OkHttpUtils.Param("headurl",file.getUrl()));
             }
 
             @Override
@@ -438,12 +439,12 @@ public class ZhiBookModel implements IZhiBookModel {
     }
 
     @Override
-    public void upLoadPic(Uri uri, final OnUploadListener listener) {
+    public void upLoadPic(final Uri uri, final OnUpLoadPicLisener listener) {
         BTPFileResponse response = BmobProFile.getInstance(APP.getContext()).upload(uri.getPath(), new UploadListener() {
             @Override
             public void onSuccess(final String fileName, String url, final BmobFile file) {
                 Log.i("bmob","文件上传成功："+fileName+",可访问的文件地址："+file.getUrl());
-                listener.success(file.getUrl());
+                listener.success(uri,file.getUrl());
             }
 
             @Override
@@ -458,6 +459,4 @@ public class ZhiBookModel implements IZhiBookModel {
             }
         });
     }
-
-
 }

@@ -5,6 +5,7 @@ import android.net.Uri;
 import com.srtianxia.zhibook.model.Imodel.IZhiBookModel;
 import com.srtianxia.zhibook.model.ZhiBookModel;
 import com.srtianxia.zhibook.model.callback.OnSetQuestionListener;
+import com.srtianxia.zhibook.model.callback.OnUpLoadPicLisener;
 import com.srtianxia.zhibook.model.callback.OnUploadListener;
 import com.srtianxia.zhibook.view.IView.IActivitySetQuestion;
 
@@ -37,19 +38,19 @@ public class SetQuestionPresenter {
     }
 
     public void uploadPic(Uri uri){
-        iZhiBookModel.upLoadPic(uri, new OnUploadListener() {
+        iZhiBookModel.upLoadPic(uri, new OnUpLoadPicLisener() {
             @Override
-            public void success(String url) {
-                iActivitySetQuestion.uploadPicAfter(url);
+            public void success(Uri uri, String url) {
+                iActivitySetQuestion.uploadPicAfter(url,uri);
             }
 
             @Override
-            public void progress(int progress) {
+            public void failure(String s) {
 
             }
 
             @Override
-            public void failure() {
+            public void onProgree(int i) {
 
             }
         });

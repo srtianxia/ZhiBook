@@ -16,11 +16,13 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.model.bean.zhibook.Answer;
 import com.srtianxia.zhibook.presenter.GetAnswerPresenter;
+import com.srtianxia.zhibook.utils.SharedPreferenceUtils;
 import com.srtianxia.zhibook.view.IView.IActivityAnswer;
 import com.srtianxia.zhibook.view.adapter.AnswerAdapter;
 import com.srtianxia.zhibook.view.adapter.OnItemClickListener;
@@ -74,13 +76,13 @@ public class ActivityAnswer extends BaseActivity implements IActivityAnswer,
         swAnswer.setOnRefreshListener(this);
         initToolbar();
         initRv();
+        onRefresh();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 //        presenter.getAnswer();
-        onRefresh();
     }
 
     private void initToolbar() {
@@ -169,9 +171,13 @@ public class ActivityAnswer extends BaseActivity implements IActivityAnswer,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.answer_fab:
-                Intent intent = new Intent(this, ActivityEditAnswer.class);
-                intent.putExtra("questionId", questionId);
-                startActivity(intent);
+                if (SharedPreferenceUtils.getToken()!=null) {
+                    Intent intent = new Intent(this, ActivityEditAnswer.class);
+                    intent.putExtra("questionId", questionId);
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(ActivityAnswer.this, "token失效，请重新登录", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }

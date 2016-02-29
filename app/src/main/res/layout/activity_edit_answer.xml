@@ -27,6 +27,7 @@
         android:gravity="start"
         android:textSize="14sp"
         android:background="@null"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"

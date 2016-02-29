@@ -2,11 +2,17 @@ package com.srtianxia.zhibook.view.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +27,8 @@ import com.srtianxia.zhibook.view.IView.IActivitySetQuestion;
 import org.hybridsquad.android.library.CropHandler;
 import org.hybridsquad.android.library.CropHelper;
 import org.hybridsquad.android.library.CropParams;
+
+import java.io.FileNotFoundException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -79,8 +87,6 @@ public class ActivitySetQuestion extends BaseActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_addPic:
-                //功能尚未添加，但是以前做过一次方案有bug，正在寻求更好的解决方案
-//                Toast.makeText(ActivitySetQuestion.this, "功能尚未添加", Toast.LENGTH_SHORT).show();
                 Intent intent = CropHelper.buildCropFromGalleryIntent(new CropParams());
                 CropHelper.clearCachedCropFile(cropParams.uri);
                 startActivityForResult(intent, CropHelper.REQUEST_CROP);
@@ -126,8 +132,24 @@ public class ActivitySetQuestion extends BaseActivity implements
      * @param url
      */
     @Override
-    public void uploadPicAfter(String url) {
-
+    public void uploadPicAfter(String url, Uri uri) {
+        Bitmap bitmap = null;
+        try {
+            bitmap = BitmapFactory.decodeStream(getContentResolver()
+                    .openInputStream(uri));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        SpannableString mSpan1 = new SpannableString("<img src=\"" + url + "\" />");
+        int start = edQuestionContent.getSelectionStart();
+        mSpan1.setSpan(new ImageSpan(bitmap) , mSpan1.length() - url.length()-14, mSpan1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        if(edQuestionContent != null) {
+            Editable et = edQuestionContent.getText();
+            et.insert(start, mSpan1);
+            edQuestionContent.setText(et);
+            edQuestionContent.setSelection(start + mSpan1.length());
+        }
+        edQuestionContent.setLineSpacing(10f, 1f);
     }
 
     /***

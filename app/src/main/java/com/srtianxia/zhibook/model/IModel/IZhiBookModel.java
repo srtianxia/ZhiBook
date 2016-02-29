@@ -11,6 +11,7 @@ import com.srtianxia.zhibook.model.callback.OnPraiseListener;
 import com.srtianxia.zhibook.model.callback.OnSaveListener;
 import com.srtianxia.zhibook.model.callback.OnSetAnswerListener;
 import com.srtianxia.zhibook.model.callback.OnSetQuestionListener;
+import com.srtianxia.zhibook.model.callback.OnUpLoadPicLisener;
 import com.srtianxia.zhibook.model.callback.OnUploadListener;
 
 /**
@@ -39,6 +40,6 @@ public interface IZhiBookModel {
     //bmob
     void upLoadHead(Uri uri,String authorId,OnUploadListener listener);
 
-    //
-    void upLoadPic(Uri uri,OnUploadListener listener);
+
+    void upLoadPic(Uri uri, OnUpLoadPicLisener listener);
 }

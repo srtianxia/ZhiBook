@@ -1,10 +1,18 @@
 package com.srtianxia.zhibook.view.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,18 +26,25 @@ import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.model.bean.zhibook.Answer;
 import com.srtianxia.zhibook.model.bean.zhibook.CollectFolder;
 import com.srtianxia.zhibook.presenter.AnswerDetailPresenter;
+import com.srtianxia.zhibook.utils.http.OkHttpUtils;
+import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
 import com.srtianxia.zhibook.view.IView.IActivityAnswerDetail;
 
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.Response;
 
 /**
  * Created by srtianxia on 2016/2/15
  */
 
-public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswerDetail,View.OnClickListener {
+public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswerDetail,
+        View.OnClickListener {
+    private static final String TAG = "ActivityAnswerDetail";
+
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.answer_question_title)
@@ -58,15 +73,29 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
     ImageView imgBtAnswerCollect;
     @Bind(R.id.img_bt_answer_comment)
     ImageView imgBtAnswerComment;
+    private Html.ImageGetter imageGetter;
 
-    private static final String TAG = "ActivityAnswerDetail";
-
-    private Boolean ifCollect =  false;
+    private Boolean ifCollect = false;
     private Boolean ifFavorite = false;
     private Boolean ifPraise = false;
     private Integer answerId;
 
     private AnswerDetailPresenter presenter;
+
+    /***
+     * TextView设置两次setText （图片为异步加载）
+     */
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            String content = (String) msg.obj;
+            answerDetailContent.invalidate();
+            answerDetailContent.setText(Html.fromHtml(content, imageGetter,null));
+        }
+    };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,20 +128,47 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
     }
 
     private void initData() {
-        Answer answer = (Answer) getIntent().getSerializableExtra("answerDetail");
+        final Answer answer = (Answer) getIntent().getSerializableExtra("answerDetail");
         String questionTitle = getIntent().getStringExtra("questionTitle");
         answerQuestionTitle.setText(questionTitle);
         answerDetailPraiseCount.setText("" + answer.getPraise());
         answerDetailHead.setImageURI(Uri.parse(answer.getAnswerAuthorHead()));
         answerDetailAuthor.setText(answer.getAnswerAuthorName());
-        answerDetailContent.setText(answer.getContent());
+
+        imageGetter = new Html.ImageGetter() {
+            Drawable drawable = null;
+            @Override
+            public Drawable getDrawable(String source) {
+                OkHttpUtils.asyGet(source, new OkHttpUtilsCallback() {
+                    @Override
+                    public void onResponse(Response response, String status) throws IOException {
+//                        drawable = Drawable.createFromStream(response.body().byteStream(), "");
+                        Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
+                        float scaleWidth = ((float) getResources().getDisplayMetrics().widthPixels)/bitmap.getWidth();
+                        // 取得想要缩放的matrix参数
+                        Matrix matrix = new Matrix();
+                        matrix.postScale(scaleWidth, scaleWidth);
+                        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix,
+                                true);
+                        drawable = new BitmapDrawable(bitmap);
+                        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+                        Message message = new Message();
+                        message.obj = answer.getContent();
+                        handler.sendMessage(message);
+                    }
+                });
+                return drawable;
+            }
+        };
+//        answerDetailContent.setText(answer.getContent());
+        answerDetailContent.setText(Html.fromHtml(answer.getContent(), imageGetter,null));
         answerId = answer.getId();
     }
 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_bt_answer_collect:
                 presenter.getFolder();
 //                if (ifCollect){
@@ -126,10 +182,10 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
             case R.id.img_bt_answer_comment:
                 break;
             case R.id.img_bt_answer_favorite:
-                if (ifFavorite){
+                if (ifFavorite) {
                     imgBtAnswerFavorite.setImageResource(R.mipmap.ic_favorite_outline_grey600);
                     ifFavorite = false;
-                }else {
+                } else {
                     imgBtAnswerFavorite.setImageResource(R.mipmap.ic_favorite_grey600);
                     ifFavorite = true;
                 }
@@ -137,9 +193,9 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
             case R.id.img_bt_answer_flag:
                 break;
             case R.id.answer_detail_praise:
-                if (ifPraise){
+                if (ifPraise) {
                     Toast.makeText(ActivityAnswerDetail.this, "已经点过赞啦", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     presenter.praise(answerId);
                     ifPraise = true;
                 }
@@ -179,7 +235,7 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
     @Override
     public void showFolders(List<CollectFolder> folders) {
         String f[] = new String[folders.size()];
-        for (int i = 0;i<folders.size();i++){
+        for (int i = 0; i < folders.size(); i++) {
             f[i] = folders.get(i).getFolder();
         }
         new MaterialDialog.Builder(this)

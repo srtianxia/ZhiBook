@@ -1,8 +1,11 @@
 package com.srtianxia.zhibook.presenter;
 
+import android.net.Uri;
+
 import com.srtianxia.zhibook.model.Imodel.IZhiBookModel;
 import com.srtianxia.zhibook.model.ZhiBookModel;
 import com.srtianxia.zhibook.model.callback.OnSetAnswerListener;
+import com.srtianxia.zhibook.model.callback.OnUpLoadPicLisener;
 import com.srtianxia.zhibook.view.IView.IActivityEditAnswer;
 
 /**
@@ -31,5 +34,24 @@ public class ActivityEditAnswerPresenter {
 
                     }
                 });
+    }
+
+    public void upLoadPic(Uri uri){
+        iZhiBookModel.upLoadPic(uri, new OnUpLoadPicLisener() {
+            @Override
+            public void success(Uri uri, String url) {
+                iActivityEditAnswer.upLoadPicAfter(url,uri);
+            }
+
+            @Override
+            public void failure(String s) {
+
+            }
+
+            @Override
+            public void onProgree(int i) {
+
+            }
+        });
     }
 }

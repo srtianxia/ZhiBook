@@ -30,6 +30,8 @@
             android:layout_marginTop="6dp"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
             style="@style/TextAppearance.AppCompat.Body1"/>
         <TextView
             android:id="@+id/tv_question_content"
@@ -39,6 +41,8 @@
             android:layout_below="@+id/tv_question_title"
             android:layout_marginTop="6dp"
             android:textSize="14sp"
+            android:maxLines="3"
+            android:ellipsize="end"
             style="@style/TextAppearance.AppCompat.Body1"/>
         <!--<ImageView-->
             <!--android:id="@+id/img_question_author_head"-->
