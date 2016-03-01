@@ -41,7 +41,7 @@
         <!--android:layout_width="270dp"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_below="@+id/tv_answer_content"/>-->
-    <ImageView
+    <com.srtianxia.zhibook.utils.ui.CircleImageView
         android:id="@+id/img_answer_authorHead"
         android:layout_width="40dp"
         android:layout_height="40dp"

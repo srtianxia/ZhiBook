@@ -28,6 +28,7 @@ import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.model.bean.zhibook.User;
 import com.srtianxia.zhibook.presenter.HomePresenter;
 import com.srtianxia.zhibook.utils.SharedPreferenceUtils;
+import com.srtianxia.zhibook.utils.ui.CircleImageView;
 import com.srtianxia.zhibook.view.IView.IActivityHome;
 import com.srtianxia.zhibook.view.fragment.FragmentQuestion;
 
@@ -277,10 +278,9 @@ public class ActivityHome extends BaseActivity
                 });
             }
 
-        ImageView draweeView = (ImageView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
+        CircleImageView draweeView = (CircleImageView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
         TextView tvName = (TextView) navView.getHeaderView(0).findViewById(R.id.tv_person_name);
         tvName.setText(""+user.getName());
-//        draweeView.setImageURI(Uri.parse(user.getHeadurl()));
         Glide.with(this)
                 .load(user.getHeadurl())
                 .centerCrop()
@@ -317,7 +317,7 @@ public class ActivityHome extends BaseActivity
      */
     @Override
     public void changHead(String url) {
-        ImageView draweeView = (ImageView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
+        CircleImageView draweeView = (CircleImageView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
         if (ifLogin) {
             Glide.with(this)
                     .load(url)

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.model.bean.ChatBean;
+import com.srtianxia.zhibook.utils.ui.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,21 +87,21 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class RightHolder extends RecyclerView.ViewHolder {
         private TextView tvChatContent;
-        private ImageView imgChatHead;
+        private CircleImageView imgChatHead;
         public RightHolder(View itemView) {
             super(itemView);
             tvChatContent = (TextView) itemView.findViewById(R.id.tv_chat_right);
-            imgChatHead = (ImageView) itemView.findViewById(R.id.img_chat_head_right);
+            imgChatHead = (CircleImageView) itemView.findViewById(R.id.img_chat_head_right);
         }
     }
 
     public class LeftHolder extends RecyclerView.ViewHolder {
         private TextView tvChatContent;
-        private ImageView imgChatHead;
+        private CircleImageView imgChatHead;
         public LeftHolder(View itemView) {
             super(itemView);
             tvChatContent = (TextView) itemView.findViewById(R.id.tv_chat_left);
-            imgChatHead = (ImageView) itemView.findViewById(R.id.img_chat_head_left);
+            imgChatHead = (CircleImageView) itemView.findViewById(R.id.img_chat_head_left);
         }
     }
 }

@@ -50,13 +50,14 @@
             <!--android:layout_height="40dp"-->
             <!--android:layout_alignParentTop="true"-->
             <!--android:layout_alignParentRight="true" />-->
-        <ImageView
+        <com.srtianxia.zhibook.utils.ui.CircleImageView
             android:id="@+id/img_question_author_head"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            app:border_width="1dp"/>
         <TextView
             android:id="@+id/tv_question_answerCount"
             android:layout_width="48dp"

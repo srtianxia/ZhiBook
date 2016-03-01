@@ -27,7 +27,9 @@
             android:name=".view.activity.ActivityPhoneDisplay"/>
         <activity android:name=".view.activity.ActivitySetQuestion"/>
         <activity android:name=".view.activity.ActivityPersonInfo"/>
-        <activity android:name=".view.activity.ActivityAnswer"/>
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".view.activity.ActivityAnswer"/>
         <activity android:name=".view.activity.ActivityDailyContent"/>
         <activity
             android:theme="@style/AppTheme"
@@ -46,7 +48,9 @@
             android:name=".view.activity.ActivityChat"/>
         <activity android:name=".view.activity.ActivityEditAnswer"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".view.activity.ActivityAnswerUpdata"/>
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".view.activity.ActivityAnswerUpdata"/>
     </application>
 
 </manifest>
