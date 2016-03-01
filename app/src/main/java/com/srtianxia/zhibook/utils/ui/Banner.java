@@ -17,7 +17,7 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.model.bean.zhihu.TopStory;
 
@@ -92,18 +92,36 @@ public class Banner extends FrameLayout implements OnClickListener {
         for (int i = 0; i <= len + 1; i++) {
             View fm = LayoutInflater.from(context).inflate(
                     R.layout.kanner_content_layout, null);
-            SimpleDraweeView iv = (SimpleDraweeView) fm.findViewById(R.id.iv_title);
+            ImageView iv = (ImageView) fm.findViewById(R.id.iv_title);
             TextView tv_title = (TextView) fm.findViewById(R.id.tv_title);
             iv.setScaleType(ScaleType.CENTER_CROP);
 //            iv.setBackgroundResource(R.drawable.loading1);
             if (i == 0) {
-                iv.setImageURI(Uri.parse(bannerData.get(len-1).getImage()));
+//                iv.setImageURI(Uri.parse(bannerData.get(len-1).getImage()));
+                Glide.with(context)
+                        .load(bannerData.get(len-1).getImage())
+                        .centerCrop()
+                        .placeholder(R.drawable.ic_placeholder)
+                        .crossFade()
+                        .into(iv);
                 tv_title.setText(bannerData.get(len - 1).getTitle());
             } else if (i == len + 1) {
-                iv.setImageURI(Uri.parse(bannerData.get(0).getImage()));
+//                iv.setImageURI(Uri.parse(bannerData.get(0).getImage()));
+                Glide.with(context)
+                        .load(bannerData.get(0).getImage())
+                        .centerCrop()
+                        .placeholder(R.drawable.ic_placeholder)
+                        .crossFade()
+                        .into(iv);
                 tv_title.setText(bannerData.get(0).getTitle());
             } else {
-                iv.setImageURI(Uri.parse(bannerData.get(i-1).getImage()));
+//                iv.setImageURI(Uri.parse(bannerData.get(i-1).getImage()));
+                Glide.with(context)
+                        .load(bannerData.get(i-1).getImage())
+                        .centerCrop()
+                        .placeholder(R.drawable.ic_placeholder)
+                        .crossFade()
+                        .into(iv);
                 tv_title.setText(bannerData.get(i-1).getTitle());
             }
             fm.setOnClickListener(this);

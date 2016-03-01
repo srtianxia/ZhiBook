@@ -8,7 +8,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/item_rv_daily_bg"
     android:paddingTop="5dp"
     android:paddingLeft="5dp"
@@ -42,15 +41,14 @@
         <!--android:layout_width="270dp"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_below="@+id/tv_answer_content"/>-->
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/img_answer_authorHead"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        fresco:roundAsCircle="true"/>
+        android:layout_marginRight="5dp" />
     <TextView
         android:id="@+id/tv_praiseCount"
         android:layout_width="40dp"

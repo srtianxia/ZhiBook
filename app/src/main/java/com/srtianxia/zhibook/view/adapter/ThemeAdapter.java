@@ -1,14 +1,16 @@
 package com.srtianxia.zhibook.view.adapter;
 
 import android.content.Context;
-import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.model.bean.zhihu.ThemeDaily;
 
@@ -42,7 +44,13 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ThemeHolder>
     @Override
     public void onBindViewHolder(final ThemeHolder holder, final int position) {
         if (items!=null){
-            holder.imgTheme.setImageURI(Uri.parse(items.get(position).getThumbnail()));
+            Glide.with(context)
+                    .load(items.get(position).getThumbnail())
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_placeholder)
+                    .crossFade()
+                    .into(holder.imgTheme);
+
             holder.tvThemeTitle.setText(items.get(position).getName());
             holder.tvThemeDescription.setText(items.get(position).getDescription());
             if (onItemClickListener!=null){
@@ -69,15 +77,17 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ThemeHolder>
     }
 
     public class ThemeHolder extends RecyclerView.ViewHolder {
-        private SimpleDraweeView imgTheme;
+//        private SimpleDraweeView imgTheme;
+        private ImageView imgTheme;
         private TextView tvThemeTitle;
         private TextView tvThemeDescription;
         public ThemeHolder(View itemView) {
             super(itemView);
-            imgTheme = (SimpleDraweeView) itemView.findViewById(R.id.img_theme);
+            imgTheme = (ImageView) itemView.findViewById(R.id.img_theme);
             tvThemeTitle = (TextView) itemView.findViewById(R.id.tv_theme_title);
             tvThemeDescription = (TextView) itemView.findViewById(R.id.tv_theme_description);
         }
     }
+
 }
 

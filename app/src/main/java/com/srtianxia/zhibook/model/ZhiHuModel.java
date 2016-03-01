@@ -133,7 +133,6 @@ public class ZhiHuModel implements IZhiHuModel{
                     }
                 });
     }
-
     @Override
     public void loadMore(String data, final OnGetDailyListener listener) {
         retrofitAPI.getBefore(data).subscribeOn(Schedulers.io())

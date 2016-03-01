@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,7 +19,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.model.bean.zhibook.Answer;
@@ -52,7 +51,7 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
     @Bind(R.id.card_answer_question_title)
     CardView cardAnswerQuestionTitle;
     @Bind(R.id.answer_detail_head)
-    SimpleDraweeView answerDetailHead;
+    ImageView answerDetailHead;
     @Bind(R.id.answer_detail_author)
     TextView answerDetailAuthor;
     @Bind(R.id.answer_detail_author_sign)
@@ -132,7 +131,12 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
         String questionTitle = getIntent().getStringExtra("questionTitle");
         answerQuestionTitle.setText(questionTitle);
         answerDetailPraiseCount.setText("" + answer.getPraise());
-        answerDetailHead.setImageURI(Uri.parse(answer.getAnswerAuthorHead()));
+        Glide.with(this)
+                .load(answer.getAnswerAuthorHead())
+                .centerCrop()
+                .placeholder(R.drawable.ic_placeholder)
+                .crossFade()
+                .into(answerDetailHead);
         answerDetailAuthor.setText(answer.getAnswerAuthorName());
 
         imageGetter = new Html.ImageGetter() {

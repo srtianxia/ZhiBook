@@ -13,12 +13,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/img_person_head"
         android:layout_width="48dp"
-        android:layout_height="48dp"
-        fresco:roundAsCircle="true"
-        fresco:placeholderImage="@drawable/ic_placeholder"/>
+        android:layout_height="48dp" />
 
     <TextView
         android:id="@+id/tv_person_name"

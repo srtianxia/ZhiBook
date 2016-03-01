@@ -1,15 +1,15 @@
 package com.srtianxia.zhibook.view.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.model.bean.ChatBean;
 
@@ -50,7 +50,12 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             RightHolder rightHolder = (RightHolder) holder;
             if (items != null) {
                 rightHolder.tvChatContent.setText(items.get(position).getText());
-                rightHolder.imgChatHead.setImageURI(Uri.parse(items.get(position).getHeadUrl()));
+                Glide.with(context)
+                        .load(items.get(position).getHeadUrl())
+                        .centerCrop()
+                        .placeholder(R.drawable.ic_placeholder)
+                        .crossFade()
+                        .into(rightHolder.imgChatHead);
             }
         }else if (holder instanceof LeftHolder){
             LeftHolder leftHolder = (LeftHolder) holder;
@@ -81,21 +86,21 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class RightHolder extends RecyclerView.ViewHolder {
         private TextView tvChatContent;
-        private SimpleDraweeView imgChatHead;
+        private ImageView imgChatHead;
         public RightHolder(View itemView) {
             super(itemView);
             tvChatContent = (TextView) itemView.findViewById(R.id.tv_chat_right);
-            imgChatHead = (SimpleDraweeView) itemView.findViewById(R.id.img_chat_head_right);
+            imgChatHead = (ImageView) itemView.findViewById(R.id.img_chat_head_right);
         }
     }
 
     public class LeftHolder extends RecyclerView.ViewHolder {
         private TextView tvChatContent;
-        private SimpleDraweeView imgChatHead;
+        private ImageView imgChatHead;
         public LeftHolder(View itemView) {
             super(itemView);
             tvChatContent = (TextView) itemView.findViewById(R.id.tv_chat_left);
-            imgChatHead = (SimpleDraweeView) itemView.findViewById(R.id.img_chat_head_left);
+            imgChatHead = (ImageView) itemView.findViewById(R.id.img_chat_head_left);
         }
     }
 }

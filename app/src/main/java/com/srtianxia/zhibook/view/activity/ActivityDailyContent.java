@@ -1,24 +1,21 @@
 package com.srtianxia.zhibook.view.activity;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.model.bean.zhihu.DailyContent;
@@ -33,7 +30,7 @@ import butterknife.ButterKnife;
  */
 public class ActivityDailyContent extends BaseActivity implements IActivityDailyContent {
     @Bind(R.id.iv_header)
-    SimpleDraweeView ivHeader;
+    ImageView ivHeader;
     @Bind(R.id.tv_source)
     TextView tvSource;
     @Bind(R.id.toolbar)
@@ -74,7 +71,6 @@ public class ActivityDailyContent extends BaseActivity implements IActivityDaily
             }
         });
         nestedView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-//        nestedView.setElevation(0);
         wvNews.getSettings().setJavaScriptEnabled(true);
         wvNews.getSettings().setLoadsImagesAutomatically(true);
         //设置 缓存模式
@@ -97,8 +93,12 @@ public class ActivityDailyContent extends BaseActivity implements IActivityDaily
         String html = "<html><head>" + css + "</head><body>" + dailyContent.getBody() + "</body></html>";
         html = html.replace("<div class=\"img-place-holder\">", "");
         wvNews.loadDataWithBaseURL("x-data://base", html, "text/html", "UTF-8", null);
-        ivHeader.setImageURI(Uri.parse(dailyContent.getImage()));
-        Log.d("123",shareUrl);
+        Glide.with(this)
+                .load(dailyContent.getImage())
+                .centerCrop()
+//                .placeholder(R.drawable.ic_placeholder)
+                .crossFade()
+                .into(ivHeader);
     }
 
     @Override

@@ -6,7 +6,7 @@
     android:layout_height="130dp"
     app:cardCornerRadius="2dp"
     android:layout_marginTop="6dp">
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/img_theme"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

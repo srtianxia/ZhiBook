@@ -15,13 +15,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.model.bean.zhibook.User;
@@ -276,10 +277,16 @@ public class ActivityHome extends BaseActivity
                 });
             }
 
-        SimpleDraweeView draweeView = (SimpleDraweeView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
+        ImageView draweeView = (ImageView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
         TextView tvName = (TextView) navView.getHeaderView(0).findViewById(R.id.tv_person_name);
         tvName.setText(""+user.getName());
-        draweeView.setImageURI(Uri.parse(user.getHeadurl()));
+//        draweeView.setImageURI(Uri.parse(user.getHeadurl()));
+        Glide.with(this)
+                .load(user.getHeadurl())
+                .centerCrop()
+                .placeholder(R.drawable.ic_placeholder)
+                .crossFade()
+                .into(draweeView);
         draweeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -310,9 +317,14 @@ public class ActivityHome extends BaseActivity
      */
     @Override
     public void changHead(String url) {
-        SimpleDraweeView draweeView = (SimpleDraweeView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
+        ImageView draweeView = (ImageView) navView.getHeaderView(0).findViewById(R.id.img_person_head);
         if (ifLogin) {
-            draweeView.setImageURI(Uri.parse(url));
+            Glide.with(this)
+                    .load(url)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_placeholder)
+                    .crossFade()
+                    .into(draweeView);
         }
     }
 
