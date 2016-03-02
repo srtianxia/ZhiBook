@@ -9,9 +9,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,11 +29,14 @@ import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.model.bean.zhibook.Answer;
 import com.srtianxia.zhibook.model.bean.zhibook.CollectFolder;
 import com.srtianxia.zhibook.presenter.AnswerDetailPresenter;
+import com.srtianxia.zhibook.utils.HtmlTagHandler;
 import com.srtianxia.zhibook.utils.http.OkHttpUtils;
 import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
 import com.srtianxia.zhibook.view.IView.IActivityAnswerDetail;
+import com.srtianxia.zhibook.view.adapter.BottomSheetAdaper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -72,7 +79,9 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
     ImageView imgBtAnswerCollect;
     @Bind(R.id.img_bt_answer_comment)
     ImageView imgBtAnswerComment;
+
     private Html.ImageGetter imageGetter;
+    private HtmlTagHandler tagHandler;
 
     private Boolean ifCollect = false;
     private Boolean ifFavorite = false;
@@ -91,7 +100,7 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
             super.handleMessage(msg);
             String content = (String) msg.obj;
             answerDetailContent.invalidate();
-            answerDetailContent.setText(Html.fromHtml(content, imageGetter,null));
+            answerDetailContent.setText(Html.fromHtml(content, imageGetter,tagHandler));
         }
     };
 
@@ -165,7 +174,7 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
             }
         };
 //        answerDetailContent.setText(answer.getContent());
-        answerDetailContent.setText(Html.fromHtml(answer.getContent(), imageGetter,null));
+        answerDetailContent.setText(Html.fromHtml(answer.getContent(), imageGetter,tagHandler));
         answerId = answer.getId();
     }
 
@@ -182,6 +191,18 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
 //                    imgBtAnswerCollect.setImageResource(R.mipmap.ic_bookmark_grey600);
 //                    ifCollect = true;
 //                }
+                BottomSheetDialog dialog = new BottomSheetDialog(this);
+                View view = LayoutInflater.from(this).inflate(R.layout.ui_bottom_sheet,null);
+                RecyclerView rvBottom = (RecyclerView) view.findViewById(R.id.rv_bottom_sheet);
+
+                List<String> items = new ArrayList<>();
+                for (int i=0;i<9;i++){
+                    items.add("第"+i+"个item");
+                }
+                rvBottom.setAdapter(new BottomSheetAdaper(this,items));
+                rvBottom.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+                dialog.setContentView(view);
+                dialog.show();
                 break;
             case R.id.img_bt_answer_comment:
                 break;

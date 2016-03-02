@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CollapsingToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_question"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_home_question"
             android:layout_width="match_parent"
@@ -22,4 +22,4 @@
         android:src="@mipmap/ic_add_white"/>
         <!--app:layout_anchor="@id/rv_home_question"-->
         <!--app:layout_anchorGravity="bottom|right|end"-->
-</android.support.design.widget.CollapsingToolbarLayout>
+</android.support.design.widget.CoordinatorLayout>

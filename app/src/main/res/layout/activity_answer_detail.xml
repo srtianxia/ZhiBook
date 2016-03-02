@@ -73,7 +73,7 @@
                         android:id="@+id/answer_detail_author_sign"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="爱sjq ~"
+                        android:text="我是个性签名~"
                         android:layout_below="@+id/answer_detail_author"
                         style="@style/TextAppearance.AppCompat.Body1"
                         android:layout_toRightOf="@+id/answer_detail_head"

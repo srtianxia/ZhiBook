@@ -98,14 +98,14 @@ public class ActivityEditAnswer extends BaseActivity implements IActivityEditAns
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        SpannableString mSpan1 = new SpannableString("<img src=\"" + url + "\" />");
+        SpannableString mSpan = new SpannableString("<img src=\"" + url + "\" />");
         int start = edAnswerContent.getSelectionStart();
-        mSpan1.setSpan(new ImageSpan(bitmap) , mSpan1.length() - url.length() - 14, mSpan1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mSpan.setSpan(new ImageSpan(bitmap) , mSpan.length() - url.length() - 14, mSpan.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         if(edAnswerContent != null) {
             Editable et = edAnswerContent.getText();
-            et.insert(start, mSpan1);
+            et.insert(start, mSpan);
             edAnswerContent.setText(et);
-            edAnswerContent.setSelection(start + mSpan1.length());
+            edAnswerContent.setSelection(start + mSpan.length());
         }
         edAnswerContent.setLineSpacing(10f, 1f);
     }
@@ -120,7 +120,6 @@ public class ActivityEditAnswer extends BaseActivity implements IActivityEditAns
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_item_addPic:
-//                Toast.makeText(ActivityEditAnswer.this, "功能尚未添加", Toast.LENGTH_SHORT).show();
                 Intent intent = CropHelper.buildCropFromGalleryIntent(new CropParams());
                 CropHelper.clearCachedCropFile(cropParams.uri);
                 startActivityForResult(intent, CropHelper.REQUEST_CROP);
@@ -140,7 +139,7 @@ public class ActivityEditAnswer extends BaseActivity implements IActivityEditAns
 
     @Override
     public void onPhotoCropped(Uri uri) {
-        presenter.upLoadPic(uri                                                                                                                                                                            );
+        presenter.upLoadPic(uri);
     }
 
     @Override
