@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.model.bean.zhibook.Question;
 import com.srtianxia.zhibook.presenter.GetQuestionPresenter;
 import com.srtianxia.zhibook.view.IView.IFragmentQuestion;
-import com.srtianxia.zhibook.view.activity.ActivityAnswer;
 import com.srtianxia.zhibook.view.activity.ActivityAnswerUpdata;
 import com.srtianxia.zhibook.view.activity.ActivitySetQuestion;
 import com.srtianxia.zhibook.view.adapter.OnItemClickListener;
