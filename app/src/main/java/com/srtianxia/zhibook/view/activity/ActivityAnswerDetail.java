@@ -254,10 +254,14 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
                 }).show();
     }
 
+    /**
+     * 取消ButterKnife的解除绑定，退出时不会报空指针（会造成内存泄露，
+     * 有空要研究下为什么空指针）
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+//        ButterKnife.unbind(this);
         presenter.onRelieveView();
     }
 }

@@ -90,7 +90,7 @@ public class ActivityEditAnswer extends BaseActivity implements IActivityEditAns
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver()
                     .openInputStream(uri));
-            float scaleWidth = ((float) getResources().getDisplayMetrics().widthPixels);
+            float scaleWidth = ((float) getResources().getDisplayMetrics().widthPixels)/bitmap.getWidth();
             Matrix matrix = new Matrix();
             matrix.postScale(scaleWidth, scaleWidth);
             bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix,
