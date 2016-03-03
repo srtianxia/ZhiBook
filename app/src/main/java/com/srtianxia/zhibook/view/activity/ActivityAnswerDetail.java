@@ -24,12 +24,14 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.srtianxia.zhibook.R;
 import com.srtianxia.zhibook.app.BaseActivity;
 import com.srtianxia.zhibook.model.bean.zhibook.Answer;
 import com.srtianxia.zhibook.model.bean.zhibook.CollectFolder;
 import com.srtianxia.zhibook.presenter.AnswerDetailPresenter;
-import com.srtianxia.zhibook.utils.HtmlTagHandler;
 import com.srtianxia.zhibook.utils.http.OkHttpUtils;
 import com.srtianxia.zhibook.utils.http.callback.OkHttpUtilsCallback;
 import com.srtianxia.zhibook.view.IView.IActivityAnswerDetail;
@@ -81,7 +83,6 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
     ImageView imgBtAnswerComment;
 
     private Html.ImageGetter imageGetter;
-    private HtmlTagHandler tagHandler;
 
     private Boolean ifCollect = false;
     private Boolean ifFavorite = false;
@@ -100,7 +101,7 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
             super.handleMessage(msg);
             String content = (String) msg.obj;
             answerDetailContent.invalidate();
-            answerDetailContent.setText(Html.fromHtml(content, imageGetter,tagHandler));
+            answerDetailContent.setText(Html.fromHtml(content, imageGetter,null));
         }
     };
 
@@ -135,6 +136,7 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
         });
     }
 
+
     private void initData() {
         final Answer answer = (Answer) getIntent().getSerializableExtra("answerDetail");
         String questionTitle = getIntent().getStringExtra("questionTitle");
@@ -152,13 +154,23 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
             Drawable drawable = null;
             @Override
             public Drawable getDrawable(String source) {
+//                Glide.with(ActivityAnswerDetail.this).load(source)
+//                        .into(new SimpleTarget<GlideDrawable>() {
+//                            @Override
+//                            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+//                                drawable = resource;
+//                                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+//                                Message message = new Message();
+//                                message.obj = answer.getContent();
+//                                handler.sendMessage(message);
+//                            }
+//                        });
                 OkHttpUtils.asyGet(source, new OkHttpUtilsCallback() {
                     @Override
                     public void onResponse(Response response, String status) throws IOException {
 //                        drawable = Drawable.createFromStream(response.body().byteStream(), "");
                         Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
                         float scaleWidth = ((float) getResources().getDisplayMetrics().widthPixels)/bitmap.getWidth();
-                        // 取得想要缩放的matrix参数
                         Matrix matrix = new Matrix();
                         matrix.postScale(scaleWidth, scaleWidth);
                         bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix,
@@ -174,7 +186,8 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
             }
         };
 //        answerDetailContent.setText(answer.getContent());
-        answerDetailContent.setText(Html.fromHtml(answer.getContent(), imageGetter,tagHandler));
+        answerDetailContent.setText(Html.fromHtml(answer.getContent(), imageGetter,null));
+
         answerId = answer.getId();
     }
 
@@ -196,9 +209,13 @@ public class ActivityAnswerDetail extends BaseActivity implements IActivityAnswe
                 RecyclerView rvBottom = (RecyclerView) view.findViewById(R.id.rv_bottom_sheet);
 
                 List<String> items = new ArrayList<>();
-                for (int i=0;i<9;i++){
-                    items.add("第"+i+"个item");
-                }
+                items.add("摄影");
+                items.add("大学");
+                items.add("Android");
+                items.add("IOS");
+                items.add("WEB");
+                items.add("PHP");
+                items.add("JS");
                 rvBottom.setAdapter(new BottomSheetAdaper(this,items));
                 rvBottom.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
                 dialog.setContentView(view);

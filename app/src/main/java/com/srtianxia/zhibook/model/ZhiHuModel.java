@@ -38,7 +38,7 @@ public class ZhiHuModel implements IZhiHuModel{
     private Retrofit retrofit;
     private OkHttpClient client;
 
-    private static ZhiHuModel zhiHuModel = new ZhiHuModel();
+    private static final ZhiHuModel zhiHuModel = new ZhiHuModel();
 
     public static ZhiHuModel getInstance(){
         return zhiHuModel;
@@ -167,7 +167,6 @@ public class ZhiHuModel implements IZhiHuModel{
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d(TAG,e.getMessage());
                         listener.failure(e.getMessage());
                     }
 

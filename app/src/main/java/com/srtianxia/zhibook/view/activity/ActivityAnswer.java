@@ -109,7 +109,7 @@ public class ActivityAnswer extends BaseActivity implements IActivityAnswer,
         swAnswer.setRefreshing(true);
         View view = LayoutInflater.from(this).inflate(R.layout.header_answer, rvAnswer, false);
         TextView answerQuestionContent = (TextView) view.findViewById(R.id.answer_question_content);
-        answerQuestionContent.setText(questionTitle);
+        answerQuestionContent.setText(questionContent);
         adapter.setHeadView(view);
     }
 

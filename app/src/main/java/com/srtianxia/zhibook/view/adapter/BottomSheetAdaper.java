@@ -35,7 +35,7 @@ public class BottomSheetAdaper extends RecyclerView.Adapter<BottomSheetAdaper.Bo
     @Override
     public void onBindViewHolder(BottomHolder holder, int position) {
         if (items!=null){
-            holder.tvBottomItem.setText(items.get(position));
+            holder.checkBox.setText(items.get(position));
         }
     }
 
@@ -46,10 +46,9 @@ public class BottomSheetAdaper extends RecyclerView.Adapter<BottomSheetAdaper.Bo
 
     public class BottomHolder extends RecyclerView.ViewHolder {
         private CheckBox checkBox;
-        private TextView tvBottomItem;
         public BottomHolder(View itemView) {
             super(itemView);
-            tvBottomItem = (TextView) itemView.findViewById(R.id.tv_bottom_sheet);
+            checkBox = (CheckBox) itemView.findViewById(R.id.checkBox);
         }
     }
 }
