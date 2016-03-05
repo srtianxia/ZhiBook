@@ -51,6 +51,9 @@
         <activity
             android:theme="@style/AppTheme"
             android:name=".view.activity.ActivityAnswerUpdata"/>
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".view.activity.ActivityPlayer"/>
     </application>
 
 </manifest>

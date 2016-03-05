@@ -19,11 +19,13 @@
     <string name="toolbar_note">MarkDown笔记</string>
     <string name="toolbar_chat">吵吵机器人</string>
     <string name="toolbar_answer_edit">撰写回答</string>
+    <string name="toolbar_player">播放器</string>
 
     <string name="tab_home">首页</string>
     <string name="tab_find">日报</string>
     <string name="tab_note">笔记</string>
     <string name="tab_chat">聊天</string>
+    <string name="tab_player">播放器</string>
     <string name="tab_theme">切换主题</string>
         
     <string name="find_zhihu">知乎日报</string>

@@ -1,7 +1,6 @@
 package com.srtianxia.zhibook.utils.ui;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -95,7 +94,6 @@ public class Banner extends FrameLayout implements OnClickListener {
             ImageView iv = (ImageView) fm.findViewById(R.id.iv_title);
             TextView tv_title = (TextView) fm.findViewById(R.id.tv_title);
             iv.setScaleType(ScaleType.CENTER_CROP);
-//            iv.setBackgroundResource(R.drawable.loading1);
             if (i == 0) {
 //                iv.setImageURI(Uri.parse(bannerData.get(len-1).getImage()));
                 Glide.with(context)

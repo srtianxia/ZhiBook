@@ -11,8 +11,6 @@
         <include layout="@layout/include_toolbar"/>
     </android.support.design.widget.AppBarLayout>
 
-
-
     <android.support.v7.widget.RecyclerView
         android:layout_marginTop="5dp"
         android:id="@+id/rv_chat"
@@ -21,8 +19,6 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/appbar">
     </android.support.v7.widget.RecyclerView>
-
-
     <LinearLayout
         android:id="@+id/linearLayout_chat_bar"
         android:layout_width="match_parent"
@@ -31,20 +27,17 @@
         android:orientation="horizontal"
         android:background="@color/colorWhite"
         android:elevation="8dp">
-
         <LinearLayout
             android:layout_weight="1"
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             >
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-
                 <EditText
                     android:layout_marginTop="4dp"
                     android:layout_marginLeft="16dp"
@@ -56,14 +49,8 @@
                     android:maxLines="3"
                     android:singleLine="false"
                     android:textSize="16sp" />
-
             </LinearLayout>
-
-
-
         </LinearLayout>
-
-
         <Button
             android:id="@+id/bt_chat_send"
             android:layout_width="30dp"
@@ -73,6 +60,5 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/ic_menu_send"/>
-
     </LinearLayout>
 </LinearLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appbar_layout">
+        <include layout="@layout/include_toolbar"/>
+    </android.support.design.widget.AppBarLayout>
+    <include
+        android:id="@+id/disc"
+        layout="@layout/ui_player_disc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/appbar_layout"/>
+    <SeekBar
+        android:id="@+id/musics_player_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="3dp"
+        android:minHeight="3dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:thumbOffset="0dp"
+        android:layout_below="@+id/disc"
+        android:progressDrawable="@drawable/player_seekbar"
+        android:thumb="@drawable/thumb"
+        android:layout_marginTop="30dp"
+        android:layout_centerVertical="true" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/disc"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp">
+
+        <ImageButton
+            android:id="@+id/musics_player_play_prev_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_prev_play_selector"/>
+
+        <ImageButton
+            android:id="@+id/musics_player_play_ctrl_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_play_selector"/>
+
+        <ImageButton
+            android:id="@+id/musics_player_play_next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_next_play_selector"/>
+    </LinearLayout>
+</RelativeLayout>

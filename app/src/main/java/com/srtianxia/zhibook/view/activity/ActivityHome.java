@@ -186,6 +186,9 @@ public class ActivityHome extends BaseActivity
         }else if (id == R.id.nav_chat){
             Intent intent = new Intent(this,ActivityChat.class);
             startActivity(intent);
+        }else if (id == R.id.nav_player){
+            Intent intent = new Intent(this,ActivityPlayer.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
