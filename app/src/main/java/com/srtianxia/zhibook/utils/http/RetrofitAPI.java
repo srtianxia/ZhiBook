@@ -25,7 +25,6 @@ public interface RetrofitAPI {
     String BASIC_URL = "http://115.28.64.168/zhishu/";
     String BASIC_DAILY = "http://news-at.zhihu.com/api/4/";
 
-
     //ZhiBook部分
     @FormUrlEncoded
     @POST("login.php")

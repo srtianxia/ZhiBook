@@ -22,13 +22,11 @@ public class FooterBehavior extends CoordinatorLayout.Behavior<View> {
         super(context, attrs);
     }
 
-    //1.判断滑动的方向 我们需要垂直滑动
     @Override
     public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
         return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
     }
 
-    //2.根据滑动的距离显示和隐藏footer view
     @Override
     public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
         if (dy > 0 && sinceDirectionChange < 0 || dy < 0 && sinceDirectionChange > 0) {

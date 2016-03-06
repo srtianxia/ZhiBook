@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 /**
  * Created by srtianxia on 2016/1/20.
  * 2/17 展示页面存为bitmap
- * 考虑下保存应该在io线程而不是主线程
+ * 保存应该在io线程而不是主线程
  */
 public class ActivityPhoneDisplay extends BaseActivity {
     @Bind(R.id.tv_display)

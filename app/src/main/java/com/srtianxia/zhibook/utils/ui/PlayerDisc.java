@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -79,6 +78,5 @@ public class PlayerDisc extends RelativeLayout {
             animator.cancel();
         }
         animator.start();
-        Log.d(TAG,"getDuration = "+animator.getDuration());
     }
 }

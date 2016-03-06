@@ -116,16 +116,4 @@ public class MDReader {
         }                        
         return mdline;
     }
-    
-    protected void display() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Markdown Parse: \n" + mContent + "\n\n");
-        for (Markdown.MDLine line : mMDLines) {
-            builder.append("Line format: " + line.mFormat + "\n");
-            for (Markdown.MDWord word : line.mMDWords) {
-                builder.append("Word: "+word.mRawContent+", "+word.mFormat+"\n");
-            }
-        }        
-        Log.d("JNote",builder.toString());
-    }
 }
