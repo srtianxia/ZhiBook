@@ -27,7 +27,6 @@
         android:thumbOffset="0dp"
         android:layout_below="@+id/disc"
         android:progressDrawable="@drawable/player_seekbar"
-        android:thumb="@drawable/thumb"
         android:layout_marginTop="30dp"
         android:layout_centerVertical="true" />
     <LinearLayout

@@ -3,6 +3,7 @@ package com.srtianxia.zhibook.view.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -95,7 +96,7 @@ public class FragmentQuestion extends Fragment implements View.OnClickListener,S
     }
 
     private void hideViews() {
-        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) fab.getLayoutParams();
+        CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
         int fabBottomMargin = lp.bottomMargin;
         fab.animate().translationY(fab.getHeight() + fabBottomMargin).setInterpolator(new AccelerateInterpolator(2)).start();
     }

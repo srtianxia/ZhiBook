@@ -5,9 +5,6 @@ import com.srtianxia.zhibook.injector.ModelComponent;
 import com.srtianxia.zhibook.model.FileModel;
 import com.srtianxia.zhibook.model.callback.OnFileListener;
 
-import java.io.File;
-import java.io.IOException;
-
 import javax.inject.Inject;
 
 /**
@@ -52,6 +49,10 @@ public class MusicPlayerPresenter {
 
             }
         });
+    }
+
+    public void onRelieveView() {
+        if (iView != null) iView = null;
     }
 
     public static interface IView{

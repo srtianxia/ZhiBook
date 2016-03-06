@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
  * Created by srtianxia on 2016/3/5.
  * 学习dagger2的实例activity 使用dagger2将model层注入presenter层
  */
-public class ActivityPlayer extends BaseActivity implements View.OnClickListener,MusicPlayerPresenter.IView {
+public class ActivityPlayer extends BaseActivity implements View.OnClickListener,MusicPlayerPresenter.IView{
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.musics_player_seekbar)
@@ -75,6 +75,13 @@ public class ActivityPlayer extends BaseActivity implements View.OnClickListener
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onRelieveView();
+        presenter = null;
     }
 
     @Override
