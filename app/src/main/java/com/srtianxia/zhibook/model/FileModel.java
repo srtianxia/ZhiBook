@@ -14,9 +14,13 @@ import dagger.Provides;
 public class FileModel {
     @Inject public FileModel(){}
 
+    /***
+     * 模拟请求
+     * @param listener
+     * @return
+     */
     @Provides
     public String start(OnFileListener listener){
-        //模拟请求
         if (true){
             listener.success("播放");
         }else {
