@@ -11,7 +11,7 @@
 - 使用MVP进行开发，后期引入dagger2实现m层注入p层
 - 后台api方面，自学php+MySQL，问答方面使用自己写的，还找了个知乎日报的api，和图灵机器人的api（没用bmob的原因就是bomb把网络请求都封装好了连线程方面都进行了封装... 以前用过，现在写了感觉也没什么长进...）。
 - retrofit + RxAndroid组合进行网络请求，实现了离线加载缓存数据（rx比较爽，尤其是mvp下在model层，思路特别清晰！！本来自己对先对httpUrlConnection和Okhttp的异步部分进行了简单封装，httpUrlConnection还使用了线程池进行了封装减少new Thread的性能损耗，但是有时候会出现请求不出来的情况（服务器返回数据过多偶尔会抽风））。
-- 图片加载方面暂时使用fresco（不是我不想造轮子 = = 查了一部分资料和教主的书，想自己实现一个bitmap压缩和缓存imageLoader但是失败了，原因应该在网络请求方面上）
+- 图片加载方面使用glide（不是我不想造轮子 = = 查了一部分资料和主席的书，想自己实现一个bitmap压缩和缓存imageLoader但是失败了，原因应该在网络请求方面上）
 - ui方面主要使用 android.support:design官方提供的控件和一些动画效果（CoordinatorLayout + Behavior机制）以及afollestad.material-dialogs ，暂时自己实现了fab的滚动消失，一个LinearLayout的底部功能bar随滚动手势出现与消失（Behavior），fab随viewpager滚动而出现与消失。
 - RecyclerView的灵活用法，通过getItemViewType()这个方法取得每一个item的类型，在onCreate和onBind方法对holder进行创建和绑定的时候判断从而加载出不同类型的item，实现了对recyclerview的header和footer的添加（发现-知乎日报部分），和一个简单的聊天界面（聊天-吵吵机器人部分）。
 - 实现了一个markdown语法的文本编辑器（通过SpannableStringBuilder实现）可以预览，数据存在本地数据库，预览后可以存为图片。（感谢jnote开源项目）
