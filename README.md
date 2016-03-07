@@ -16,7 +16,7 @@
 - ui方面主要使用 android.support:design官方提供的控件和一些动画效果（CoordinatorLayout + Behavior机制）以及afollestad.material-dialogs ，暂时自己实现了fab的滚动消失，一个LinearLayout的底部功能bar随滚动手势出现与消失（Behavior），fab随viewpager滚动而出现与消失。
 - RecyclerView的灵活用法，通过getItemViewType()这个方法取得每一个item的类型，在onCreate和onBind方法对holder进行创建和绑定的时候判断从而加载出不同类型的item，实现了对recyclerview的header和footer的添加（发现-知乎日报部分），和一个简单的聊天界面（聊天-吵吵机器人部分）。
 - 实现了一个markdown语法的文本编辑器（通过SpannableStringBuilder实现）可以预览，数据存在本地数据库，预览后可以存为图片。（感谢jnote开源项目）
-- 回答页面实现editview和textview的图文混排（有bug为解决）
+- 回答页面实现editview和textview的图文混排（有bug未解决）
 - 使用了一个图片裁剪的库（相机这块是个坑，有空要研究下）
 - 想实现不重启activity的主题切换，尚未实现。
 - dagger2的部分使用，熟悉下依赖注入框架
